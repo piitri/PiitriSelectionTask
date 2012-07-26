@@ -23,10 +23,7 @@ int numero = 1;
 
 - (id)init {
     if ((self = [super init])) {
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(requestFacebookData) 
-                                                     name:@"FBDidLogin" 
-                                                   object:nil];
+        NSLog(@"viewController.m started correctly");
     }
     return self;
 }
@@ -35,7 +32,6 @@ int numero = 1;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
     UIColor *backgroundLogin = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"log-in-bg.png"]];
     self.view.backgroundColor = backgroundLogin;
     /*self.textCreateAccount.font = [UIFont boldSystemFontOfSize:48];*/
@@ -63,18 +59,35 @@ int numero = 1;
     return YES;
 }
 
+
+
 - (IBAction)connectWithFB:(id)sender {
     //Code to Log in with Facebook
     NSMutableString * textoDeCaja = [[NSMutableString alloc] initWithString:@"Let's Login With Facebook "];
     NSString * numeroString = [NSString stringWithFormat:@"%i", numero];
     [textoDeCaja appendString:numeroString];
     self.cajaTextoLogin.text = textoDeCaja;
-    [self requestFacebookData];
     numero=numero+1;
+    NSLog(@"Antes de llamar a Facebook Auth");
+    NSLog(@"Los datos de usuario son: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"DatosdeUsuario"]);
+    [[Facebook shared] authorize];
+    NSLog(@"Despues de llamar a Facebook Auth");
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(requestFacebookData:) 
+                                                 name:@"FBDidLogin" 
+                                               object:nil];
+    /*[self requestFacebookData:];*/
     
 }
 
-- (void)requestFacebookData {
+- (void)requestFacebookData:(NSNotification *) notification {
+    NSLog(@"Despues de llamar a Facebook Auth entre la notificacion");
+    /*while (YES) {
+        if ([[notification name] isEqualToString:@"TestNotification"]){
+            break;
+        }
+    }*/
+    
     [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:self];
     
 }
@@ -83,7 +96,7 @@ int numero = 1;
     NSLog(@"FB request OK");
     NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
     NSLog(@"La url del request es: %@", request.url);
-    NSLog(@"FB el request result es: %@", userData);
+    NSLog(@"FB el request result en viewController.m es: %@", userData);
     // Access Token an Expiration Day asignation
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSString * AccessTokenClave = [defaults objectForKey:kFBAccessTokenKey]; 
@@ -107,6 +120,12 @@ int numero = 1;
     
     self.cajaTextoLogin.text = textoDeCaja;
     
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIViewController*  ParentPortalVC = [storyboard instantiateViewControllerWithIdentifier:@"ParentPortal"];
+    [ParentPortalVC setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    [self presentModalViewController:ParentPortalVC animated:YES];    
     
 }
 

@@ -156,8 +156,8 @@
  * depending on thee format of the API response.
  */
 - (void)request:(FBRequest *)request didLoad:(id)result {
-    NSLog(@"FB request OK");
-    NSLog(@"FB request result is: %@", result);
+    NSLog(@"FB request in Facebook+Singleton.m request:didLoad: is OK");
+    NSLog(@"FB request result in Facebook+Singleton.m request:didLoad: is: %@", result);
 }
 
 /**
@@ -165,7 +165,7 @@
  * successfully.
  */
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
-    NSLog(@"FB error: %@", [error localizedDescription]);
+    NSLog(@"FB error in Facebook+Singleton.m is: %@", [error localizedDescription]);
 }
 
 
