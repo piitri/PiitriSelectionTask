@@ -74,6 +74,7 @@ Let's get learning!</string>
                         <outlet property="loginFBButton" destination="CuN-Z7-cLe" id="5Qu-EP-cq3"/>
                         <outlet property="textCreateAccount" destination="iY4-eB-ctn" id="hn4-19-x7U"/>
                         <outlet property="textWelcome" destination="ATd-6w-TCd" id="AW2-JN-agX"/>
+                        <segue destination="SgR-1a-FUJ" kind="modal" identifier="fromLoginToParentPortal" modalTransitionStyle="flipHorizontal" id="gfZ-c4-MUC"/>
                     </connections>
                 </viewController>
             </objects>
@@ -326,6 +327,7 @@ Let's get learning!</string>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" id="9L5-3a-5eW"/>
                     <connections>
                         <outlet property="cajaTextoParentPortal" destination="htw-04-uC4" id="e2l-rU-crg"/>
                         <outlet property="parentBirthday" destination="cSh-j6-zCw" id="X8k-Oi-NOV"/>
@@ -357,6 +359,33 @@ Let's get learning!</string>
         <image name="social-twitterconnect-active.png" width="43" height="43"/>
         <image name="tab-hightlight.png" width="195" height="59"/>
     </resources>
+    <classes>
+        <class className="ParentPortalViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentPortalViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButton:"/>
+                <relationship kind="action" name="disconnectFromFB:"/>
+                <relationship kind="outlet" name="cajaTextoParentPortal" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="parentBirthday" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentFullName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentLocation" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentProfilePicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="parentSmallName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="smallParentProfilePicture" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="connectWithFB:"/>
+                <relationship kind="outlet" name="cajaTextoLogin" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="loginFBButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textCreateAccount" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textWelcome" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
