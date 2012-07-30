@@ -106,11 +106,11 @@
     [self authorizeWithFBAppAuth:YES safariAuth:NO];
 }
 
+
 - (void)logout {
     [self logout:self];
-}*/
-
-#pragma - FBSessionDelegate Methods
+} */
+#pragma mark - FBSessionDelegate Methods
 
 /**
  * Called when the user successfully logged in.

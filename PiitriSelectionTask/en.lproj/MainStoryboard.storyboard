@@ -33,12 +33,12 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CuN-Z7-cLe">
                                 <rect key="frame" x="286" y="482" width="452" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="btn-fbconnect-active.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" image="btn-fbconnect-inactive.png">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="highlighted" image="btn-fbconnect-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -66,7 +66,6 @@ Let's get learning!</string>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.55686277151107788" blue="0.35294118523597717" alpha="1" colorSpace="deviceRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
@@ -93,18 +92,18 @@ Let's get learning!</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="lessonsandactivity.png" id="nEr-Mh-FDC">
-                                <rect key="frame" x="197" y="210" width="827" height="538"/>
+                                <rect key="frame" x="196" y="210" width="827" height="538"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7Ik-Y7-Pae">
                                 <rect key="frame" x="500" y="666" width="452" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="btn-fbconnect-logout-active@2x.png">
+                                <state key="normal" image="btn-fbconnect-logout-inactive@2x.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="highlighted" image="btn-fbconnect-logout-active@2x.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -120,19 +119,15 @@ Let's get learning!</string>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="glS-jw-AIz">
-                                <rect key="frame" x="219" y="67" width="120" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Pbe-fO-gu6">
-                                <rect key="frame" x="347" y="55" width="187" height="41"/>
+                                <rect key="frame" x="354" y="67" width="187" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="32"/>
                                 <color key="textColor" red="0.28627452254295349" green="0.25882354378700256" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Y8K-dR-ja7">
-                                <rect key="frame" x="347" y="83" width="187" height="40"/>
+                                <rect key="frame" x="354" y="95" width="187" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                                 <color key="textColor" red="0.33725491166114807" green="0.56862747669219971" blue="0.17647059261798859" alpha="1" colorSpace="deviceRGB"/>
@@ -174,7 +169,11 @@ Let's get learning!</string>
                                 </items>
                             </navigationBar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="tab-hightlight.png" highlightedImage="tab-hightlight.png" highlighted="YES" id="Qc9-WK-ZFm">
-                                <rect key="frame" x="0.0" y="137" width="194" height="59"/>
+                                <rect key="frame" x="0.0" y="137" width="196" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="glS-jw-AIz">
+                                <rect key="frame" x="217" y="63" width="126" height="126"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="040-Hr-CQU">
@@ -182,89 +181,98 @@ Let's get learning!</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Parent Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="3IX-SG-HA4">
-                                <rect key="frame" x="56" y="153" width="125" height="21"/>
+                                <rect key="frame" x="56" y="156" width="125" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fOX-7X-NaO">
-                                <rect key="frame" x="0.0" y="196" width="195" height="59"/>
+                                <rect key="frame" x="0.0" y="196" width="196" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="17" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <size key="titleShadowOffset" width="-1" height="2"/>
                                 <state key="normal" title="Accounts">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.16862745098039217" green="0.30196078431372547" blue="0.074509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hke-7a-BN5">
-                                <rect key="frame" x="0.0" y="255" width="195" height="59"/>
+                                <rect key="frame" x="0.0" y="255" width="196" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" backgroundImage="btn-add-student-active.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Add New Student" backgroundImage="btn-add-student-inactive.png">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="highlighted" image="btn-add-student-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wps-0A-FVi">
-                                <rect key="frame" x="0.0" y="314" width="195" height="59"/>
+                                <rect key="frame" x="0.0" y="314" width="196" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="17" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <size key="titleShadowOffset" width="-1" height="2"/>
                                 <state key="normal" title="My Lessons">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.16862745100000001" green="0.30196078430000001" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cxO-RD-gft">
-                                <rect key="frame" x="1" y="373" width="195" height="59"/>
+                                <rect key="frame" x="1" y="373" width="196" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="17" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <size key="titleShadowOffset" width="-1" height="2"/>
                                 <state key="normal" title="Store">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.16862745100000001" green="0.30196078430000001" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="side-menuline.png" id="jPC-FG-OE6">
-                                <rect key="frame" x="0.0" y="373" width="195" height="1"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.50000000000000011" contentMode="scaleToFill" id="x0e-HD-edZ">
+                                <rect key="frame" x="0.0" y="137" width="196" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="side-menuline.png" id="3Cf-GF-Sao">
-                                <rect key="frame" x="0.0" y="432" width="195" height="1"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="wC9-bG-Cr8">
+                                <rect key="frame" x="0.0" y="196" width="196" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="side-menuline.png" id="ALo-kV-lEG">
-                                <rect key="frame" x="0.0" y="314" width="195" height="1"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.50000000000000011" contentMode="scaleToFill" id="JkP-PC-G5X">
+                                <rect key="frame" x="0.0" y="255" width="196" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="side-menuline.png" id="JkP-PC-G5X">
-                                <rect key="frame" x="0.0" y="255" width="195" height="1"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="ALo-kV-lEG">
+                                <rect key="frame" x="0.0" y="314" width="196" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="side-menuline.png" id="wC9-bG-Cr8">
-                                <rect key="frame" x="0.0" y="196" width="195" height="1"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="jPC-FG-OE6">
+                                <rect key="frame" x="0.0" y="373" width="196" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="side-menuline.png" id="x0e-HD-edZ">
-                                <rect key="frame" x="0.0" y="137" width="195" height="1"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="3Cf-GF-Sao">
+                                <rect key="frame" x="0.0" y="432" width="196" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0EH-Qt-lmA">
-                                <rect key="frame" x="347" y="131" width="43" height="43"/>
+                                <rect key="frame" x="354" y="131" width="43" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="social-twitterconnect-active.png">
@@ -276,7 +284,7 @@ Let's get learning!</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bim-pJ-7V3">
-                                <rect key="frame" x="449" y="131" width="43" height="43"/>
+                                <rect key="frame" x="456" y="131" width="43" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="social-googleconnect-inactive.png">
@@ -288,7 +296,7 @@ Let's get learning!</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WgU-Na-Z1m">
-                                <rect key="frame" x="398" y="131" width="43" height="43"/>
+                                <rect key="frame" x="405" y="131" width="43" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="social-facebookconnect-inactive.png">
@@ -300,7 +308,7 @@ Let's get learning!</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k6k-4f-ckn">
-                                <rect key="frame" x="849" y="137" width="160" height="37"/>
+                                <rect key="frame" x="849" y="139" width="160" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <state key="normal" title="0 Coins Buy More" backgroundImage="btn-buy-more-coins.png">
@@ -312,7 +320,7 @@ Let's get learning!</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YwA-zo-jZ8">
-                                <rect key="frame" x="901" y="83" width="108" height="37"/>
+                                <rect key="frame" x="901" y="81" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <state key="normal" title="Edit Profile" backgroundImage="btn-edit-profile.png">
@@ -323,13 +331,26 @@ Let's get learning!</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-parent-unselected-mask.png" highlightedImage="icon-selected-mask.png" id="0Cc-wV-9Hc">
+                                <rect key="frame" x="17" y="149" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" image="parent-icon-mask.png" id="0jl-FJ-2cj">
+                                <rect key="frame" x="213" y="60" width="133" height="133"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="9L5-3a-5eW"/>
                     <connections>
+                        <outlet property="accountsButton" destination="fOX-7X-NaO" id="AZY-Ih-iKL"/>
+                        <outlet property="addNewStudentButton" destination="Hke-7a-BN5" id="CJG-L9-Ad3"/>
+                        <outlet property="buyCoinsButton" destination="k6k-4f-ckn" id="CSt-wb-Qh7"/>
                         <outlet property="cajaTextoParentPortal" destination="htw-04-uC4" id="e2l-rU-crg"/>
+                        <outlet property="editProfileButton" destination="YwA-zo-jZ8" id="a7S-j3-xL5"/>
+                        <outlet property="myLessonsButton" destination="Wps-0A-FVi" id="ckc-mX-k91"/>
                         <outlet property="parentBirthday" destination="cSh-j6-zCw" id="X8k-Oi-NOV"/>
                         <outlet property="parentEmail" destination="QoZ-l5-k2z" id="SyM-7N-OJs"/>
                         <outlet property="parentFullName" destination="Pbe-fO-gu6" id="NPs-S5-1f1"/>
@@ -337,6 +358,7 @@ Let's get learning!</string>
                         <outlet property="parentProfilePicture" destination="glS-jw-AIz" id="huK-Fg-wtU"/>
                         <outlet property="parentSmallName" destination="3IX-SG-HA4" id="4tb-ev-t8Q"/>
                         <outlet property="smallParentProfilePicture" destination="040-Hr-CQU" id="wth-WT-hex"/>
+                        <outlet property="storeButton" destination="cxO-RD-gft" id="q50-rW-ssO"/>
                     </connections>
                 </viewController>
             </objects>
@@ -345,47 +367,25 @@ Let's get learning!</string>
     </scenes>
     <resources>
         <image name="btn-add-student-active.png" width="195" height="59"/>
+        <image name="btn-add-student-inactive.png" width="195" height="59"/>
         <image name="btn-buy-more-coins.png" width="165" height="41"/>
         <image name="btn-edit-profile.png" width="110" height="40"/>
         <image name="btn-fbconnect-active.png" width="452" height="63"/>
+        <image name="btn-fbconnect-inactive.png" width="452" height="63"/>
         <image name="btn-fbconnect-logout-active@2x.png" width="904" height="124"/>
+        <image name="btn-fbconnect-logout-inactive@2x.png" width="904" height="124"/>
         <image name="fbconnect-dialog.png" width="504" height="394"/>
+        <image name="icon-parent-unselected-mask.png" width="35" height="35"/>
+        <image name="icon-selected-mask.png" width="35" height="35"/>
         <image name="lessonsandactivity.png" width="828" height="539"/>
+        <image name="parent-icon-mask.png" width="133" height="133"/>
         <image name="piitri-logo-lg.png" width="222" height="94"/>
-        <image name="side-menuline.png" width="195" height="1"/>
         <image name="sidemenu.png" width="196" height="705"/>
         <image name="social-facebookconnect-inactive.png" width="44" height="43"/>
         <image name="social-googleconnect-inactive.png" width="43" height="43"/>
         <image name="social-twitterconnect-active.png" width="43" height="43"/>
         <image name="tab-hightlight.png" width="195" height="59"/>
     </resources>
-    <classes>
-        <class className="ParentPortalViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentPortalViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButton:"/>
-                <relationship kind="action" name="disconnectFromFB:"/>
-                <relationship kind="outlet" name="cajaTextoParentPortal" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="parentBirthday" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentFullName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentLocation" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentProfilePicture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="parentSmallName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="smallParentProfilePicture" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="connectWithFB:"/>
-                <relationship kind="outlet" name="cajaTextoLogin" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="loginFBButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="textCreateAccount" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textWelcome" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>

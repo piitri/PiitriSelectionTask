@@ -32,10 +32,10 @@ int numero = 1;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    UIColor *backgroundLogin = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"log-in-bg.png"]];
+    UIColor *backgroundLogin = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"log-in-bg-with-mask.png"]];
     self.view.backgroundColor = backgroundLogin;
     /*self.textCreateAccount.font = [UIFont boldSystemFontOfSize:48];*/
-    self.textCreateAccount.font = [UIFont fontWithName:@"Open Sans"  size:48];
+    self.textCreateAccount.font = [UIFont fontWithName:@"MetaPlus"  size:30];
     self.textWelcome.font = [UIFont fontWithName:@"Open Sans"  size:16];
     
 }
@@ -59,6 +59,8 @@ int numero = 1;
     return YES;
 }
 
+#pragma mark - Connect With Facebook Button
+
 - (IBAction)connectWithFB:(id)sender {
     //Code to Log in with Facebook
     NSMutableString * textoDeCaja = [[NSMutableString alloc] initWithString:@"Let's Login With Facebook "];
@@ -77,21 +79,13 @@ int numero = 1;
                                              selector:@selector(requestFacebookData:) 
                                                  name:@"FBDidLogin" 
                                                object:nil];
-    /*[self requestFacebookData:];*/
-    
 }
 
 - (void)requestFacebookData:(NSNotification *) notification {
-    NSLog(@"Despues de llamar a Facebook Auth entre la notificacion");
-    /*while (YES) {
-        if ([[notification name] isEqualToString:@"TestNotification"]){
-            break;
-        }
-    }*/
-    
-    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:self];
-    
+    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:self];    
 }
+
+#pragma mark - Facebook Login Callback Function
 
 - (void)request:(FBRequest *)request didLoad:(id)result {
     //Log to know the Data from Facebook
@@ -128,13 +122,14 @@ int numero = 1;
     NSString * locationStr = [locationDic objectForKey:@"name"];
     
     //Get Profile Picture to form Request
-    NSURL * urlProfilePic = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessTokenClave]];
+    NSString * strProfilePicLink = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessTokenClave];
+    /*NSURL * urlProfilePic = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessTokenClave]];
     NSData * dataProfilePic = [NSData dataWithContentsOfURL:urlProfilePic];
     UIImage * profilePicLarge = [[UIImage alloc] initWithData:dataProfilePic];
-    NSString *strProfilePic = [[NSString alloc] initWithContentsOfURL:urlProfilePic encoding:NSUTF8StringEncoding error:nil];
+    NSString *strProfilePic = [[NSString alloc] initWithContentsOfURL:urlProfilePic encoding:NSUTF8StringEncoding error:nil];*/
     
     //Create user Dictionary with email, location, name and picture_url
-    NSDictionary * user = [[NSDictionary alloc] initWithObjectsAndKeys:[userData objectForKey:@"email"],@"email",locationStr,@"location",[userData objectForKey:@"name"],@"name", strProfilePic, @"picture_url", nil];
+    NSDictionary * user = [[NSDictionary alloc] initWithObjectsAndKeys:[userData objectForKey:@"email"],@"email",locationStr,@"location",[userData objectForKey:@"name"],@"name", strProfilePicLink, @"picture_url", nil];
     
     //Create JSON Request Body Dictionary with email, location, name and picture_url
     NSDictionary * jsonDict = [[NSDictionary alloc] initWithObjectsAndKeys: @"Facebook", @"OAuthProvider", accessTokenClave,@"AccessToken", @"A1B2C3E4F5123",@"AppID",user,@"user", nil];
@@ -144,15 +139,22 @@ int numero = 1;
     //Parse the jsonDict to JSON data with native NSJSONSerialization and create a NSString
     NSError* error = nil;
     NSData *jsonRequestData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:&error];
-    NSString *jsonRequest = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];    
-    NSLog(@"El string JSON para el request al API en viewController.m es: %@", jsonRequest);
+    NSString *jsonRequestAscii = [[NSString alloc] initWithData:jsonRequestData encoding:NSASCIIStringEncoding]; //cambié de utf8 a ascii
+    NSString *jsonRequestUtf8 = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];
+    NSLog(@"El string JSON para el request al API en viewController.m es: %@", jsonRequestAscii);
     
     //Create URL Request
-    NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"];
+    NSURL *urlRequestLink = [NSURL URLWithString:@"http://postbin.defensio.com/bfb029d"];
     
     NSMutableURLRequest * requestApi = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    NSData  * requestData = [NSData dataWithBytes:[jsonRequest UTF8String] length:[jsonRequest length]];
+    /*NSString * jsonRequestUtf8 = [[NSString alloc] initWithBytes:[jsonRequest UTF8String] length:[jsonRequest length] encoding:UTF8];*/
+    /*NSString * jsonRequestUtf8 = [[NSString alloc] initwi ];*/
+    
+    NSUInteger * longitudRequest = [jsonRequestUtf8 length] + 1;
+    NSLog(@"el jsonRequest en ASCII es: %@ y su longitud es: %i",jsonRequestAscii,[jsonRequestAscii length]);
+    
+    NSData  * requestData = [NSData dataWithBytes:[jsonRequestUtf8 UTF8String] length:[jsonRequestAscii length]];
     [requestApi setHTTPMethod:@"POST"];
     [requestApi setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [requestApi setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -175,6 +177,7 @@ int numero = 1;
     
 }
 
+#pragma mark - Call parent Portal
 
 - (void) presentParentPortal{
     

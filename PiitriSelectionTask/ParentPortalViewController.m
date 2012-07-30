@@ -17,11 +17,17 @@
 @synthesize parentFullName;
 @synthesize parentSmallName;
 @synthesize parentLocation;
+@synthesize editProfileButton;
+@synthesize buyCoinsButton;
 @synthesize parentEmail;
 @synthesize parentBirthday;
 @synthesize parentProfilePicture;
 @synthesize smallParentProfilePicture;
 @synthesize cajaTextoParentPortal;
+@synthesize accountsButton;
+@synthesize addNewStudentButton;
+@synthesize myLessonsButton;
+@synthesize storeButton;
 
 /*Para hacer el logout
  - (id)init {
@@ -48,6 +54,21 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.parentFullName.font = [UIFont fontWithName:@"MetaPlus"  size:30];
+    self.parentSmallName.font = [UIFont fontWithName:@"Open Sans Semibold"  size:15];
+    self.parentLocation.font = [UIFont fontWithName:@"Open Sans Semibold"  size:14];
+    
+    //Sidebar Buttons Fonts
+    
+    self.accountsButton.font = [UIFont fontWithName:@"MetaPlus"  size:20];
+    self.myLessonsButton.font = [UIFont fontWithName:@"MetaPlus"  size:20];
+    self.storeButton.font = [UIFont fontWithName:@"MetaPlus"  size:20];
+    
+    
+    
+    self.editProfileButton.font = [UIFont fontWithName:@"MetaPlus"  size:17];
+    self.buyCoinsButton.font = [UIFont fontWithName:@"MetaPlus"  size:17];
+
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:@"DatosdeUsuario"]) {
@@ -55,6 +76,7 @@
     }else {
         [self useDatosLogin:[defaults objectForKey:@"DatosdeUsuario"] withToken:(NSString *) [defaults objectForKey:kFBAccessTokenKey]];
     }
+    
     
     
 }
@@ -99,8 +121,13 @@
 
     
     // Use the profile picture here.
-    
+    /*parentProfilePicture.layer.cornerRadius = 9.0;
+    parentProfilePicture.layer.masksToBounds = YES;
+    parentProfilePicture.layer.borderColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.85].CGColor;
+    parentProfilePicture.layer.borderWidth = 3.0;*/
     parentProfilePicture.image = profilePicLarge;
+    
+
     smallParentProfilePicture.image = profilePicSmall;
     
 }
@@ -131,6 +158,12 @@
     [self setParentBirthday:nil];
     [self setSmallParentProfilePicture:nil];
     [self setParentSmallName:nil];
+    [self setEditProfileButton:nil];
+    [self setBuyCoinsButton:nil];
+    [self setAccountsButton:nil];
+    [self setAddNewStudentButton:nil];
+    [self setMyLessonsButton:nil];
+    [self setStoreButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -141,9 +174,20 @@
 }
 
 - (IBAction)disconnectFromFB:(id)sender {
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(cleanFacebookData) 
+                                                 name:@"FBDidLogout" 
+                                               object:nil];
+    [[Facebook shared] logout];
+}
+- (void)cleanFacebookData {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"DatosdeUsuario"];
+    [defaults synchronize];
+    NSLog(@"En Logout los datos de usuario son: %@", [defaults objectForKey:@"DatosdeUsuario"]);
     [self dismissModalViewControllerAnimated:YES];
 }
+
 
 - (IBAction)backButton:(id)sender {
     

@@ -53,3 +53,142 @@
         };
     };
 }
+
+
+
+
+{
+    "OAuthProvider":"Facebook",
+    "AccessToken":"AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+    "AppID":"A1B2C3E4F5123", 
+    "user":{
+        email = "david6p2@hotmail.com",
+        locale = "es_LA",
+        location = "Bogot\U00e1, Colombia",
+        name = "David Cespedes",
+        picture_url = "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
+}
+{
+    "OAuthProvider": "Facebook",
+    "AccessToken": "AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+    "AppID": "A1B2C3E4F5123",
+    "user": {
+        "email": "david6p2@hotmail.com",
+        "location": "Bogotá, Colombia",
+        "name": "David Cespedes",
+        "picture_url": "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
+}
+
+{
+    "OAuthProvider":"Facebook",
+    "AccessToken":"AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+    "AppID":"A1B2C3E4F5123", 
+    "user":{
+        email = "david6p2@hotmail.com",
+        locale = "es_LA",
+        location = "Bogot\U00e1, Colombia",
+        name = "David Cespedes",
+        picture_url = "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
+}
+
+{
+"OAuthProvider":"Facebook",
+"AccessToken":"AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+"AppID":"A1B2C3E4F5123",
+"user":{
+    email: "david6p2@hotmail.com",
+    location: "Bogotá, Colombia",
+    name: "David Cespedes",
+    picture_url: "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
+}
+
+
+{
+    "OAuthProvider": "Facebook",
+    "AccessToken": "AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+    "AppID": "A1B2C3E4F5123",
+    "user": {
+            "email": "david6p2@hotmail.com",
+            "location": "Bogotá, Colombia",
+            "name": "David Cespedes",
+            "picture_url": "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"  
+    }
+}
+
+{
+    "OAuthProvider": "Facebook",
+    "AccessToken": "AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+    "AppID": "A1B2C3E4F5123",
+    "user": {
+        "email": "david6p2@hotmail.com",
+        "location": "Bogotá, Colombia",
+        "name": "David Cespedes",
+        "picture_url": "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
+}
+//JSON Funcionado el 26 de Julio a las 19:53
+{
+    "OAuthProvider": "Facebook",
+    "AccessToken": "AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+    "AppID": "A1B2C3E4F5123",
+    "user": {
+        "email": "david6p2@hotmail.com",
+        "location": "Bogotá, Colombia",
+        "name": "David Cespedes",
+        "picture_url": "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
+}
+//result=userdata en - (void)request:(FBRequest *)request didLoad:(id)result en viewController.m
+{
+    birthday = "09/06/1984";
+    email = "david6p2@hotmail.com";
+    id = 641811329;
+    location =     {
+        id = 102194039822307;
+        name = "Bogot\U00e1, Colombia";
+    };
+    name = "David Cespedes";
+    picture =     {
+        data =         {
+            "is_silhouette" = 0;
+            url = "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg";
+        };
+    };
+}
+
+{
+    AccessToken = BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD;
+    AppID = A1B2C3E4F5123;
+    OAuthProvider = Facebook;
+    user =     {
+        email = "david6p2@hotmail.com";
+        location = "Bogot\U00e1, Colombia";
+        name = "David Cespedes";
+        "picture_url" = "https://graph.facebook.com/me/picture?type=large&access_token=BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD";
+    };
+}
+
+{
+    AccessToken = BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD;
+    AppID = A1B2C3E4F5123;
+    OAuthProvider = Facebook;
+    user =     {
+        email = "david6p2@hotmail.com";
+        location = "Bogot\U00e1, Colombia";
+        name = "David Cespedes";
+    };
+}
+{
+    "OAuthProvider": "Facebook",
+    "user": {
+        "name": "David Cespedes",
+        "location": "Bogotá, Colombia",
+        "email": "david6p2@hotmail.com"
+    },
+    "AccessToken": "BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD",
+    "AppID": "A1B2C3E4F5123"
+}

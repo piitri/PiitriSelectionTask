@@ -73,6 +73,11 @@
 		246D04DD15C0C4260056D3F9 /* btn-buy-more-coins@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 246D04D915C0C4220056D3F9 /* btn-buy-more-coins@2x.png */; };
 		246D04DE15C0C4260056D3F9 /* btn-edit-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 246D04DA15C0C4230056D3F9 /* btn-edit-profile.png */; };
 		246D04DF15C0C4260056D3F9 /* btn-edit-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 246D04DB15C0C4250056D3F9 /* btn-edit-profile@2x.png */; };
+		248CF54A15C34CDB00028B2B /* icon-child-unselected-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54615C34CDB00028B2B /* icon-child-unselected-mask.png */; };
+		248CF54B15C34CDB00028B2B /* icon-child-unselected-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54715C34CDB00028B2B /* icon-child-unselected-mask@2x.png */; };
+		248CF54C15C34CDB00028B2B /* icon-parent-unselected-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */; };
+		248CF54D15C34CDB00028B2B /* icon-parent-unselected-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54915C34CDB00028B2B /* icon-parent-unselected-mask@2x.png */; };
+		248CF55015C34D7500028B2B /* metaplus-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54F15C34D7500028B2B /* metaplus-black.ttf */; };
 		24B6C58115B9CB6700022A4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C58015B9CB6700022A4F /* UIKit.framework */; };
 		24B6C58315B9CB6700022A4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C58215B9CB6700022A4F /* Foundation.framework */; };
 		24B6C58515B9CB6700022A4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C58415B9CB6700022A4F /* CoreGraphics.framework */; };
@@ -85,6 +90,8 @@
 		24B6C5B815B9D9F200022A4F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C5B015B9D9F200022A4F /* libfacebook_ios_sdk.a */; };
 		24B6C5C615B9F71200022A4F /* Facebook+Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */; };
 		24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */; };
+		24F4F22815C72B8500E93A08 /* log-in-bg-with-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */; };
+		24F4F22915C72B8500E93A08 /* log-in-bg-with-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */; };
 		24F857B215BE1EB100DE6714 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579015BE1EB100DE6714 /* LICENSE.txt */; };
 		24F857B315BE1EB100DE6714 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579115BE1EB100DE6714 /* OpenSans-Bold.ttf */; };
 		24F857B415BE1EB100DE6714 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579215BE1EB100DE6714 /* OpenSans-BoldItalic.ttf */; };
@@ -165,6 +172,11 @@
 		246D04D915C0C4220056D3F9 /* btn-buy-more-coins@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-buy-more-coins@2x.png"; sourceTree = "<group>"; };
 		246D04DA15C0C4230056D3F9 /* btn-edit-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-edit-profile.png"; sourceTree = "<group>"; };
 		246D04DB15C0C4250056D3F9 /* btn-edit-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-edit-profile@2x.png"; sourceTree = "<group>"; };
+		248CF54615C34CDB00028B2B /* icon-child-unselected-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-child-unselected-mask.png"; sourceTree = "<group>"; };
+		248CF54715C34CDB00028B2B /* icon-child-unselected-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-child-unselected-mask@2x.png"; sourceTree = "<group>"; };
+		248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-parent-unselected-mask.png"; sourceTree = "<group>"; };
+		248CF54915C34CDB00028B2B /* icon-parent-unselected-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-parent-unselected-mask@2x.png"; sourceTree = "<group>"; };
+		248CF54F15C34D7500028B2B /* metaplus-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "metaplus-black.ttf"; path = "Meta Plus Black/metaplus-black.ttf"; sourceTree = "<group>"; };
 		24B6C57C15B9CB6700022A4F /* PiitriSelectionTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiitriSelectionTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B6C58015B9CB6700022A4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24B6C58215B9CB6700022A4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -197,6 +209,8 @@
 		24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Facebook+Singleton.m"; sourceTree = "<group>"; };
 		24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentPortalViewController.h; sourceTree = "<group>"; };
 		24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentPortalViewController.m; sourceTree = "<group>"; };
+		24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask.png"; sourceTree = "<group>"; };
+		24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask@2x.png"; sourceTree = "<group>"; };
 		24F8579015BE1EB100DE6714 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		24F8579115BE1EB100DE6714 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		24F8579215BE1EB100DE6714 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -238,18 +252,18 @@
 		246D045715C099950056D3F9 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				246D04D815C0C4210056D3F9 /* btn-buy-more-coins.png */,
-				246D04D915C0C4220056D3F9 /* btn-buy-more-coins@2x.png */,
-				246D04DA15C0C4230056D3F9 /* btn-edit-profile.png */,
-				246D04DB15C0C4250056D3F9 /* btn-edit-profile@2x.png */,
 				246D045815C099960056D3F9 /* btn-add-student-active.png */,
 				246D045915C099960056D3F9 /* btn-add-student-active@2x.png */,
 				246D045A15C099960056D3F9 /* btn-add-student-inactive.png */,
 				246D045B15C099960056D3F9 /* btn-add-student-inactive@2x.png */,
+				246D04D815C0C4210056D3F9 /* btn-buy-more-coins.png */,
+				246D04D915C0C4220056D3F9 /* btn-buy-more-coins@2x.png */,
 				246D045C15C099960056D3F9 /* btn-camera-icon-active.png */,
 				246D045D15C099960056D3F9 /* btn-camera-icon-active@2x.png */,
 				246D045E15C099960056D3F9 /* btn-camera-icon-inactive.png */,
 				246D045F15C099960056D3F9 /* btn-camera-icon-inactive@2x.png */,
+				246D04DA15C0C4230056D3F9 /* btn-edit-profile.png */,
+				246D04DB15C0C4250056D3F9 /* btn-edit-profile@2x.png */,
 				246D046015C099960056D3F9 /* btn-fbconnect-active.png */,
 				246D046115C099960056D3F9 /* btn-fbconnect-active@2x.png */,
 				246D046215C099960056D3F9 /* btn-fbconnect-inactive.png */,
@@ -268,12 +282,18 @@
 				246D046F15C099960056D3F9 /* gender-girl-active@2x.png */,
 				246D047015C099960056D3F9 /* gender-girl-inactive.png */,
 				246D047115C099960056D3F9 /* gender-girl-inactive@2x.png */,
+				248CF54615C34CDB00028B2B /* icon-child-unselected-mask.png */,
+				248CF54715C34CDB00028B2B /* icon-child-unselected-mask@2x.png */,
+				248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */,
+				248CF54915C34CDB00028B2B /* icon-parent-unselected-mask@2x.png */,
 				246D047215C099960056D3F9 /* icon-selected-mask.png */,
 				246D047315C099960056D3F9 /* icon-selected-mask@2x.png */,
 				246D047415C099960056D3F9 /* lessonsandactivity.png */,
 				246D047515C099960056D3F9 /* lessonsandactivity@2x.png */,
 				246D047615C099960056D3F9 /* light-box-black.png */,
 				246D047715C099960056D3F9 /* light-box-black@2x.png */,
+				24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */,
+				24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */,
 				246D047815C099960056D3F9 /* log-in-bg.png */,
 				246D047915C099960056D3F9 /* log-in-bg@2x.png */,
 				246D047A15C099960056D3F9 /* parent-icon-mask.png */,
@@ -305,6 +325,14 @@
 			);
 			name = images;
 			path = PiitriSelectionTask/images;
+			sourceTree = "<group>";
+		};
+		248CF55115C34DA000028B2B /* Meta Plus Black */ = {
+			isa = PBXGroup;
+			children = (
+				248CF54F15C34D7500028B2B /* metaplus-black.ttf */,
+			);
+			name = "Meta Plus Black";
 			sourceTree = "<group>";
 		};
 		24B6C57115B9CB6700022A4F = {
@@ -391,6 +419,7 @@
 		24F8577115BE1EB100DE6714 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				248CF55115C34DA000028B2B /* Meta Plus Black */,
 				24F8578F15BE1EB100DE6714 /* Open Sans */,
 			);
 			name = fonts;
@@ -546,6 +575,13 @@
 				246D04DD15C0C4260056D3F9 /* btn-buy-more-coins@2x.png in Resources */,
 				246D04DE15C0C4260056D3F9 /* btn-edit-profile.png in Resources */,
 				246D04DF15C0C4260056D3F9 /* btn-edit-profile@2x.png in Resources */,
+				248CF54A15C34CDB00028B2B /* icon-child-unselected-mask.png in Resources */,
+				248CF54B15C34CDB00028B2B /* icon-child-unselected-mask@2x.png in Resources */,
+				248CF54C15C34CDB00028B2B /* icon-parent-unselected-mask.png in Resources */,
+				248CF54D15C34CDB00028B2B /* icon-parent-unselected-mask@2x.png in Resources */,
+				248CF55015C34D7500028B2B /* metaplus-black.ttf in Resources */,
+				24F4F22815C72B8500E93A08 /* log-in-bg-with-mask.png in Resources */,
+				24F4F22915C72B8500E93A08 /* log-in-bg-with-mask@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

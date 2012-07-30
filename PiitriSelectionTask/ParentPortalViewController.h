@@ -7,16 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface ParentPortalViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *parentFullName;
 @property (strong, nonatomic) IBOutlet UILabel *parentSmallName;
 @property (strong, nonatomic) IBOutlet UILabel *parentLocation;
+@property (strong, nonatomic) IBOutlet UIButton *editProfileButton;
+@property (strong, nonatomic) IBOutlet UIButton *buyCoinsButton;
 @property (strong, nonatomic) IBOutlet UILabel *parentEmail;
 @property (strong, nonatomic) IBOutlet UILabel *parentBirthday;
 @property (strong, nonatomic) IBOutlet UIImageView *parentProfilePicture;
 @property (strong, nonatomic) IBOutlet UIImageView *smallParentProfilePicture;
 @property (strong, nonatomic) IBOutlet UITextView *cajaTextoParentPortal;
+@property (strong, nonatomic) IBOutlet UIButton *accountsButton;
+@property (strong, nonatomic) IBOutlet UIButton *addNewStudentButton;
+@property (strong, nonatomic) IBOutlet UIButton *myLessonsButton;
+@property (strong, nonatomic) IBOutlet UIButton *storeButton;
 - (IBAction)disconnectFromFB:(id)sender;
 - (IBAction)backButton:(id)sender;
 - (void)useDatosLogin:(id)resultado withToken:(NSString *) accessToken;
