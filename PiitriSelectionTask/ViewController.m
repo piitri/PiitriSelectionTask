@@ -14,10 +14,10 @@
 @end
 
 @implementation ViewController
-@synthesize cajaTextoLogin;
-@synthesize textCreateAccount;
-@synthesize textWelcome;
-@synthesize loginFBButton;
+@synthesize cajaTextoLogin = _cajaTextoLogin;
+@synthesize textCreateAccount = _textCreateAccount;
+@synthesize textWelcome = _textWelcome;
+@synthesize loginFBButton = _loginFBButton;
 
 int numero = 1;
 NSMutableData * receivedData;//instance variable to recieve the response of the API Call

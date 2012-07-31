@@ -14,20 +14,20 @@
 @end
 
 @implementation ParentPortalViewController
-@synthesize parentFullName;
-@synthesize parentSmallName;
-@synthesize parentLocation;
-@synthesize editProfileButton;
-@synthesize buyCoinsButton;
-@synthesize parentEmail;
-@synthesize parentBirthday;
-@synthesize parentProfilePicture;
-@synthesize smallParentProfilePicture;
-@synthesize cajaTextoParentPortal;
-@synthesize accountsButton;
-@synthesize addNewStudentButton;
-@synthesize myLessonsButton;
-@synthesize storeButton;
+@synthesize parentFullName = _parentFullName;
+@synthesize parentSmallName = _parentSmallName;
+@synthesize parentLocation = _parentLocation;
+@synthesize editProfileButton = _editProfileButton;
+@synthesize buyCoinsButton = _buyCoinsButton;
+@synthesize parentEmail = _parentEmail;
+@synthesize parentBirthday = _parentBirthday;
+@synthesize parentProfilePicture = _parentProfilePicture;
+@synthesize smallParentProfilePicture = _smallParentProfilePicture;
+@synthesize cajaTextoParentPortal = _cajaTextoParentPortal;
+@synthesize accountsButton = _accountsButton;
+@synthesize addNewStudentButton = _addNewStudentButton;
+@synthesize myLessonsButton = _myLessonsButton;
+@synthesize storeButton = _storeButton;
 
 /*Para hacer el logout
  - (id)init {
@@ -53,21 +53,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    self.parentFullName.font = [UIFont fontWithName:@"MetaPlus"  size:30];
-    self.parentSmallName.font = [UIFont fontWithName:@"Open Sans Semibold"  size:15];
-    self.parentLocation.font = [UIFont fontWithName:@"Open Sans Semibold"  size:14];
+	// Do any additional setup after loading the view.    
+    self.parentFullName.font = [UIFont fontWithName:@"MetaPlus" size:30];
+    self.parentSmallName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
+    self.parentLocation.font = [UIFont fontWithName:@"OpenSans-Semibold" size:14];
     
     //Sidebar Buttons Fonts
     
-    self.accountsButton.font = [UIFont fontWithName:@"MetaPlus"  size:20];
-    self.myLessonsButton.font = [UIFont fontWithName:@"MetaPlus"  size:20];
-    self.storeButton.font = [UIFont fontWithName:@"MetaPlus"  size:20];
+    self.accountsButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
+    self.myLessonsButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
+    self.storeButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
     
     
     
-    self.editProfileButton.font = [UIFont fontWithName:@"MetaPlus"  size:17];
-    self.buyCoinsButton.font = [UIFont fontWithName:@"MetaPlus"  size:17];
+    self.editProfileButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:17];
+    self.buyCoinsButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:17];
 
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     
@@ -98,16 +98,16 @@
     self.cajaTextoParentPortal.text = textoDeCaja;
     
     //Populate Parent Fullaname Label an Location
-    parentFullName.text = [resultado objectForKey:@"name"];
+    _parentFullName.text = [resultado objectForKey:@"name"];
     NSDictionary * ubicacionDic = [[NSDictionary alloc]initWithDictionary:[resultado objectForKey:@"location"]];
-    parentLocation.text = [ubicacionDic objectForKey:@"name"];
-    parentSmallName.text = [resultado objectForKey:@"name"];
+    _parentLocation.text = [ubicacionDic objectForKey:@"name"];
+    _parentSmallName.text = [resultado objectForKey:@"name"];
     
     //Poulate E-mail label
-    parentEmail.text = [resultado objectForKey:@"email"];
+    _parentEmail.text = [resultado objectForKey:@"email"];
     
     //Populate Birthday label
-    parentBirthday.text = [resultado objectForKey:@"birthday"];
+    _parentBirthday.text = [resultado objectForKey:@"birthday"];
 
     // Get the user's profile picture.
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessToken]];
@@ -125,10 +125,10 @@
     parentProfilePicture.layer.masksToBounds = YES;
     parentProfilePicture.layer.borderColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.85].CGColor;
     parentProfilePicture.layer.borderWidth = 3.0;*/
-    parentProfilePicture.image = profilePicLarge;
+    _parentProfilePicture.image = profilePicLarge;
     
 
-    smallParentProfilePicture.image = profilePicSmall;
+    _smallParentProfilePicture.image = profilePicSmall;
     
 }
 
