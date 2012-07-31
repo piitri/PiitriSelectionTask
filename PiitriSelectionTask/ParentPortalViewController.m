@@ -88,7 +88,7 @@
 
 - (void)useDatosLogin:(id)resultado withToken:(NSString *) accessToken{
     //Populate Text Box
-    NSLog(@"Los Datos de resultado son %@:", resultado);
+    NSLog(@"Los Datos de resultado en el Parent Portal son %@:", resultado);
     NSMutableString * textoDeCaja = [[NSMutableString alloc] init];
     [textoDeCaja appendString:@"Welcome: "];
     [textoDeCaja appendString:[resultado objectForKey:@"name"]];

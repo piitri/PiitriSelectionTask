@@ -20,6 +20,7 @@
 @synthesize loginFBButton;
 
 int numero = 1;
+NSMutableData * receivedData;//instance variable to recieve the response of the API Call
 
 - (id)init {
     if ((self = [super init])) {
@@ -143,37 +144,95 @@ int numero = 1;
     NSString *jsonRequestUtf8 = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];
     NSLog(@"El string JSON para el request al API en viewController.m es: %@", jsonRequestAscii);
     
-    //Create URL Request
-    NSURL *urlRequestLink = [NSURL URLWithString:@"http://postbin.defensio.com/bfb029d"];
+    //Create the URL
+    NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"];
     
+    //Create the URL Request
     NSMutableURLRequest * requestApi = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    /*NSString * jsonRequestUtf8 = [[NSString alloc] initWithBytes:[jsonRequest UTF8String] length:[jsonRequest length] encoding:UTF8];*/
-    /*NSString * jsonRequestUtf8 = [[NSString alloc] initwi ];*/
-    
-    NSUInteger * longitudRequest = [jsonRequestUtf8 length] + 1;
     NSLog(@"el jsonRequest en ASCII es: %@ y su longitud es: %i",jsonRequestAscii,[jsonRequestAscii length]);
     
+    //Buid the Request Data
     NSData  * requestData = [NSData dataWithBytes:[jsonRequestUtf8 UTF8String] length:[jsonRequestAscii length]];
     [requestApi setHTTPMethod:@"POST"];
     [requestApi setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [requestApi setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [requestApi setHTTPBody:requestData];
     
+    
+    //Call the URL Connection with the Builded Request Structure
     NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApi delegate:self];
     if (theConnection) {
         // Create the NSMutableData to hold the received data.
         // receivedData is an instance variable declared elsewhere.
-        NSMutableData * responseData = [NSMutableData data];
-        NSDictionary * responseDataDict = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-        
-        NSLog(@"La respuesta a el request del API es: %@", responseData);
-        
-        [self presentParentPortal];
+        receivedData = [NSMutableData data];
+        NSLog(@"The connection has STARTED! ");
+       
     } else {
         // Inform the user that the connection failed.
-        NSLog(@"La respuesta a el request del API es ERRONEA");
+        NSLog(@"The connection has FAILED!");
     }
+    
+}
+#pragma mark - NSURLResponse Delegate Metods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+
+{
+    // receivedData is an instance variable declared on top of this class.
+    
+    [receivedData setLength:0];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+
+{
+    
+    // Append the new data to receivedData.
+    
+    // receivedData is an instance variable declared on top of this class.
+    
+    [receivedData appendData:data];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection
+
+  didFailWithError:(NSError *)error
+
+{
+    // inform the user
+    
+    NSLog(@"Connection failed! Error - %@ %@",
+          
+          [error localizedDescription],
+          
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+
+{
+    
+    // do something with the data
+    
+    // receivedData is declared as a method instance on top of this class.
+    NSError* error = nil;
+    NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+    NSDictionary * receivedDataDict = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
+    if (error != nil) {
+        NSLog(@"Se produjo el siguiete error al crear el JSON: %@", error);
+    }
+    //Print the received Data
+    NSLog(@"La respuesta a el request del API es: %@", receivedDataDict);
+    //Print the received Cookie
+    NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"]];
+    NSLog(@"Las cookies son: %@", galletas);
+    
+    [self presentParentPortal];
+    
     
 }
 
