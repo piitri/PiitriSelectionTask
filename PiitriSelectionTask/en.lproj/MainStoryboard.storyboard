@@ -502,7 +502,7 @@ Let's get learning!</string>
         <image name="social-facebookconnect-inactive.png" width="44" height="43"/>
         <image name="social-googleconnect-inactive.png" width="43" height="43"/>
         <image name="social-twitterconnect-active.png" width="43" height="43"/>
-        <image name="tab-hightlight.png" width="195" height="59"/>
+        <image name="tab-hightlight.png" width="196" height="59"/>
     </resources>
     <classes>
         <class className="ParentPortalViewController" superclassName="UIViewController">
