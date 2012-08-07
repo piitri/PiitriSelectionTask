@@ -38,6 +38,7 @@
 - (IBAction)cancelStudentInfo:(id)sender;
 - (IBAction)saveStudentInfo:(id)sender;
 - (IBAction)takePhotoAction:(id)sender;
+- (IBAction)birthdayDateChanged:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (strong, nonatomic) IBOutlet UILabel *uploadPictureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *imageDimensionLabel;
@@ -49,6 +50,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (strong, nonatomic) IBOutlet UILabel *dateOfBirthLabel;
 @property (strong, nonatomic) IBOutlet UITextField *dateOfBirthField;
+@property (strong, nonatomic) IBOutlet UIDatePicker *birthdayDatePicker;
 @property (strong, nonatomic) IBOutlet UILabel *currentSchoolLabel;
 @property (strong, nonatomic) IBOutlet UITextField *currentSchoolTextField;
 

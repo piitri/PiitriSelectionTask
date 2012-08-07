@@ -52,6 +52,7 @@
 @synthesize lastNameTextField = _lastNameTextField;
 @synthesize dateOfBirthLabel = _dateOfBirthLabel;
 @synthesize dateOfBirthField = _dateOfBirthField;
+@synthesize birthdayDatePicker = _birthdayDatePicker;
 @synthesize currentSchoolLabel = _currentSchoolLabel;
 @synthesize currentSchoolTextField = _currentSchoolTextField;
 
@@ -118,6 +119,10 @@
                       rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [_genderSegmentedControl setFrame:CGRectMake(_genderSegmentedControl.frame.origin.x, _genderSegmentedControl.frame.origin.y, _genderSegmentedControl.frame.size.width, 62)];
     
+    //Assign DatePicker to Birthday TextField
+    self.dateOfBirthField.inputView = self.birthdayDatePicker;
+
+    
     /*[_genderSegmentedControl setBackgroundImage:[UIImage imageNamed:@"gender-boy-active.png"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];*/
     
     /*_addStudentView.transform = CGAffineTransformMakeRotation( ( -180 * M_PI ) / 360 );*/
@@ -173,6 +178,7 @@
     [self setGenderSegmentedControl:nil];
     [self setStudentImageView:nil];
     [self setTakePhotoButton:nil];
+    [self setBirthdayDatePicker:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -260,7 +266,7 @@
     }else if (section==4) {
         return 1;
     }else {
-        return sons.count;
+        return 0;
     }
     
 }
@@ -320,7 +326,7 @@
         myLessons.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         myLessons.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         return myLessons;
-    }else {
+    }else if (indexPath.section==4){
         UITableViewCell *store = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
         if (store==nil) {
             store = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Accounts"];
@@ -331,6 +337,8 @@
         store.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         store.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         return store;
+    }else {
+        return nil;
     }
     
     
@@ -437,7 +445,7 @@
     
     [self.viewParentPortal addSubview:self.addStudentView];
     [_firstNameTextField becomeFirstResponder];
-    [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionTransitionNone animations:^{
+    [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 38, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
         
@@ -445,7 +453,7 @@
 }
 
 - (IBAction)cancelStudentInfo:(id)sender {
-    [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionTransitionNone animations:^{
+    [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 738, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
         [_firstNameTextField resignFirstResponder];
@@ -459,7 +467,7 @@
 }
 
 - (IBAction)saveStudentInfo:(id)sender {
-    [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionTransitionNone animations:^{
+    [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 738, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
         NSDictionary * studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school", nil];
@@ -509,10 +517,13 @@
 - (IBAction)takePhotoAction:(id)sender {
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;	
+    picker.allowsEditing = YES;
 	picker.sourceType = UIImagePickerControllerSourceTypeCamera;	
 	[self presentModalViewController:picker animated:YES];	
 
 }
+
+
 
 
 // Recives the message when the controller has finised
@@ -520,10 +531,26 @@
 {
 	// Remove View From Controller 
 	[picker dismissModalViewControllerAnimated:YES];
-	// Establece la imagen tomada en el objeto UIImageView
-	_studentImageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	// Stablishes the image taken in the UIImageView
+     UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    if (!image) {
+        image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    }
+	_studentImageView.image = image;
 }
 
+#pragma mark - Birthday DatePicker
+
+- (IBAction)birthdayDateChanged:(id)sender {
+    UIDatePicker *picker = (UIDatePicker *)sender;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+
+    self.dateOfBirthField.text = [dateFormatter stringFromDate:picker.date];
+
+}
      
 #pragma mark - Facebook Data Request
 
