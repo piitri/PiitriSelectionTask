@@ -22,18 +22,32 @@
 @property (strong, nonatomic) IBOutlet UIImageView *parentProfilePicture;
 @property (strong, nonatomic) IBOutlet UIImageView *smallParentProfilePicture;
 @property (strong, nonatomic) IBOutlet UITextView *cajaTextoParentPortal;
-@property (strong, nonatomic) IBOutlet UIButton *accountsButton;
-@property (strong, nonatomic) IBOutlet UIButton *addNewStudentButton;
-@property (strong, nonatomic) IBOutlet UIButton *myLessonsButton;
-@property (strong, nonatomic) IBOutlet UIButton *storeButton;
-
 
 //Table View Variables
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) id detailItem;
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+//Views
 @property (strong, nonatomic) IBOutlet UIView *studentForm;
+@property (strong, nonatomic) IBOutlet UIView *addStudentView;
 @property (strong, nonatomic) IBOutlet UIView *viewParentPortal;
+
+//Student Form Variables
+- (IBAction)cancelStudentInfo:(id)sender;
+- (IBAction)saveStudentInfo:(id)sender;
+@property (strong, nonatomic) IBOutlet UILabel *uploadPictureLabel;
+@property (strong, nonatomic) IBOutlet UILabel *imageDimensionLabel;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *genderSegmentedControl;
+@property (strong, nonatomic) IBOutlet UILabel *firstNameLabel;
+@property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
+@property (strong, nonatomic) IBOutlet UILabel *lastNameLabel;
+@property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
+@property (strong, nonatomic) IBOutlet UILabel *dateOfBirthLabel;
+@property (strong, nonatomic) IBOutlet UITextField *dateOfBirthField;
+@property (strong, nonatomic) IBOutlet UILabel *currentSchoolLabel;
+@property (strong, nonatomic) IBOutlet UITextField *currentSchoolTextField;
+
 
 
 - (IBAction)disconnectFromFB:(id)sender;

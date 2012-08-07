@@ -57,7 +57,8 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    /*return YES;*/
 }
 
 #pragma mark - Connect With Facebook Button
@@ -70,8 +71,8 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     self.cajaTextoLogin.text = textoDeCaja;
     numero=numero+1;
     NSLog(@"Antes de llamar a Facebook Auth");
-    NSLog(@"Los datos de usuario son: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"DatosdeUsuario"]);
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"DatosdeUsuario"] != nil) {
+    NSLog(@"Los datos de usuario son: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"]);
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"] != nil) {
         [self presentParentPortal];
     }
     [[Facebook shared] authorize];
@@ -111,8 +112,8 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     
     self.cajaTextoLogin.text = textoDeCaja;
     
-    //Safe userData to standardUserDefaults in key DatosdeUsuario
-    [defaults setObject:userData forKey:@"DatosdeUsuario"];
+    //Safe userData to standardUserDefaults in key facebookParentInfo
+    [defaults setObject:userData forKey:@"facebookParentInfo"];
     [defaults synchronize];
     
     
@@ -134,6 +135,8 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     
     //Create JSON Request Body Dictionary with email, location, name and picture_url
     NSDictionary * jsonDict = [[NSDictionary alloc] initWithObjectsAndKeys: @"Facebook", @"OAuthProvider", accessTokenClave,@"AccessToken", @"A1B2C3E4F5123",@"AppID",user,@"user", nil];
+    [defaults setObject:jsonDict forKey:@"jsonParentInfo"];
+    [defaults synchronize];
     
     NSLog(@"El diccionario JSON para el request al API en viewController.m es: %@", jsonDict);
     
