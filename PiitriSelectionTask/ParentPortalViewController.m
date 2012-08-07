@@ -41,8 +41,10 @@
 @synthesize addStudentView = _addStudentView;
 @synthesize viewParentPortal = _viewParentPortal;
 //Student Form Variables
+@synthesize takePhotoButton = _takePhotoButton;
 @synthesize uploadPictureLabel = _uploadPictureLabel;
 @synthesize imageDimensionLabel = _imageDimensionLabel;
+@synthesize studentImageView = _studentImageView;
 @synthesize genderSegmentedControl = _genderSegmentedControl;
 @synthesize firstNameLabel = _firstNameLabel;
 @synthesize firstNameTextField = _firstNameTextField;
@@ -169,6 +171,8 @@
     [self setUploadPictureLabel:nil];
     [self setImageDimensionLabel:nil];
     [self setGenderSegmentedControl:nil];
+    [self setStudentImageView:nil];
+    [self setTakePhotoButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -483,6 +487,8 @@
 }
 
 
+
+
 -(NSString *)genderSelection:(UISegmentedControl *)segmentedControl{
     NSString * stundentGender = [[NSString alloc] init];
     if ([_genderSegmentedControl selectedSegmentIndex] == 0) {
@@ -496,6 +502,26 @@
         return stundentGender;
     }
     
+}
+
+#pragma mark - Take Photo Methods
+
+- (IBAction)takePhotoAction:(id)sender {
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;	
+	picker.sourceType = UIImagePickerControllerSourceTypeCamera;	
+	[self presentModalViewController:picker animated:YES];	
+
+}
+
+
+// Recives the message when the controller has finised
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info 
+{
+	// Remove View From Controller 
+	[picker dismissModalViewControllerAnimated:YES];
+	// Establece la imagen tomada en el objeto UIImageView
+	_studentImageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
 }
 
      

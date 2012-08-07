@@ -349,7 +349,9 @@ Let's get learning!</string>
                         <outlet property="parentSmallName" destination="3IX-SG-HA4" id="4tb-ev-t8Q"/>
                         <outlet property="smallParentProfilePicture" destination="040-Hr-CQU" id="wth-WT-hex"/>
                         <outlet property="studentForm" destination="yl4-an-Gsr" id="DOB-Ag-EyO"/>
+                        <outlet property="studentImageView" destination="sMD-d0-xU1" id="u1A-CJ-mUt"/>
                         <outlet property="tableView" destination="Efk-ra-jvq" id="IgD-L5-C47"/>
+                        <outlet property="takePhotoButton" destination="KJd-PR-nna" id="LmM-O5-dio"/>
                         <outlet property="uploadPictureLabel" destination="O90-HQ-elU" id="GCN-Vz-wdH"/>
                         <outlet property="viewParentPortal" destination="nqI-8z-0zX" id="uD8-4Z-Tir"/>
                     </connections>
@@ -421,6 +423,9 @@ Let's get learning!</string>
                                     <state key="highlighted" backgroundImage="btn-camera-icon-active.png">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="takePhotoAction:" destination="SgR-1a-FUJ" eventType="touchUpInside" id="fBj-Q5-elE"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Upload Picture" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="O90-HQ-elU">
                                     <rect key="frame" x="105" y="91" width="130" height="21"/>
@@ -474,6 +479,11 @@ Let's get learning!</string>
                                     </segments>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </segmentedControl>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sMD-d0-xU1">
+                                    <rect key="frame" x="262" y="70" width="72" height="72"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
@@ -512,6 +522,7 @@ Let's get learning!</string>
                 <relationship kind="action" name="cancelStudentInfo:"/>
                 <relationship kind="action" name="disconnectFromFB:"/>
                 <relationship kind="action" name="saveStudentInfo:"/>
+                <relationship kind="action" name="takePhotoAction:"/>
                 <relationship kind="outlet" name="addStudentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="buyCoinsButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cajaTextoParentPortal" candidateClass="UITextView"/>
@@ -535,7 +546,9 @@ Let's get learning!</string>
                 <relationship kind="outlet" name="parentSmallName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="smallParentProfilePicture" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="studentForm" candidateClass="UIView"/>
+                <relationship kind="outlet" name="studentImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="uploadPictureLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="viewParentPortal" candidateClass="UIView"/>
             </relationships>

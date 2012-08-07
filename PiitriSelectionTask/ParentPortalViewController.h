@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface ParentPortalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>{
+@interface ParentPortalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+    
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *parentFullName;
@@ -36,8 +37,11 @@
 //Student Form Variables
 - (IBAction)cancelStudentInfo:(id)sender;
 - (IBAction)saveStudentInfo:(id)sender;
+- (IBAction)takePhotoAction:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (strong, nonatomic) IBOutlet UILabel *uploadPictureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *imageDimensionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *studentImageView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *genderSegmentedControl;
 @property (strong, nonatomic) IBOutlet UILabel *firstNameLabel;
 @property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
