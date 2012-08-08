@@ -93,7 +93,7 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     //Log to know the Data from Facebook
     NSLog(@"FB request OK");
     NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
-    NSLog(@"La url del request es: %@", request.url);
+    NSLog(@"La url del request en viewController.m es: %@", request.url);
     NSLog(@"FB el request result en viewController.m es: %@", userData);
     // Access Token an Expiration Day asignation
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];

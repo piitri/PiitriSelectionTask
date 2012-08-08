@@ -294,7 +294,7 @@
         }
         cell.studentNameCellLabel.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
         cell.studentNameCellLabel.textColor = [UIColor colorWithRed:0.32 green:0.32 blue:0.32 alpha:1];
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         
         NSDictionary *studentObjectDict = [[NSDictionary alloc] initWithDictionary:[sons objectAtIndex:indexPath.row]];
@@ -474,17 +474,25 @@
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 738, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
         UIImage * image = _studentImageView.image;
-        NSDictionary * studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",image,@"picture_url", nil];
-        
-        NSLog(@"The Student Info is %@:", studentInfo);
-        NSDictionary * studentObject = [[NSDictionary alloc] initWithObjectsAndKeys:@"A1B2C3E4F5123",@"appID",studentInfo,@"student", nil];
-        NSLog(@"The Student Object is %@:", studentObject);
-        [self insertNewStudent:studentObject];
-        NSLog(@"The Sons Array is %@:", sons);
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                              withRowAnimation:UITableViewRowAnimationAutomatic];
-        
+        //If there is an image, then Upload it to Facebook
+        if (image) {
+            NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                               image, @"picture",
+                                               nil];
+            [self uploadPhotoToFacebook:parameters];
+        }
+        if ((self.firstNameTextField.text.length > 1) && (self.lastNameTextField.text.length > 1)) {
+            NSDictionary * studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",image,@"picture_url", nil];
+            
+            NSLog(@"The Student Info is %@:", studentInfo);
+            NSDictionary * studentObject = [[NSDictionary alloc] initWithObjectsAndKeys:@"A1B2C3E4F5123",@"appID",studentInfo,@"student", nil];
+            NSLog(@"The Student Object is %@:", studentObject);
+            [self insertNewStudent:studentObject];
+            NSLog(@"The Sons Array is %@:", sons);
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
         
         [_firstNameTextField resignFirstResponder];
         _firstNameTextField.text = nil;
@@ -561,8 +569,16 @@
 
 
 - (void)requestFacebookData {
-    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:self];
+    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" 
+                                andDelegate:self];
     
+}
+
+- (void)uploadPhotoToFacebook:(NSMutableDictionary *)params{
+    [[Facebook shared] requestWithGraphPath:@"me/photos"
+                                    andParams:params
+                                andHttpMethod:@"POST"
+                                  andDelegate:self];
 }
 
 - (void)useDatosLogin:(id)resultado withToken:(NSString *) accessToken{
@@ -613,17 +629,20 @@
 
 - (void)request:(FBRequest *)request didLoad:(id)result {
     NSLog(@"FB request OK");
-    NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * tokenDeAcceso =[defaults objectForKey:kFBAccessTokenKey];
-    [defaults setObject:userData forKey:@"facebookParentInfo"];
-    [defaults synchronize];
+    NSLog(@"FB request URL in ParentPortal is %@",request.url);
     
-    
-    NSLog(@"La url del request es: %@", request.url);
-    NSLog(@"FB el request result es: %@", userData);
-    
-    [self useDatosLogin:userData withToken:tokenDeAcceso];
+    if([request.url rangeOfString:@"me?fields=id,email"].location != NSNotFound) {
+        NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        NSString * tokenDeAcceso =[defaults objectForKey:kFBAccessTokenKey];
+        [defaults setObject:userData forKey:@"facebookParentInfo"];
+        [defaults synchronize];
+        NSLog(@"La url del request en ParentPortal.m es: %@", request.url);
+        NSLog(@"FB el request result en ParentPortal.m es: %@", userData);
+        [self useDatosLogin:userData withToken:tokenDeAcceso];
+    }else if ([request.url rangeOfString:@"me/photos"].location != NSNotFound) {
+        NSLog(@"The result in ParentPortal.m is: %@", result);
+    }
     
 }
 
