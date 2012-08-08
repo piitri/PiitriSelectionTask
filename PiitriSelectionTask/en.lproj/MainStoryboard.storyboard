@@ -287,23 +287,36 @@ Let's get learning!</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationLevel="1" indentationWidth="10" reuseIdentifier="Cell" textLabel="DLV-5T-Em4" style="IBUITableViewCellStyleDefault" id="1sW-42-1C1">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationLevel="2" indentationWidth="10" reuseIdentifier="Cell" id="1sW-42-1C1" customClass="Cell">
                                         <rect key="frame" x="0.0" y="81" width="196" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="196" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DLV-5T-Em4">
-                                                    <rect key="frame" x="20" y="0.0" width="166" height="58"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="rqn-6Q-G91">
+                                                    <rect key="frame" x="20" y="15" width="28" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-child-unselected-mask.png" highlightedImage="icon-selected-mask.png" id="CYw-dI-Z0k">
+                                                    <rect key="frame" x="16" y="12" width="35" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ClU-E2-hQF">
+                                                    <rect key="frame" x="55.5" y="19" width="125" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="studentCellImageView" destination="rqn-6Q-G91" id="9mI-v7-8o9"/>
+                                            <outlet property="studentCellMaskImageView" destination="CYw-dI-Z0k" id="rOX-Bv-1OL"/>
+                                            <outlet property="studentNameCellLabel" destination="ClU-E2-hQF" id="7dt-11-OKh"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Add Student" id="nuQ-Qj-3bD">
                                         <rect key="frame" x="0.0" y="140" width="196" height="59"/>
@@ -311,6 +324,12 @@ Let's get learning!</string>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="196" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="kvp-Cd-gPz">
+                                                    <rect key="frame" x="17" y="-35" width="28" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
@@ -496,7 +515,7 @@ Let's get learning!</string>
                             </date>
                             <locale key="locale" localeIdentifier="en_US"/>
                             <timeZone key="timeZone" name="America/Los_Angeles">
-                                <mutableData key="data">
+                                <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -514,7 +533,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                             </timeZone>
                             <connections>
                                 <action selector="birthdayDateChanged:" destination="SgR-1a-FUJ" eventType="valueChanged" id="2lf-o2-IGT"/>
@@ -536,6 +555,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="btn-fbconnect-logout-active@2x.png" width="904" height="124"/>
         <image name="btn-fbconnect-logout-inactive@2x.png" width="904" height="124"/>
         <image name="fbconnect-dialog.png" width="504" height="394"/>
+        <image name="icon-child-unselected-mask.png" width="35" height="35"/>
         <image name="icon-parent-unselected-mask.png" width="35" height="35"/>
         <image name="icon-selected-mask.png" width="35" height="35"/>
         <image name="lessonsandactivity.png" width="828" height="539"/>
@@ -547,58 +567,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="social-twitterconnect-active.png" width="43" height="43"/>
         <image name="tab-hightlight.png" width="196" height="59"/>
     </resources>
-    <classes>
-        <class className="ParentPortalViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentPortalViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButton:"/>
-                <relationship kind="action" name="birthdayDateChanged:"/>
-                <relationship kind="action" name="cancelStudentInfo:"/>
-                <relationship kind="action" name="disconnectFromFB:"/>
-                <relationship kind="action" name="saveStudentInfo:"/>
-                <relationship kind="action" name="takePhotoAction:"/>
-                <relationship kind="outlet" name="addStudentView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="birthdayDatePicker" candidateClass="UIDatePicker"/>
-                <relationship kind="outlet" name="buyCoinsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="cajaTextoParentPortal" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="currentSchoolLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="currentSchoolTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dateOfBirthField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dateOfBirthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="editProfileButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="firstNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="genderSegmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="imageDimensionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lastNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="parentBirthday" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentFullName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentLocation" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentProfilePicture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="parentSmallName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="smallParentProfilePicture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="studentForm" candidateClass="UIView"/>
-                <relationship kind="outlet" name="studentImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="uploadPictureLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="viewParentPortal" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="connectWithFB:"/>
-                <relationship kind="outlet" name="cajaTextoLogin" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="loginFBButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="textCreateAccount" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textWelcome" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>

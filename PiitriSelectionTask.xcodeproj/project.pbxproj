@@ -100,6 +100,7 @@
 		24B6C5B815B9D9F200022A4F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C5B015B9D9F200022A4F /* libfacebook_ios_sdk.a */; };
 		24B6C5C615B9F71200022A4F /* Facebook+Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */; };
 		24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */; };
+		24F0DC6615D1E83200CE4A88 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F0DC6515D1E83200CE4A88 /* Cell.m */; };
 		24F4F22815C72B8500E93A08 /* log-in-bg-with-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */; };
 		24F4F22915C72B8500E93A08 /* log-in-bg-with-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */; };
 		24F857B215BE1EB100DE6714 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579015BE1EB100DE6714 /* LICENSE.txt */; };
@@ -229,6 +230,8 @@
 		24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Facebook+Singleton.m"; sourceTree = "<group>"; };
 		24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentPortalViewController.h; sourceTree = "<group>"; };
 		24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentPortalViewController.m; sourceTree = "<group>"; };
+		24F0DC6415D1E83200CE4A88 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		24F0DC6515D1E83200CE4A88 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask.png"; sourceTree = "<group>"; };
 		24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask@2x.png"; sourceTree = "<group>"; };
 		24F8579015BE1EB100DE6714 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -398,6 +401,8 @@
 		24B6C58615B9CB6700022A4F /* PiitriSelectionTask */ = {
 			isa = PBXGroup;
 			children = (
+				24F0DC6415D1E83200CE4A88 /* Cell.h */,
+				24F0DC6515D1E83200CE4A88 /* Cell.m */,
 				24B6C5C415B9F71200022A4F /* Facebook+Singleton.h */,
 				24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */,
 				24B6C58F15B9CB6700022A4F /* AppDelegate.h */,
@@ -637,6 +642,7 @@
 				24B6C59715B9CB6700022A4F /* ViewController.m in Sources */,
 				24B6C5C615B9F71200022A4F /* Facebook+Singleton.m in Sources */,
 				24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */,
+				24F0DC6615D1E83200CE4A88 /* Cell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

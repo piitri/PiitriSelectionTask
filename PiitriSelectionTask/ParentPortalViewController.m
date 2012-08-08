@@ -8,6 +8,7 @@
 
 #import "ParentPortalViewController.h"
 #import "Facebook+Singleton.h"
+#import "Cell.h"
 
 @interface ParentPortalViewController (){
     NSMutableArray *_objects;
@@ -36,6 +37,7 @@
 @synthesize tableView = _tableView;
 @synthesize detailItem = _detailItem;
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
+
 //Views
 @synthesize studentForm = _studentForm;
 @synthesize addStudentView = _addStudentView;
@@ -286,12 +288,12 @@
         return accounts;
         
     }else if (indexPath.section==1) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         if (cell==nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+            cell = [[Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         }
-        cell.textLabel.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
-        cell.textLabel.textColor = [UIColor colorWithRed:0.32 green:0.32 blue:0.32 alpha:1];
+        cell.studentNameCellLabel.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
+        cell.studentNameCellLabel.textColor = [UIColor colorWithRed:0.32 green:0.32 blue:0.32 alpha:1];
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         
@@ -300,10 +302,12 @@
         NSMutableString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentInfoDict objectForKey:@"first_name"]];
         [studentName appendString:@" "];
         [studentName appendString:[studentInfoDict objectForKey:@"last_name"]];
-        cell.textLabel.text = studentName;
+        cell.studentNameCellLabel.text = studentName;
         [self insertNewStudentName:studentName];
-        /*NSDate *object = [_objects objectAtIndex:indexPath.row];
-        cell.textLabel.text = [object description];*/
+        UIImage * studentImage = [studentInfoDict objectForKey:@"picture_url"];
+        cell.studentCellImageView.image = studentImage;
+        
+        
         return cell;
     }else if (indexPath.section==2){
         UITableViewCell *addStudent = [tableView dequeueReusableCellWithIdentifier:@"Add Student"];
@@ -367,9 +371,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    if (indexPath.section==0) {
-        return NO;
-    }else if (indexPath.section==1) {
+    if (indexPath.section==1) {
         return YES;
     }else {
         return NO;
@@ -461,6 +463,7 @@
         _lastNameTextField.text = nil;
         _dateOfBirthField.text = nil;
         _currentSchoolTextField.text = nil;
+        _studentImageView.image = nil;
         [self.addStudentView removeFromSuperview];
     }];
     
@@ -470,7 +473,8 @@
     [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 738, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
-        NSDictionary * studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school", nil];
+        UIImage * image = _studentImageView.image;
+        NSDictionary * studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",image,@"picture_url", nil];
         
         NSLog(@"The Student Info is %@:", studentInfo);
         NSDictionary * studentObject = [[NSDictionary alloc] initWithObjectsAndKeys:@"A1B2C3E4F5123",@"appID",studentInfo,@"student", nil];
@@ -487,6 +491,7 @@
         _lastNameTextField.text = nil;
         _dateOfBirthField.text = nil;
         _currentSchoolTextField.text = nil;
+        _studentImageView.image = nil;
         [self.addStudentView removeFromSuperview];
         
     }];
