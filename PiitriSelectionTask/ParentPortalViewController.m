@@ -293,6 +293,9 @@
         accounts.textLabel.text = @"Accounts";
         accounts.textLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
         accounts.textLabel.textColor = [UIColor whiteColor];
+        CGSize myShadowOffset = CGSizeMake(-2, 2);
+        accounts.textLabel.shadowColor = [UIColor colorWithRed:0.17 green:0.30 blue:0.07 alpha:0.5];
+        accounts.textLabel.shadowOffset = myShadowOffset;
         accounts.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         accounts.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         return accounts;
@@ -348,6 +351,9 @@
         myLessons.textLabel.text = @"My Lessons";
         myLessons.textLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
         myLessons.textLabel.textColor = [UIColor whiteColor];
+        CGSize myShadowOffset = CGSizeMake(-2, 2);
+        myLessons.textLabel.shadowColor = [UIColor colorWithRed:0.17 green:0.30 blue:0.07 alpha:0.5];
+        myLessons.textLabel.shadowOffset = myShadowOffset;
         myLessons.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         myLessons.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         return myLessons;
@@ -359,6 +365,9 @@
         store.textLabel.text = @"Store";
         store.textLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
         store.textLabel.textColor = [UIColor whiteColor];
+        CGSize myShadowOffset = CGSizeMake(-2, 2);
+        store.textLabel.shadowColor = [UIColor colorWithRed:0.17 green:0.30 blue:0.07 alpha:0.5];
+        store.textLabel.shadowOffset = myShadowOffset;
         store.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         store.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         return store;
@@ -691,7 +700,6 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 
 {
-    
     // do something with the data
     
     // receivedData is declared as a method instance on top of this class.
@@ -703,12 +711,6 @@
     }
     //Print the received Data
     NSLog(@"La respuesta a el request del API es: %@", receivedDataDict);
-    //Print the received Cookie
-    NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/studentn"]];
-    NSLog(@"The cookies of Create Student Response are: %@", galletas);
-    
-    
-    
 }
 
 
@@ -723,9 +725,6 @@
 	[self presentModalViewController:picker animated:YES];	
 
 }
-
-
-
 
 // Recives the message when the controller has finised
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info 
