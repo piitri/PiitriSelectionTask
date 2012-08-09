@@ -369,6 +369,7 @@ Let's get learning!</string>
                         <outlet property="parentSmallName" destination="3IX-SG-HA4" id="4tb-ev-t8Q"/>
                         <outlet property="smallParentProfilePicture" destination="040-Hr-CQU" id="wth-WT-hex"/>
                         <outlet property="studentForm" destination="yl4-an-Gsr" id="DOB-Ag-EyO"/>
+                        <outlet property="studentFormActivityIndicator" destination="Zwx-7L-R0K" id="qot-KJ-mXG"/>
                         <outlet property="studentImageView" destination="sMD-d0-xU1" id="u1A-CJ-mUt"/>
                         <outlet property="tableView" destination="Efk-ra-jvq" id="IgD-L5-C47"/>
                         <outlet property="takePhotoButton" destination="KJd-PR-nna" id="LmM-O5-dio"/>
@@ -380,6 +381,10 @@ Let's get learning!</string>
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="Zwx-7L-R0K">
+                            <rect key="frame" x="496" y="414" width="37" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <view contentMode="scaleToFill" id="yl4-an-Gsr">
                             <rect key="frame" x="216" y="38" width="597" height="359"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -508,7 +513,7 @@ Let's get learning!</string>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="ta7-xp-ua8">
-                            <rect key="frame" x="0.0" y="397" width="1024" height="216"/>
+                            <rect key="frame" x="0.0" y="738" width="1024" height="216"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <date key="date" timeIntervalSinceReferenceDate="366012245.431095">
                                 <!--2012-08-07 06:04:05 +0000-->

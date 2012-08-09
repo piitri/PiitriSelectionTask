@@ -154,11 +154,11 @@
  *
  * The resulting object may be a dictionary, an array, a string, or a number,
  * depending on thee format of the API response.
- */
+
 - (void)request:(FBRequest *)request didLoad:(id)result {
     NSLog(@"FB request in Facebook+Singleton.m request:didLoad: is OK");
     NSLog(@"FB request result in Facebook+Singleton.m request:didLoad: is: %@", result);
-}
+} */
 
 /**
  * Called when an error prevents the Facebook API request from completing
@@ -180,6 +180,8 @@ static Facebook *shared = nil;
 	}
 	return shared;
 }
+
+
 /*+ (id)allocWithZone:(NSZone *)zone {
 	@synchronized(self) {
 		if(shared == nil)  {

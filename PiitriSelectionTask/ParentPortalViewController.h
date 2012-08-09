@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <Foundation/Foundation.h>
 
 @interface ParentPortalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     
@@ -53,6 +54,7 @@
 @property (strong, nonatomic) IBOutlet UIDatePicker *birthdayDatePicker;
 @property (strong, nonatomic) IBOutlet UILabel *currentSchoolLabel;
 @property (strong, nonatomic) IBOutlet UITextField *currentSchoolTextField;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *studentFormActivityIndicator;
 
 
 

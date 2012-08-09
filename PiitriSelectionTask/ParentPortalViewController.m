@@ -11,9 +11,13 @@
 #import "Cell.h"
 
 @interface ParentPortalViewController (){
+    NSUserDefaults * defaults;
     NSMutableArray *_objects;
     NSMutableArray * sons;
-    NSMutableArray *studentsNames;
+    NSMutableArray * studentsNamesAndImages;
+    NSString * studentImageUrlStr;
+    BOOL photoUpload;
+    NSMutableData * receivedData;//instance variable to recieve the response of the API Call
     
 }
 - (void)configureView;
@@ -57,6 +61,7 @@
 @synthesize birthdayDatePicker = _birthdayDatePicker;
 @synthesize currentSchoolLabel = _currentSchoolLabel;
 @synthesize currentSchoolTextField = _currentSchoolTextField;
+@synthesize studentFormActivityIndicator = _studentFormActivityIndicator;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -72,6 +77,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    photoUpload = NO;
 	// Do any additional setup after loading the view.    
     self.parentFullName.font = [UIFont fontWithName:@"MetaPlus" size:30];
     self.parentSmallName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
@@ -135,7 +141,7 @@
     self.buyCoinsButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:17];
     [self configureView];   
 
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:@"facebookParentInfo"]) {
         [self requestFacebookData];
@@ -181,6 +187,7 @@
     [self setStudentImageView:nil];
     [self setTakePhotoButton:nil];
     [self setBirthdayDatePicker:nil];
+    [self setStudentFormActivityIndicator:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -206,7 +213,7 @@
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)insertNewStudent:(NSDictionary *)student
+- (void)insertNewStudentInSons:(NSDictionary *)student
 {
     if (!sons) {
         sons = [[NSMutableArray alloc] init];
@@ -214,12 +221,12 @@
     [sons insertObject:student atIndex:0];
 }
 
-- (void)insertNewStudentName:(NSMutableString *)studentName
+- (void)insertNewStudentNameAndImage:(NSDictionary *)studentNameAndImage
 {
-    if (!studentsNames) {
-        studentsNames = [[NSMutableArray alloc] init];
+    if (!studentsNamesAndImages) {
+        studentsNamesAndImages = [[NSMutableArray alloc] init];
     }
-    [studentsNames insertObject:studentName atIndex:0];
+    [studentsNamesAndImages insertObject:studentNameAndImage atIndex:0];
 }
 
 
@@ -297,15 +304,26 @@
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         
-        NSDictionary *studentObjectDict = [[NSDictionary alloc] initWithDictionary:[sons objectAtIndex:indexPath.row]];
-        NSDictionary *studentInfoDict = [[NSDictionary alloc] initWithDictionary:[studentObjectDict objectForKey:@"student"]];
-        NSMutableString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentInfoDict objectForKey:@"first_name"]];
-        [studentName appendString:@" "];
-        [studentName appendString:[studentInfoDict objectForKey:@"last_name"]];
+        // Create a Dictionary From studentsNamesAndImages
+        NSDictionary *studentNameAndImageObjectDict = [[NSDictionary alloc] initWithDictionary:[studentsNamesAndImages objectAtIndex:indexPath.row]];
+        
+        // Take out the Name of the Student to Draw in the Cell
+        NSString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentName"]];
         cell.studentNameCellLabel.text = studentName;
-        [self insertNewStudentName:studentName];
-        UIImage * studentImage = [studentInfoDict objectForKey:@"picture_url"];
-        cell.studentCellImageView.image = studentImage;
+        
+        if ([studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]) {
+            //Take out the Url of the Facebook Student Photo to Draw in the Cell
+            NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]];
+            
+            // Create a UIImage with the Uploaded Student picture URL.
+            NSURL * url = [NSURL URLWithString:studentPictureUrl];
+            NSData * data = [NSData dataWithContentsOfURL:url];
+            UIImage * studentImage = [[UIImage alloc] initWithData:data];
+            
+            cell.studentCellImageView.image = studentImage;
+        }else {
+            cell.studentCellImageView.image = nil;
+        }
         
         
         return cell;
@@ -434,7 +452,7 @@
     }else if (indexPath.section==1) {
         /*NSDate *object = [_objects objectAtIndex:indexPath.row];*/
 
-        NSString * studentName = [studentsNames objectAtIndex:indexPath.row];
+        NSString * studentName = [[studentsNamesAndImages objectAtIndex:indexPath.row] objectForKey:@"studentName"];
         self.detailItem = studentName;
     }
     
@@ -474,24 +492,80 @@
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 738, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
         UIImage * image = _studentImageView.image;
-        //If there is an image, then Upload it to Facebook
-        if (image) {
-            NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                               image, @"picture",
-                                               nil];
-            [self uploadPhotoToFacebook:parameters];
-        }
+        NSDictionary * studentInfo = [[NSDictionary alloc] init];
         if ((self.firstNameTextField.text.length > 1) && (self.lastNameTextField.text.length > 1)) {
-            NSDictionary * studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",image,@"picture_url", nil];
+            //If there is an image, then Upload it to Facebook
+            NSString *boolValue = [[NSString alloc] init];
+            if (photoUpload) {
+                boolValue = @"Yes";
+            }else {
+                boolValue = @"No";
+            }
+            NSLog(@"The photoUpload value in saveStudentInfo before is: %@", boolValue);
+            if (image) {
+                NSLog(@"Inside if(image)");
+                while (!photoUpload) {
+                    [self.studentFormActivityIndicator startAnimating];
+                    NSLog(@"Inside while (!photoUpload)");
+                    if (photoUpload) {
+                        boolValue = @"Yes";
+                    }else {
+                        boolValue = @"No";
+                    }
+                    NSLog(@"The photoUpload value in saveStudentInfo in While is: %@", boolValue);
+                }
+                NSLog(@"Outside while (!photoUpload)");
+                // Create a UIImage with the Uploaded Student picture URL.
+                NSURL * url = [NSURL URLWithString:studentImageUrlStr];
+                NSData * data = [NSData dataWithContentsOfURL:url];
+                image = [[UIImage alloc] initWithData:data];
+                
+                [self.studentFormActivityIndicator stopAnimating];
+                
+                //Create Student Info Dictionary with Image URL
+                studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",studentImageUrlStr,@"picture_url", nil];
+                NSLog(@"The Student Info With Image URL is %@:", studentInfo);
+                photoUpload = NO;
+                if (photoUpload) {
+                    boolValue = @"Yes";
+                }else {
+                    boolValue = @"No";
+                }
+                 NSLog(@"The photoUpload value in saveStudentInfo after is: %@", boolValue);
+            }else {
+                //Create Student Info Dictionary without an Image URL
+                studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",@"",@"picture_url", nil];
+                NSLog(@"The Student Info without an Image URL is %@:", studentInfo);
+            }
             
-            NSLog(@"The Student Info is %@:", studentInfo);
+            
+            //Create Student Object For Piitri API
             NSDictionary * studentObject = [[NSDictionary alloc] initWithObjectsAndKeys:@"A1B2C3E4F5123",@"appID",studentInfo,@"student", nil];
             NSLog(@"The Student Object is %@:", studentObject);
-            [self insertNewStudent:studentObject];
+            
+            //Insert New Student Object in Sons Array
+            [self insertNewStudentInSons:studentObject];
             NSLog(@"The Sons Array is %@:", sons);
+            
+            // Save Name, Image and Image URL to display in Parent Portal TableView
+            //Create Cell Student Name
+            NSMutableString * studentName = [[NSMutableString alloc] initWithString:self.firstNameTextField.text];
+            [studentName appendString:@" "];
+            [studentName appendString:self.lastNameTextField.text];
+            
+            //Create Cell Student Image
+            UIImage * studentImage = image;
+            
+            //Create Cell Student Name and Image Dictionary
+            NSDictionary * studentNameAndImageDict = [[NSDictionary alloc] initWithObjectsAndKeys:studentName,@"studentName", studentImage, @"studentImage",studentImageUrlStr,@"studentImageUrl", nil];
+            [self insertNewStudentNameAndImage:studentNameAndImageDict];
+            
+            //Insert Row in Table View
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self sendStudentToApi];
+            
         }
         
         [_firstNameTextField resignFirstResponder];
@@ -507,9 +581,6 @@
     
 }
 
-
-
-
 -(NSString *)genderSelection:(UISegmentedControl *)segmentedControl{
     NSString * stundentGender = [[NSString alloc] init];
     if ([_genderSegmentedControl selectedSegmentIndex] == 0) {
@@ -524,6 +595,121 @@
     }
     
 }
+
+
+#pragma mark - Create Student in API
+ 
+- (NSString *)sendStudentToApi{
+    //Post Student info to Node.js API
+    
+    //Create user Dictionary with email, location, name and picture_url
+    NSDictionary * user = [[NSDictionary alloc] initWithObjectsAndKeys:sons,@"sons", nil];
+    
+    
+    //Parse the jsonDict to JSON data with native NSJSONSerialization and create a NSString
+    NSError* error = nil;
+    NSData *jsonRequestData = [NSJSONSerialization dataWithJSONObject:user options:kNilOptions error:&error];
+    NSString *jsonRequestAscii = [[NSString alloc] initWithData:jsonRequestData encoding:NSASCIIStringEncoding]; //cambié de utf8 a ascii
+    NSString *jsonRequestUtf8 = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];
+    NSLog(@"The JSON string for the request to the API in ParentPortalViewController.m is: %@", jsonRequestAscii);
+    
+    //Create the URL
+    NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/student"];
+    
+    //Create the URL Request
+    NSMutableURLRequest * requestApi = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    NSLog(@"el jsonRequest en ASCII es: %@ y su longitud es: %i",jsonRequestAscii,[jsonRequestAscii length]);
+    [requestApi setHTTPMethod:@"POST"];
+    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    //Buid the Request Data
+    NSData  * requestData = [NSData dataWithBytes:[jsonRequestUtf8 UTF8String] length:[jsonRequestAscii length]];
+    [requestApi setHTTPBody:requestData];
+    
+    
+    //Call the URL Connection with the Builded Request Structure
+    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApi delegate:self];
+    if (theConnection) {
+        // Create the NSMutableData to hold the received data.
+        // receivedData is an instance variable declared elsewhere.
+        receivedData = [NSMutableData data];
+        NSLog(@"The connection has STARTED! ");
+        return @"STARTED";
+        
+    } else {
+        // Inform the user that the connection failed.
+        NSLog(@"The connection has FAILED!");
+        return @"FAILED";
+    }
+}
+ 
+ 
+
+#pragma mark - NSURLResponse Delegate Metods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+
+{
+    // receivedData is an instance variable declared on top of this class.
+    
+    [receivedData setLength:0];
+    /*NSString * responseStatusCodeStr = [[NSString alloc] initWith:(NSURLResponse *)response];*/
+    NSLog(@"The URL Response is :%@", response);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+
+{
+    
+    // Append the new data to receivedData.
+    
+    // receivedData is an instance variable declared on top of this class.
+    
+    [receivedData appendData:data];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection
+
+  didFailWithError:(NSError *)error
+
+{
+    // inform the user
+    
+    NSLog(@"Connection failed! Error - %@ %@",
+          
+          [error localizedDescription],
+          
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+
+{
+    
+    // do something with the data
+    
+    // receivedData is declared as a method instance on top of this class.
+    NSError* error = nil;
+    NSLog(@"Succeeded! Received %d bytes of data in Parent Portal ",[receivedData length]);
+    NSDictionary * receivedDataDict = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
+    if (error != nil) {
+        NSLog(@"Se produjo el siguiete error al crear el JSON: %@", error);
+    }
+    //Print the received Data
+    NSLog(@"La respuesta a el request del API es: %@", receivedDataDict);
+    //Print the received Cookie
+    NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/studentn"]];
+    NSLog(@"The cookies of Create Student Response are: %@", galletas);
+    
+    
+    
+}
+
+
 
 #pragma mark - Take Photo Methods
 
@@ -549,7 +735,12 @@
     if (!image) {
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     }
-	_studentImageView.image = image;
+	
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       image, @"picture",
+                                       nil];
+    [self uploadPhotoToFacebook:parameters];
+    _studentImageView.image = image;
 }
 
 #pragma mark - Birthday DatePicker
@@ -630,18 +821,39 @@
 - (void)request:(FBRequest *)request didLoad:(id)result {
     NSLog(@"FB request OK");
     NSLog(@"FB request URL in ParentPortal is %@",request.url);
+    NSString * tokenDeAcceso =[defaults objectForKey:kFBAccessTokenKey];
     
     if([request.url rangeOfString:@"me?fields=id,email"].location != NSNotFound) {
         NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
-        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-        NSString * tokenDeAcceso =[defaults objectForKey:kFBAccessTokenKey];
+        defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:userData forKey:@"facebookParentInfo"];
         [defaults synchronize];
         NSLog(@"La url del request en ParentPortal.m es: %@", request.url);
         NSLog(@"FB el request result en ParentPortal.m es: %@", userData);
         [self useDatosLogin:userData withToken:tokenDeAcceso];
     }else if ([request.url rangeOfString:@"me/photos"].location != NSNotFound) {
-        NSLog(@"The result in ParentPortal.m is: %@", result);
+        
+        NSDictionary * photoResultDict = [[NSDictionary alloc] initWithDictionary:result];
+        NSLog(@"The result in ParentPortal.m is: %@", photoResultDict);
+        //Save the Facebook Photo ID
+        NSString *photoIdStr = [[NSString alloc] initWithFormat:[photoResultDict objectForKey:@"id"]];
+        // Save the Uploaded Student picture URL.
+        NSString *urlStr = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=thumbnail&access_token=%@",photoIdStr, tokenDeAcceso];
+        studentImageUrlStr = urlStr;
+        NSString *boolValue = [[NSString alloc] init];
+        if (photoUpload) {
+            boolValue = @"Yes";
+        }else {
+            boolValue = @"No";
+        }
+        NSLog(@"The photoUpload value before is: %@", boolValue);
+        photoUpload = YES;
+        if (photoUpload) {
+            boolValue = @"Yes";
+        }else {
+            boolValue = @"No";
+        }
+        NSLog(@"The photoUpload value after is: %@", boolValue);
     }
     
 }
@@ -656,7 +868,7 @@
     [[Facebook shared] logout];
 }
 - (void)cleanFacebookData {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    /*defaults = [NSUserDefaults standardUserDefaults];*/
     [defaults removeObjectForKey:@"facebookParentInfo"];
     [defaults synchronize];
     NSLog(@"En Logout los datos de usuario son: %@", [defaults objectForKey:@"facebookParentInfo"]);
