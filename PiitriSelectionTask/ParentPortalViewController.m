@@ -17,6 +17,7 @@
     NSMutableArray * studentsNamesAndImages;
     NSString * studentImageUrlStr;
     BOOL photoUpload;
+    UIImage * tempStudentImage;
     NSMutableData * receivedData;//instance variable to recieve the response of the API Call
     
 }
@@ -47,6 +48,7 @@
 @synthesize addStudentView = _addStudentView;
 @synthesize viewParentPortal = _viewParentPortal;
 //Student Form Variables
+@synthesize saveStudentInfoButton = _saveStudentInfoButton;
 @synthesize takePhotoButton = _takePhotoButton;
 @synthesize uploadPictureLabel = _uploadPictureLabel;
 @synthesize imageDimensionLabel = _imageDimensionLabel;
@@ -188,6 +190,7 @@
     [self setTakePhotoButton:nil];
     [self setBirthdayDatePicker:nil];
     [self setStudentFormActivityIndicator:nil];
+    [self setSaveStudentInfoButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -495,15 +498,15 @@
         NSDictionary * studentInfo = [[NSDictionary alloc] init];
         if ((self.firstNameTextField.text.length > 1) && (self.lastNameTextField.text.length > 1)) {
             //If there is an image, then Upload it to Facebook
-            NSString *boolValue = [[NSString alloc] init];
+            /*NSString *boolValue = [[NSString alloc] init];
             if (photoUpload) {
                 boolValue = @"Yes";
             }else {
                 boolValue = @"No";
             }
-            NSLog(@"The photoUpload value in saveStudentInfo before is: %@", boolValue);
+            NSLog(@"The photoUpload value in saveStudentInfo before is: %@", boolValue);*/
             if (image) {
-                NSLog(@"Inside if(image)");
+                /*NSLog(@"Inside if(image)");
                 while (!photoUpload) {
                     [self.studentFormActivityIndicator startAnimating];
                     NSLog(@"Inside while (!photoUpload)");
@@ -514,24 +517,23 @@
                     }
                     NSLog(@"The photoUpload value in saveStudentInfo in While is: %@", boolValue);
                 }
-                NSLog(@"Outside while (!photoUpload)");
+                NSLog(@"Outside while (!photoUpload)");*/
+                
                 // Create a UIImage with the Uploaded Student picture URL.
                 NSURL * url = [NSURL URLWithString:studentImageUrlStr];
                 NSData * data = [NSData dataWithContentsOfURL:url];
                 image = [[UIImage alloc] initWithData:data];
                 
-                [self.studentFormActivityIndicator stopAnimating];
-                
                 //Create Student Info Dictionary with Image URL
                 studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",studentImageUrlStr,@"picture_url", nil];
                 NSLog(@"The Student Info With Image URL is %@:", studentInfo);
-                photoUpload = NO;
+                /*photoUpload = NO;
                 if (photoUpload) {
                     boolValue = @"Yes";
                 }else {
                     boolValue = @"No";
                 }
-                 NSLog(@"The photoUpload value in saveStudentInfo after is: %@", boolValue);
+                 NSLog(@"The photoUpload value in saveStudentInfo after is: %@", boolValue);*/
             }else {
                 //Create Student Info Dictionary without an Image URL
                 studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",@"",@"picture_url", nil];
@@ -731,16 +733,31 @@
 	// Remove View From Controller 
 	[picker dismissModalViewControllerAnimated:YES];
 	// Stablishes the image taken in the UIImageView
-     UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     if (!image) {
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     }
-	
+	self.studentImageView.image = nil;
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        image, @"picture",
                                        nil];
     [self uploadPhotoToFacebook:parameters];
-    _studentImageView.image = image;
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(activateSaveButton) 
+                                                 name:@"FBDidUploadPhoto" 
+                                               object:nil];
+    if (image) {
+        
+        [self.studentFormActivityIndicator startAnimating];
+        [self.saveStudentInfoButton setEnabled:(NO)];
+    }
+    tempStudentImage = image;
+}
+
+- (void)activateSaveButton {
+    [self.studentFormActivityIndicator stopAnimating];
+    [self.saveStudentInfoButton setEnabled:(YES)];
+    self.studentImageView.image = tempStudentImage;
 }
 
 #pragma mark - Birthday DatePicker
@@ -840,7 +857,7 @@
         // Save the Uploaded Student picture URL.
         NSString *urlStr = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=thumbnail&access_token=%@",photoIdStr, tokenDeAcceso];
         studentImageUrlStr = urlStr;
-        NSString *boolValue = [[NSString alloc] init];
+        /*NSString *boolValue = [[NSString alloc] init];
         if (photoUpload) {
             boolValue = @"Yes";
         }else {
@@ -853,7 +870,8 @@
         }else {
             boolValue = @"No";
         }
-        NSLog(@"The photoUpload value after is: %@", boolValue);
+        NSLog(@"The photoUpload value after is: %@", boolValue);*/
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FBDidUploadPhoto" object:self];
     }
     
 }

@@ -367,6 +367,7 @@ Let's get learning!</string>
                         <outlet property="parentLocation" destination="Y8K-dR-ja7" id="ckr-Wy-ub0"/>
                         <outlet property="parentProfilePicture" destination="glS-jw-AIz" id="huK-Fg-wtU"/>
                         <outlet property="parentSmallName" destination="3IX-SG-HA4" id="4tb-ev-t8Q"/>
+                        <outlet property="saveStudentInfoButton" destination="0V4-4W-E5U" id="6MP-UG-OG3"/>
                         <outlet property="smallParentProfilePicture" destination="040-Hr-CQU" id="wth-WT-hex"/>
                         <outlet property="studentForm" destination="yl4-an-Gsr" id="DOB-Ag-EyO"/>
                         <outlet property="studentFormActivityIndicator" destination="Zwx-7L-R0K" id="qot-KJ-mXG"/>
@@ -381,10 +382,6 @@ Let's get learning!</string>
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="Zwx-7L-R0K">
-                            <rect key="frame" x="496" y="414" width="37" height="37"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </activityIndicatorView>
                         <view contentMode="scaleToFill" id="yl4-an-Gsr">
                             <rect key="frame" x="216" y="38" width="597" height="359"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -509,6 +506,11 @@ Let's get learning!</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </imageView>
+                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="Zwx-7L-R0K">
+                                    <rect key="frame" x="280" y="87" width="37" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>

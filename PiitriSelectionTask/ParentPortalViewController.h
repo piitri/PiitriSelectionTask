@@ -40,6 +40,7 @@
 - (IBAction)saveStudentInfo:(id)sender;
 - (IBAction)takePhotoAction:(id)sender;
 - (IBAction)birthdayDateChanged:(id)sender;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *saveStudentInfoButton;
 @property (strong, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (strong, nonatomic) IBOutlet UILabel *uploadPictureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *imageDimensionLabel;
