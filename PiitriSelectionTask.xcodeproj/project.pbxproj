@@ -83,6 +83,10 @@
 		2478B88815D0B4CC0007F08F /* tab-unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2478B88015D0B4A90007F08F /* tab-unselected@2x.png */; };
 		2478B88B15D0B57C0007F08F /* tab-hightlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2478B88915D0B5790007F08F /* tab-hightlight.png */; };
 		2478B88C15D0B57C0007F08F /* tab-hightlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2478B88A15D0B57B0007F08F /* tab-hightlight@2x.png */; };
+		2482D96515D5C83800216249 /* icon-add-student-form-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 2482D96115D5C83700216249 /* icon-add-student-form-mask.png */; };
+		2482D96615D5C83800216249 /* icon-add-student-form-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2482D96215D5C83700216249 /* icon-add-student-form-mask@2x.png */; };
+		2482D96715D5C83800216249 /* icon-student-sign-up-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2482D96315D5C83700216249 /* icon-student-sign-up-placeholder.png */; };
+		2482D96815D5C83800216249 /* icon-student-sign-up-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2482D96415D5C83800216249 /* icon-student-sign-up-placeholder@2x.png */; };
 		248CF54A15C34CDB00028B2B /* icon-child-unselected-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54615C34CDB00028B2B /* icon-child-unselected-mask.png */; };
 		248CF54B15C34CDB00028B2B /* icon-child-unselected-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54715C34CDB00028B2B /* icon-child-unselected-mask@2x.png */; };
 		248CF54C15C34CDB00028B2B /* icon-parent-unselected-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */; };
@@ -193,6 +197,10 @@
 		2478B88015D0B4A90007F08F /* tab-unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-unselected@2x.png"; sourceTree = "<group>"; };
 		2478B88915D0B5790007F08F /* tab-hightlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-hightlight.png"; sourceTree = "<group>"; };
 		2478B88A15D0B57B0007F08F /* tab-hightlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-hightlight@2x.png"; sourceTree = "<group>"; };
+		2482D96115D5C83700216249 /* icon-add-student-form-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-add-student-form-mask.png"; sourceTree = "<group>"; };
+		2482D96215D5C83700216249 /* icon-add-student-form-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-add-student-form-mask@2x.png"; sourceTree = "<group>"; };
+		2482D96315D5C83700216249 /* icon-student-sign-up-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-student-sign-up-placeholder.png"; sourceTree = "<group>"; };
+		2482D96415D5C83800216249 /* icon-student-sign-up-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-student-sign-up-placeholder@2x.png"; sourceTree = "<group>"; };
 		248CF54615C34CDB00028B2B /* icon-child-unselected-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-child-unselected-mask.png"; sourceTree = "<group>"; };
 		248CF54715C34CDB00028B2B /* icon-child-unselected-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-child-unselected-mask@2x.png"; sourceTree = "<group>"; };
 		248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-parent-unselected-mask.png"; sourceTree = "<group>"; };
@@ -311,12 +319,16 @@
 				246D047115C099960056D3F9 /* gender-girl-inactive@2x.png */,
 				2478B85115CFFFB00007F08F /* gender-inactive-segmented.png */,
 				2478B85215CFFFB00007F08F /* gender-inactive-segmented@2x.png */,
+				2482D96115D5C83700216249 /* icon-add-student-form-mask.png */,
+				2482D96215D5C83700216249 /* icon-add-student-form-mask@2x.png */,
 				248CF54615C34CDB00028B2B /* icon-child-unselected-mask.png */,
 				248CF54715C34CDB00028B2B /* icon-child-unselected-mask@2x.png */,
 				248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */,
 				248CF54915C34CDB00028B2B /* icon-parent-unselected-mask@2x.png */,
 				246D047215C099960056D3F9 /* icon-selected-mask.png */,
 				246D047315C099960056D3F9 /* icon-selected-mask@2x.png */,
+				2482D96315D5C83700216249 /* icon-student-sign-up-placeholder.png */,
+				2482D96415D5C83800216249 /* icon-student-sign-up-placeholder@2x.png */,
 				246D047415C099960056D3F9 /* lessonsandactivity.png */,
 				246D047515C099960056D3F9 /* lessonsandactivity@2x.png */,
 				246D047615C099960056D3F9 /* light-box-black.png */,
@@ -627,6 +639,10 @@
 				24597F6715D0D7B7000E9847 /* btn-add-student-active@2x.png in Resources */,
 				24597F6815D0D7B7000E9847 /* btn-add-student-inactive.png in Resources */,
 				24597F6915D0D7B7000E9847 /* btn-add-student-inactive@2x.png in Resources */,
+				2482D96515D5C83800216249 /* icon-add-student-form-mask.png in Resources */,
+				2482D96615D5C83800216249 /* icon-add-student-form-mask@2x.png in Resources */,
+				2482D96715D5C83800216249 /* icon-student-sign-up-placeholder.png in Resources */,
+				2482D96815D5C83800216249 /* icon-student-sign-up-placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
