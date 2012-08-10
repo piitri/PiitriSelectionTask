@@ -718,6 +718,7 @@
 		24B6C59B15B9CB6700022A4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Luz Ribero (UZQVT4AP67)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PiitriSelectionTask/PiitriSelectionTask-Prefix.pch";
 				INFOPLIST_FILE = "PiitriSelectionTask/PiitriSelectionTask-Info.plist";
@@ -726,6 +727,7 @@
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8509D64D-617A-4384-9E93-A46A676143A2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -733,6 +735,7 @@
 		24B6C59C15B9CB6700022A4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: L.S.R. Marketing Service";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PiitriSelectionTask/PiitriSelectionTask-Prefix.pch";
 				INFOPLIST_FILE = "PiitriSelectionTask/PiitriSelectionTask-Info.plist";
@@ -741,6 +744,7 @@
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC9A54AF-0510-48A8-97EF-C050FDBA01FB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
