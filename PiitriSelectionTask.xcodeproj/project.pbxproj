@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24014C0815D75D4500778B51 /* MainSideMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */; };
+		24014C0C15D78AED00778B51 /* AddStudentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24014C0B15D78AED00778B51 /* AddStudentCell.m */; };
 		24597F6615D0D7B7000E9847 /* btn-add-student-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6215D0D7B7000E9847 /* btn-add-student-active.png */; };
 		24597F6715D0D7B7000E9847 /* btn-add-student-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6315D0D7B7000E9847 /* btn-add-student-active@2x.png */; };
 		24597F6815D0D7B7000E9847 /* btn-add-student-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6415D0D7B7000E9847 /* btn-add-student-inactive.png */; };
@@ -121,6 +123,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24014C0615D75D4500778B51 /* MainSideMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSideMenuItemCell.h; sourceTree = "<group>"; };
+		24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSideMenuItemCell.m; sourceTree = "<group>"; };
+		24014C0A15D78AED00778B51 /* AddStudentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddStudentCell.h; sourceTree = "<group>"; };
+		24014C0B15D78AED00778B51 /* AddStudentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddStudentCell.m; sourceTree = "<group>"; };
 		24597F6215D0D7B7000E9847 /* btn-add-student-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-add-student-active.png"; sourceTree = "<group>"; };
 		24597F6315D0D7B7000E9847 /* btn-add-student-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-add-student-active@2x.png"; sourceTree = "<group>"; };
 		24597F6415D0D7B7000E9847 /* btn-add-student-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-add-student-inactive.png"; sourceTree = "<group>"; };
@@ -413,12 +419,16 @@
 		24B6C58615B9CB6700022A4F /* PiitriSelectionTask */ = {
 			isa = PBXGroup;
 			children = (
+				24014C0A15D78AED00778B51 /* AddStudentCell.h */,
+				24014C0B15D78AED00778B51 /* AddStudentCell.m */,
 				24F0DC6415D1E83200CE4A88 /* Cell.h */,
 				24F0DC6515D1E83200CE4A88 /* Cell.m */,
 				24B6C5C415B9F71200022A4F /* Facebook+Singleton.h */,
 				24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */,
 				24B6C58F15B9CB6700022A4F /* AppDelegate.h */,
 				24B6C59015B9CB6700022A4F /* AppDelegate.m */,
+				24014C0615D75D4500778B51 /* MainSideMenuItemCell.h */,
+				24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */,
 				24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */,
 				24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */,
 				24B6C59215B9CB6700022A4F /* MainStoryboard.storyboard */,
@@ -659,6 +669,8 @@
 				24B6C5C615B9F71200022A4F /* Facebook+Singleton.m in Sources */,
 				24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */,
 				24F0DC6615D1E83200CE4A88 /* Cell.m in Sources */,
+				24014C0815D75D4500778B51 /* MainSideMenuItemCell.m in Sources */,
+				24014C0C15D78AED00778B51 /* AddStudentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

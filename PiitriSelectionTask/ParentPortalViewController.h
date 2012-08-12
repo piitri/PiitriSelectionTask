@@ -15,14 +15,12 @@
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *parentFullName;
-@property (strong, nonatomic) IBOutlet UILabel *parentSmallName;
 @property (strong, nonatomic) IBOutlet UILabel *parentLocation;
 @property (strong, nonatomic) IBOutlet UIButton *editProfileButton;
 @property (strong, nonatomic) IBOutlet UIButton *buyCoinsButton;
 @property (strong, nonatomic) IBOutlet UILabel *parentEmail;
 @property (strong, nonatomic) IBOutlet UILabel *parentBirthday;
 @property (strong, nonatomic) IBOutlet UIImageView *parentProfilePicture;
-@property (strong, nonatomic) IBOutlet UIImageView *smallParentProfilePicture;
 @property (strong, nonatomic) IBOutlet UITextView *cajaTextoParentPortal;
 
 //Table View Variables

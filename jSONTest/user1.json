@@ -159,7 +159,8 @@
         };
     };
 }
-
+//Father Object
+//El diccionario JSON para el request al API en viewController.m es: jsonParentInfo
 {
     AccessToken = BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD;
     AppID = A1B2C3E4F5123;
@@ -172,23 +173,131 @@
     };
 }
 
+
+//Student Object
 {
-    AccessToken = BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD;
-    AppID = A1B2C3E4F5123;
-    OAuthProvider = Facebook;
-    user =     {
-        email = "david6p2@hotmail.com";
-        location = "Bogot\U00e1, Colombia";
-        name = "David Cespedes";
-    };
+    "appID": "A1B2C3E4F5123",
+    "student": {
+        "first_name": "Laksman",
+        "last_name": "Roncancio",
+        "date_of_birth": "03/28/2009",
+        "gender":"male",
+        "current_grade":"Pre-school"
+        "school":"Rafae'l Pombo Kinder Garden"
+        "picture_url": "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
 }
+
+//Internal Objective C studentNameAndImageDict
 {
-    "OAuthProvider": "Facebook",
-    "user": {
-        "name": "David Cespedes",
-        "location": "Bogotá, Colombia",
-        "email": "david6p2@hotmail.com"
+    "studentName": "Laksman Roncancio",
+    "studentImage": "<UIImage: 0x1fc020>",
+    "studentImageUrl": "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+}
+
+//Sons Object To the API
+2012-08-08 18:52:08.387 PiitriSelectionTask[16557:707] The Sons Array is (
+{
+    {
+        appID = A1B2C3E4F5123;
+        student =         {
+            "date_of_birth" = "6/09/2005";
+            "first_name" = David;
+            gender = male;
+            "last_name" = Cespedes;
+            "picture_url" = "https://graph.facebook.com/10150953182686330/picture?type=thumbnail&access_token=BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD";
+            school = ABC;
+        };
     },
-    "AccessToken": "BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD",
-    "AppID": "A1B2C3E4F5123"
+    {
+        appID = A1B2C3E4F5123;
+        student =         {
+            "date_of_birth" = "6/06/2007";
+            "first_name" = Lina;
+            gender = female;
+            "last_name" = Duarte;
+            "picture_url" = "";
+            school = GLA;
+        };
+    },
+    {
+        appID = A1B2C3E4F5123;
+        student =         {
+            "date_of_birth" = "";
+            "first_name" = Student;
+            gender = male;
+            "last_name" = One;
+            "picture_url" = "";
+            school = "";
+        };
+    }
 }
+):
+
+//Algo asi
+
+{   
+    sons =         { 
+        {
+            appID = A1B2C3E4F5123;
+            student =         {
+                "date_of_birth" = "6/09/2005";
+                "first_name" = David;
+                gender = male;
+                "last_name" = Cespedes;
+                "picture_url" = "https://graph.facebook.com/10150953182686330/picture?type=thumbnail&access_token=BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD";
+                school = ABC;
+            };
+        },
+        {
+            appID = A1B2C3E4F5123;
+            student =         {
+                "date_of_birth" = "6/06/2007";
+                "first_name" = Lina;
+                gender = female;
+                "last_name" = Duarte;
+                "picture_url" = "";
+                school = GLA;
+            };
+        },
+        {
+            appID = A1B2C3E4F5123;
+            student =         {
+                "date_of_birth" = "";
+                "first_name" = Student;
+                gender = male;
+                "last_name" = One;
+                "picture_url" = "";
+                school = "";
+            };
+        }
+    }
+}
+//How should I send a new Student to the API
+{
+    appID = A1B2C3E4F5123;
+    student =         {
+        "id" = "";
+        "date_of_birth" = "6/09/2005";
+        "first_name" = David;
+        gender = male;
+        "last_name" = Cespedes;
+        "picture_url" = "https://graph.facebook.com/10150953182686330/picture?type=thumbnail&access_token=BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD";
+        school = ABC;
+    };
+},
+//How should the API respond to the Add New Student Request
+{
+    appID = A1B2C3E4F5123;
+    student =         {
+        "id" = "0000001";
+        "date_of_birth" = "6/09/2005";
+        "first_name" = David;
+        gender = male;
+        "last_name" = Cespedes;
+        "picture_url" = "https://graph.facebook.com/10150953182686330/picture?type=thumbnail&access_token=BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD";
+        school = ABC;
+    };
+},
+
+

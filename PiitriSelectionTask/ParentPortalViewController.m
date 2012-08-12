@@ -9,6 +9,8 @@
 #import "ParentPortalViewController.h"
 #import "Facebook+Singleton.h"
 #import "Cell.h"
+#import "MainSideMenuItemCell.h"
+#import "AddStudentCell.h"
 
 @interface ParentPortalViewController (){
     NSUserDefaults * defaults;
@@ -16,7 +18,6 @@
     NSMutableArray * sons;
     NSMutableArray * studentsNamesAndImages;
     NSString * studentImageUrlStr;
-    BOOL photoUpload;
     UIImage * tempStudentImage;
     NSMutableData * receivedData;//instance variable to recieve the response of the API Call
     
@@ -28,14 +29,12 @@
 
 
 @synthesize parentFullName = _parentFullName;
-@synthesize parentSmallName = _parentSmallName;
 @synthesize parentLocation = _parentLocation;
 @synthesize editProfileButton = _editProfileButton;
 @synthesize buyCoinsButton = _buyCoinsButton;
 @synthesize parentEmail = _parentEmail;
 @synthesize parentBirthday = _parentBirthday;
 @synthesize parentProfilePicture = _parentProfilePicture;
-@synthesize smallParentProfilePicture = _smallParentProfilePicture;
 @synthesize cajaTextoParentPortal = _cajaTextoParentPortal;
 
 //Vars for TableView
@@ -79,10 +78,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    photoUpload = NO;
 	// Do any additional setup after loading the view.    
     self.parentFullName.font = [UIFont fontWithName:@"MetaPlus" size:30];
-    self.parentSmallName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
     self.parentLocation.font = [UIFont fontWithName:@"OpenSans-Semibold" size:14];
     
     //TableView Customization
@@ -91,7 +88,7 @@
     //Student Form Design
     
     self.uploadPictureLabel.font = [UIFont fontWithName:@"MetaPlus" size:18];
-    self.imageDimensionLabel.font = [UIFont fontWithName:@"MetaPlus" size:12];
+    self.imageDimensionLabel.font = [UIFont fontWithName:@"OpenSans-Semibold" size:12];
     self.firstNameLabel.font = [UIFont fontWithName:@"MetaPlus" size:14];
     self.lastNameLabel.font = [UIFont fontWithName:@"MetaPlus" size:14];
     self.dateOfBirthLabel.font = [UIFont fontWithName:@"MetaPlus" size:14];
@@ -163,8 +160,6 @@
     [self setCajaTextoParentPortal:nil];
     [self setParentEmail:nil];
     [self setParentBirthday:nil];
-    [self setSmallParentProfilePicture:nil];
-    [self setParentSmallName:nil];
     [self setEditProfileButton:nil];
     [self setBuyCoinsButton:nil];
     //TableView vars
@@ -258,222 +253,9 @@
     }
 }
 
-#pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 5;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (section==0) {
-        return 1;
-    }else if (section==1) {
-        return sons.count;
-    }else if (section==2) {
-        return 1;
-    }else if (section==3) {
-        return 1;
-    }else if (section==4) {
-        return 1;
-    }else {
-        return 0;
-    }
-    
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section==0) {
-        UITableViewCell *accounts = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
-        if (accounts==nil) {
-            accounts = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Accounts"];
-        }
-        accounts.textLabel.text = @"Accounts";
-        accounts.textLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
-        accounts.textLabel.textColor = [UIColor whiteColor];
-        CGSize myShadowOffset = CGSizeMake(-2, 2);
-        accounts.textLabel.shadowColor = [UIColor colorWithRed:0.17 green:0.30 blue:0.07 alpha:0.5];
-        accounts.textLabel.shadowOffset = myShadowOffset;
-        accounts.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
-        accounts.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-        return accounts;
-        
-    }else if (indexPath.section==1) {
-        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        if (cell==nil) {
-            cell = [[Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        }
-        cell.studentNameCellLabel.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
-        cell.studentNameCellLabel.textColor = [UIColor colorWithRed:0.32 green:0.32 blue:0.32 alpha:1];
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
-        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-        
-        // Create a Dictionary From studentsNamesAndImages
-        NSDictionary *studentNameAndImageObjectDict = [[NSDictionary alloc] initWithDictionary:[studentsNamesAndImages objectAtIndex:indexPath.row]];
-        
-        // Take out the Name of the Student to Draw in the Cell
-        NSString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentName"]];
-        cell.studentNameCellLabel.text = studentName;
-        
-        if ([studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]) {
-            //Take out the Url of the Facebook Student Photo to Draw in the Cell
-            NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]];
-            
-            // Create a UIImage with the Uploaded Student picture URL.
-            NSURL * url = [NSURL URLWithString:studentPictureUrl];
-            NSData * data = [NSData dataWithContentsOfURL:url];
-            UIImage * studentImage = [[UIImage alloc] initWithData:data];
-            
-            cell.studentCellImageView.image = studentImage;
-        }else {
-            cell.studentCellImageView.image = nil;
-        }
-        
-        
-        return cell;
-    }else if (indexPath.section==2){
-        UITableViewCell *addStudent = [tableView dequeueReusableCellWithIdentifier:@"Add Student"];
-        if (addStudent==nil) {
-            addStudent = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Add Student"];
-        }
-        /*addStudent.textLabel.text = @"+Add Student";*/
-        addStudent.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-inactive.png"]];
-        addStudent.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-active.png"]];
-        return addStudent;
-        
-    }else if (indexPath.section==3) {
-        UITableViewCell *myLessons = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
-        if (myLessons==nil) {
-            myLessons = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Accounts"];
-        }
-        myLessons.textLabel.text = @"My Lessons";
-        myLessons.textLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
-        myLessons.textLabel.textColor = [UIColor whiteColor];
-        CGSize myShadowOffset = CGSizeMake(-2, 2);
-        myLessons.textLabel.shadowColor = [UIColor colorWithRed:0.17 green:0.30 blue:0.07 alpha:0.5];
-        myLessons.textLabel.shadowOffset = myShadowOffset;
-        myLessons.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
-        myLessons.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-        return myLessons;
-    }else if (indexPath.section==4){
-        UITableViewCell *store = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
-        if (store==nil) {
-            store = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Accounts"];
-        }
-        store.textLabel.text = @"Store";
-        store.textLabel.font = [UIFont fontWithName:@"MetaPlus" size:20];
-        store.textLabel.textColor = [UIColor whiteColor];
-        CGSize myShadowOffset = CGSizeMake(-2, 2);
-        store.textLabel.shadowColor = [UIColor colorWithRed:0.17 green:0.30 blue:0.07 alpha:0.5];
-        store.textLabel.shadowOffset = myShadowOffset;
-        store.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
-        store.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-        return store;
-    }else {
-        return nil;
-    }
-    
-    
-    
-    
-}
-/*
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0){
-        cell.backgroundView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-unselected.png"]];
-        cell.selectedBackgroundView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-        
-        */
-        /*cell.backgroundColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:1];
-        cell.textLabel.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
-        cell.textLabel.textColor = [UIColor colorWithRed:0 green:1 blue:1 alpha:1];
-        cell.detailTextLabel.backgroundColor = [UIColor colorWithRed:0 green:1 blue:1 alpha:1];
-        cell.detailTextLabel.textColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];*/
-    /*}else if (indexPath.section==2) {
-        cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-
-    }
-    
-}*/
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    if (indexPath.section==1) {
-        return YES;
-    }else {
-        return NO;
-        
-    }
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-/*
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==2) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Add Student"];
-        cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-    }else if (indexPath.section==1) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-    }
-    return indexPath;
-}
-*/
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section==2) {
-        /*if (!_objects) {
-            _objects = [[NSMutableArray alloc] init];
-        }
-        [_objects insertObject:[NSDate date] atIndex:0];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                              withRowAnimation:UITableViewRowAnimationAutomatic];*/
-
-        [self showStudentForm];
-        
-        
-        
-    }else if (indexPath.section==1) {
-        /*NSDate *object = [_objects objectAtIndex:indexPath.row];*/
-
-        NSString * studentName = [[studentsNamesAndImages objectAtIndex:indexPath.row] objectForKey:@"studentName"];
-        self.detailItem = studentName;
-    }
-    
-}
 #pragma mark - Student Form View
 - (void)showStudentForm{
-    /*[UIView transitionFromView:self.viewParentPortal toView:self.addStudentView duration:2 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-        
-    }];*/
     
     [self.viewParentPortal addSubview:self.addStudentView];
     [_firstNameTextField becomeFirstResponder];
@@ -501,33 +283,14 @@
 
 - (IBAction)saveStudentInfo:(id)sender {
     [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
-        _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 738, _studentForm.frame.size.width, _studentForm.frame.size.height);
+        self.studentForm.frame = CGRectMake(self.studentForm.frame.origin.x, 738, self.studentForm.frame.size.width, self.studentForm.frame.size.height);
     } completion:^(BOOL finished) {
-        UIImage * image = _studentImageView.image;
+        UIImage * image = self.studentImageView.image;
         NSDictionary * studentInfo = [[NSDictionary alloc] init];
         if ((self.firstNameTextField.text.length > 1) && (self.lastNameTextField.text.length > 1)) {
             //If there is an image, then Upload it to Facebook
-            /*NSString *boolValue = [[NSString alloc] init];
-            if (photoUpload) {
-                boolValue = @"Yes";
-            }else {
-                boolValue = @"No";
-            }
-            NSLog(@"The photoUpload value in saveStudentInfo before is: %@", boolValue);*/
             if (image) {
-                /*NSLog(@"Inside if(image)");
-                while (!photoUpload) {
-                    [self.studentFormActivityIndicator startAnimating];
-                    NSLog(@"Inside while (!photoUpload)");
-                    if (photoUpload) {
-                        boolValue = @"Yes";
-                    }else {
-                        boolValue = @"No";
-                    }
-                    NSLog(@"The photoUpload value in saveStudentInfo in While is: %@", boolValue);
-                }
-                NSLog(@"Outside while (!photoUpload)");*/
-                
+                                
                 // Create a UIImage with the Uploaded Student picture URL.
                 NSURL * url = [NSURL URLWithString:studentImageUrlStr];
                 NSData * data = [NSData dataWithContentsOfURL:url];
@@ -536,13 +299,6 @@
                 //Create Student Info Dictionary with Image URL
                 studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",studentImageUrlStr,@"picture_url", nil];
                 NSLog(@"The Student Info With Image URL is %@:", studentInfo);
-                /*photoUpload = NO;
-                if (photoUpload) {
-                    boolValue = @"Yes";
-                }else {
-                    boolValue = @"No";
-                }
-                 NSLog(@"The photoUpload value in saveStudentInfo after is: %@", boolValue);*/
             }else {
                 //Create Student Info Dictionary without an Image URL
                 studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",@"",@"picture_url", nil];
@@ -572,7 +328,7 @@
             [self insertNewStudentNameAndImage:studentNameAndImageDict];
             
             //Insert Row in Table View
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             [self sendStudentToApi];
@@ -800,37 +556,23 @@
     self.cajaTextoParentPortal.text = textoDeCaja;
     
     //Populate Parent Fullaname Label an Location
-    _parentFullName.text = [resultado objectForKey:@"name"];
+    self.parentFullName.text = [resultado objectForKey:@"name"];
     NSDictionary * ubicacionDic = [[NSDictionary alloc]initWithDictionary:[resultado objectForKey:@"location"]];
-    _parentLocation.text = [ubicacionDic objectForKey:@"name"];
-    _parentSmallName.text = [resultado objectForKey:@"name"];
+    self.parentLocation.text = [ubicacionDic objectForKey:@"name"];
     
     //Poulate E-mail label
-    _parentEmail.text = [resultado objectForKey:@"email"];
+    self.parentEmail.text = [resultado objectForKey:@"email"];
     
     //Populate Birthday label
-    _parentBirthday.text = [resultado objectForKey:@"birthday"];
+    self.parentBirthday.text = [resultado objectForKey:@"birthday"];
 
     // Get the user's profile picture.
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessToken]];
     NSData * data = [NSData dataWithContentsOfURL:url];
     UIImage * profilePicLarge = [[UIImage alloc] initWithData:data];
-    
-    // Get the user's Small profile picture.
-    NSURL * smallUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]];
-    NSData * smalldata = [NSData dataWithContentsOfURL:smallUrl];
-    UIImage * profilePicSmall = [[UIImage alloc] initWithData:smalldata];
 
-    
     // Use the profile picture here.
-    /*parentProfilePicture.layer.cornerRadius = 9.0;
-    parentProfilePicture.layer.masksToBounds = YES;
-    parentProfilePicture.layer.borderColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.85].CGColor;
-    parentProfilePicture.layer.borderWidth = 3.0;*/
-    _parentProfilePicture.image = profilePicLarge;
-    
-
-    _smallParentProfilePicture.image = profilePicSmall;
+    self.parentProfilePicture.image = profilePicLarge;
     
 }
 
@@ -856,20 +598,7 @@
         // Save the Uploaded Student picture URL.
         NSString *urlStr = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=thumbnail&access_token=%@",photoIdStr, tokenDeAcceso];
         studentImageUrlStr = urlStr;
-        /*NSString *boolValue = [[NSString alloc] init];
-        if (photoUpload) {
-            boolValue = @"Yes";
-        }else {
-            boolValue = @"No";
-        }
-        NSLog(@"The photoUpload value before is: %@", boolValue);
-        photoUpload = YES;
-        if (photoUpload) {
-            boolValue = @"Yes";
-        }else {
-            boolValue = @"No";
-        }
-        NSLog(@"The photoUpload value after is: %@", boolValue);*/
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FBDidUploadPhoto" object:self];
     }
     
@@ -896,6 +625,247 @@
 - (IBAction)backButton:(id)sender {
     
     [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 6;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section==0) {
+        return 1;
+    }else if (section==1) {
+        return 1;
+    }else if (section==2) {
+        return sons.count;
+    }else if (section==3) {
+        return 1;
+    }else if (section==4) {
+        return 1;
+    }else if (section==5) {
+        return 1;
+    }else {
+        return 0;
+    }
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section==0) {
+        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        if (cell==nil) {
+            cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        }
+        
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+        
+        
+        // Create a Dictionary From userData in UserDefaults
+        NSDictionary * parentData = [[NSDictionary alloc] initWithDictionary:[defaults objectForKey:@"facebookParentInfo"]];
+        NSLog(@"Los Datos Traidos de Facebook son %@:", parentData);
+
+        // Take out the Name of the Parent to Draw in the Cell
+        cell.studentNameCellLabel.text = [parentData objectForKey:@"name"];
+        // Get the Parent Small profile picture.
+        NSString * accessToken =[defaults objectForKey:kFBAccessTokenKey];
+        NSURL * smallUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]];
+        NSData * smalldata = [NSData dataWithContentsOfURL:smallUrl];
+        UIImage * parentImage = [[UIImage alloc] initWithData:smalldata];
+        cell.studentCellImageView.image = parentImage;
+        
+        return cell;
+        
+    }else if (indexPath.section==1) {
+        MainSideMenuItemCell *accounts = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
+        if (accounts==nil) {
+            accounts = [[MainSideMenuItemCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Accounts"];
+        }
+        
+        accounts.mainItemCellLabel.text = @"Accounts";
+        
+        accounts.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
+        accounts.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+        return accounts;
+        
+    }else if (indexPath.section==2) {
+        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        if (cell==nil) {
+            cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        }
+        
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+        
+        // Create a Dictionary From studentsNamesAndImages
+        NSDictionary *studentNameAndImageObjectDict = [[NSDictionary alloc] initWithDictionary:[studentsNamesAndImages objectAtIndex:indexPath.row]];
+        
+        // Take out the Name of the Student to Draw in the Cell
+        NSString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentName"]];
+        cell.studentNameCellLabel.text = studentName;
+        
+        //Student Small Picture
+        if ([studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]) {
+            //Take out the Url of the Facebook Student Photo to Draw in the Cell
+            NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]];
+            
+            // Create a UIImage with the Uploaded Student picture URL.
+            NSURL * url = [NSURL URLWithString:studentPictureUrl];
+            NSData * data = [NSData dataWithContentsOfURL:url];
+            UIImage * studentImage = [[UIImage alloc] initWithData:data];
+            
+            cell.studentCellImageView.image = studentImage;
+            
+        }else {
+            cell.studentCellImageView.image = nil;
+        }
+        
+        return cell;
+        
+    }else if (indexPath.section==3){
+        AddStudentCell *addStudent = [tableView dequeueReusableCellWithIdentifier:@"Add Student"];
+        if (addStudent==nil) {
+            addStudent = [[AddStudentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Add Student"];
+        }
+        /*addStudent.textLabel.text = @"+Add Student";*/
+        addStudent.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-inactive.png"]];
+        //addStudent.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-active.png"]];
+        return addStudent;
+        
+    }else if (indexPath.section==4) {
+        MainSideMenuItemCell *myLessons = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
+        if (myLessons==nil) {
+            myLessons = [[MainSideMenuItemCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Accounts"];
+        }
+        myLessons.mainItemCellLabel.text = @"My Lessons";
+        
+        myLessons.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
+        myLessons.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+        return myLessons;
+    }else if (indexPath.section==5){
+        MainSideMenuItemCell *store = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
+        if (store==nil) {
+            store = [[MainSideMenuItemCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Accounts"];
+        }
+        store.mainItemCellLabel.text = @"Store";
+        
+        store.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
+        store.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+        return store;
+    }else {
+        return nil;
+    }
+    
+    
+    
+    
+}
+/*
+ - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+ if (indexPath.section==0){
+ cell.backgroundView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-unselected.png"]];
+ cell.selectedBackgroundView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+ 
+ */
+/*cell.backgroundColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:1];
+ cell.textLabel.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
+ cell.textLabel.textColor = [UIColor colorWithRed:0 green:1 blue:1 alpha:1];
+ cell.detailTextLabel.backgroundColor = [UIColor colorWithRed:0 green:1 blue:1 alpha:1];
+ cell.detailTextLabel.textColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];*/
+/*}else if (indexPath.section==2) {
+ cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+ 
+ }
+ 
+ }*/
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    if (indexPath.section==2) {
+        return YES;
+    }else {
+        return NO;
+        
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_objects removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    }
+}
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+/*- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+ if (indexPath.section==2) {
+ UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Add Student"];
+ cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+ }else if (indexPath.section==1) {
+ *//*UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];*//*
+                                                                                                                Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+                                                                                                                if (cell==nil) {
+                                                                                                                cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+                                                                                                                }
+                                                                                                                
+                                                                                                                cell.studentNameCellLabel.shadowColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:1];
+                                                                                                                CGSize myShadowOffset = CGSizeMake(4, 8);
+                                                                                                                cell.studentNameCellLabel.shadowOffset = myShadowOffset;
+                                                                                                                }
+                                                                                                                return indexPath;
+                                                                                                                }*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section==3) {
+        /*if (!_objects) {
+         _objects = [[NSMutableArray alloc] init];
+         }
+         [_objects insertObject:[NSDate date] atIndex:0];
+         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+         withRowAnimation:UITableViewRowAnimationAutomatic];*/
+        
+        [self showStudentForm];
+        
+        
+        
+    }else if (indexPath.section==2) {
+        /*NSDate *object = [_objects objectAtIndex:indexPath.row];*/
+        
+        NSString * studentName = [[studentsNamesAndImages objectAtIndex:indexPath.row] objectForKey:@"studentName"];
+        self.detailItem = studentName;
+        
+    }else {
+        self.detailItem = @"Hello!";
+        
+    }
+    
 }
 
 

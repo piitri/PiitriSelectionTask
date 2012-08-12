@@ -10,6 +10,7 @@
 
 @interface Cell : UITableViewCell{
     UIImageView * studentCellImageView;
+    UIImageView * studentCellMaskImageView;
     UILabel * studentNameCellLabel;
 }
 @property (nonatomic,strong) IBOutlet UIImageView * studentCellImageView;
