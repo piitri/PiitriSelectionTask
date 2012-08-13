@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 
-@interface ParentPortalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface ParentPortalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UITextFieldDelegate>{
     
     
 }
@@ -38,11 +38,13 @@
 - (IBAction)saveStudentInfo:(id)sender;
 - (IBAction)takePhotoAction:(id)sender;
 - (IBAction)birthdayDateChanged:(id)sender;
+- (IBAction)datePickerTestChanged:(id)sender;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveStudentInfoButton;
 @property (strong, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (strong, nonatomic) IBOutlet UILabel *uploadPictureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *imageDimensionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *studentImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *studentMaskImageView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *genderSegmentedControl;
 @property (strong, nonatomic) IBOutlet UILabel *firstNameLabel;
 @property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
@@ -51,11 +53,14 @@
 @property (strong, nonatomic) IBOutlet UILabel *dateOfBirthLabel;
 @property (strong, nonatomic) IBOutlet UITextField *dateOfBirthField;
 @property (strong, nonatomic) IBOutlet UIDatePicker *birthdayDatePicker;
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePickerTest;
 @property (strong, nonatomic) IBOutlet UILabel *currentSchoolLabel;
 @property (strong, nonatomic) IBOutlet UITextField *currentSchoolTextField;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *studentFormActivityIndicator;
+@property (strong, nonatomic) UIPopoverController *popoverControllerBirthday;
 
 
+- (IBAction)pickBirthday:(id)sender;
 
 - (IBAction)disconnectFromFB:(id)sender;
 - (IBAction)backButton:(id)sender;

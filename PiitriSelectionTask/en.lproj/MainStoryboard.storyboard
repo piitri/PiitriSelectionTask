@@ -77,6 +77,7 @@ Let's get learning!</string>
                     </connections>
                 </viewController>
             </objects>
+            <point key="canvasLocation" x="-140" y="-81"/>
         </scene>
         <!--Parent Portal View Controller - Parent Portal-->
         <scene sceneID="1Nk-G6-1h4">
@@ -252,7 +253,7 @@ Let's get learning!</string>
                                 <rect key="frame" x="0.0" y="138" width="196" height="610"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="separatorColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationLevel="1" indentationWidth="10" reuseIdentifier="Accounts" id="74F-Ru-YR3" customClass="MainSideMenuItemCell">
                                         <rect key="frame" x="0.0" y="22" width="196" height="59"/>
@@ -268,6 +269,11 @@ Let's get learning!</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="cM3-KW-2Fa">
+                                                    <rect key="frame" x="0.0" y="58" width="196" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -298,6 +304,11 @@ Let's get learning!</string>
                                                     <color key="highlightedColor" red="0.039215686270000001" green="0.1058823529" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="Iqg-cH-uni">
+                                                    <rect key="frame" x="0.0" y="58" width="196" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -317,6 +328,11 @@ Let's get learning!</string>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="kvp-Cd-gPz">
                                                     <rect key="frame" x="0.0" y="0.0" width="196" height="57"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="u1M-A2-Mtm">
+                                                    <rect key="frame" x="0.0" y="58" width="196" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -345,6 +361,7 @@ Let's get learning!</string>
                         <outlet property="currentSchoolTextField" destination="lSg-iG-vum" id="XcE-jy-ufb"/>
                         <outlet property="dateOfBirthField" destination="KhX-hu-lSW" id="IcY-NZ-4pa"/>
                         <outlet property="dateOfBirthLabel" destination="w2C-83-ey6" id="YbI-eb-8bg"/>
+                        <outlet property="datePickerTest" destination="Kfm-Yu-SF7" id="WBB-gu-8Rd"/>
                         <outlet property="detailDescriptionLabel" destination="eUG-uB-Afo" id="ShB-0M-DC1"/>
                         <outlet property="editProfileButton" destination="YwA-zo-jZ8" id="a7S-j3-xL5"/>
                         <outlet property="firstNameLabel" destination="YrL-Rm-daB" id="zbU-3n-1Am"/>
@@ -362,18 +379,54 @@ Let's get learning!</string>
                         <outlet property="studentForm" destination="yl4-an-Gsr" id="DOB-Ag-EyO"/>
                         <outlet property="studentFormActivityIndicator" destination="Zwx-7L-R0K" id="qot-KJ-mXG"/>
                         <outlet property="studentImageView" destination="sMD-d0-xU1" id="u1A-CJ-mUt"/>
+                        <outlet property="studentMaskImageView" destination="ADN-XC-7QP" id="sBT-v7-ioe"/>
                         <outlet property="tableView" destination="Efk-ra-jvq" id="IgD-L5-C47"/>
                         <outlet property="takePhotoButton" destination="KJd-PR-nna" id="LmM-O5-dio"/>
                         <outlet property="uploadPictureLabel" destination="O90-HQ-elU" id="GCN-Vz-wdH"/>
                         <outlet property="viewParentPortal" destination="nqI-8z-0zX" id="uD8-4Z-Tir"/>
+                        <segue destination="NqN-PI-KoQ" kind="popover" identifier="datePickerSegue" id="0qb-n9-4KI">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <view contentMode="scaleToFill" id="L2L-EK-wAc">
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="Kfm-Yu-SF7">
+                            <rect key="frame" x="271" y="738" width="320" height="216"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <date key="date" timeIntervalSinceReferenceDate="366532466.33253998">
+                                <!--2012-08-13 06:34:26 +0000-->
+                            </date>
+                            <locale key="locale" localeIdentifier="en_US"/>
+                            <timeZone key="timeZone" name="America/Los_Angeles">
+                                <mutableData key="data">
+VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
+y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
+5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
+8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
+AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
+DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
+HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
+KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
+OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
+Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
+VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
+Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
+cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
+f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
+</mutableData>
+                            </timeZone>
+                            <connections>
+                                <action selector="datePickerTestChanged:" destination="SgR-1a-FUJ" eventType="valueChanged" id="RBf-G9-1OQ"/>
+                            </connections>
+                        </datePicker>
                         <view contentMode="scaleToFill" id="yl4-an-Gsr">
-                            <rect key="frame" x="216" y="38" width="597" height="359"/>
+                            <rect key="frame" x="216" y="738" width="597" height="359"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="First Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YrL-Rm-daB">
@@ -405,7 +458,7 @@ Let's get learning!</string>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                 </textField>
                                 <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" id="5IY-K1-Ykb">
-                                    <rect key="frame" x="17.5" y="19" width="562" height="44"/>
+                                    <rect key="frame" x="18" y="18" width="562" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="tintColor" red="0.50196081399917603" green="0.47843140363693237" blue="0.47058826684951782" alpha="1" colorSpace="deviceRGB"/>
                                     <items>
@@ -428,7 +481,7 @@ Let's get learning!</string>
                                     <rect key="frame" x="35" y="78" width="62" height="62"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" backgroundImage="btn-camera-icon-inactive.png">
+                                    <state key="normal">
                                         <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -466,6 +519,9 @@ Let's get learning!</string>
                                     <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <action selector="pickBirthday:" destination="SgR-1a-FUJ" eventType="editingDidBegin" id="dcN-dj-Ytf"/>
+                                    </connections>
                                 </textField>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current School" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="8CK-Ru-7LZ">
                                     <rect key="frame" x="321" y="258" width="115" height="21"/>
@@ -496,6 +552,10 @@ Let's get learning!</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-add-student-form-mask.png" id="ADN-XC-7QP">
+                                    <rect key="frame" x="32.5" y="74" width="68" height="68"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="Zwx-7L-R0K">
                                     <rect key="frame" x="48" y="90" width="37" height="37"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -504,15 +564,29 @@ Let's get learning!</string>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="ta7-xp-ua8">
-                            <rect key="frame" x="0.0" y="738" width="1024" height="216"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                            <date key="date" timeIntervalSinceReferenceDate="366012245.431095">
-                                <!--2012-08-07 06:04:05 +0000-->
-                            </date>
-                            <locale key="locale" localeIdentifier="en_US"/>
-                            <timeZone key="timeZone" name="America/Los_Angeles">
-                                <data key="data">
+                    </subviews>
+                </view>
+            </objects>
+            <point key="canvasLocation" x="1118" y="-9"/>
+        </scene>
+        <!--Date Picker View Controller-->
+        <scene sceneID="l5G-aW-4fc">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ine-Zt-rQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="NqN-PI-KoQ" customClass="DatePickerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v5T-KB-GN5">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="216"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="ta7-xp-ua8">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="366012245.431095">
+                                    <!--2012-08-07 06:04:05 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="en_US"/>
+                                <timeZone key="timeZone" name="America/Los_Angeles">
+                                    <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -531,27 +605,31 @@ AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
 </data>
-                            </timeZone>
-                            <connections>
-                                <action selector="birthdayDateChanged:" destination="SgR-1a-FUJ" eventType="valueChanged" id="2lf-o2-IGT"/>
-                            </connections>
-                        </datePicker>
-                    </subviews>
-                </view>
+                                </timeZone>
+                                <connections>
+                                    <action selector="birthdayDateChanged:" destination="SgR-1a-FUJ" eventType="valueChanged" id="2lf-o2-IGT"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
             </objects>
-            <point key="canvasLocation" x="1118" y="-9"/>
+            <point key="canvasLocation" x="2350" y="419"/>
         </scene>
     </scenes>
     <resources>
         <image name="btn-buy-more-coins.png" width="165" height="41"/>
         <image name="btn-camera-icon-active.png" width="62" height="62"/>
-        <image name="btn-camera-icon-inactive.png" width="62" height="62"/>
         <image name="btn-edit-profile.png" width="110" height="40"/>
         <image name="btn-fbconnect-active.png" width="452" height="63"/>
         <image name="btn-fbconnect-inactive.png" width="452" height="63"/>
         <image name="btn-fbconnect-logout-active@2x.png" width="904" height="124"/>
         <image name="btn-fbconnect-logout-inactive@2x.png" width="904" height="124"/>
         <image name="fbconnect-dialog.png" width="504" height="394"/>
+        <image name="icon-add-student-form-mask.png" width="68" height="68"/>
         <image name="icon-child-unselected-mask.png" width="35" height="35"/>
         <image name="icon-selected-mask.png" width="35" height="35"/>
         <image name="lessonsandactivity.png" width="828" height="539"/>
@@ -577,6 +655,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="outlet" name="studentNameCellLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="DatePickerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DatePickerViewController.h"/>
+        </class>
         <class className="MainSideMenuItemCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainSideMenuItemCell.h"/>
             <relationships>
@@ -589,7 +670,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="action" name="backButton:"/>
                 <relationship kind="action" name="birthdayDateChanged:"/>
                 <relationship kind="action" name="cancelStudentInfo:"/>
+                <relationship kind="action" name="datePickerTestChanged:"/>
                 <relationship kind="action" name="disconnectFromFB:"/>
+                <relationship kind="action" name="pickBirthday:"/>
                 <relationship kind="action" name="saveStudentInfo:"/>
                 <relationship kind="action" name="takePhotoAction:"/>
                 <relationship kind="outlet" name="addStudentView" candidateClass="UIView"/>
@@ -600,6 +683,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="outlet" name="currentSchoolTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="dateOfBirthField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="dateOfBirthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="datePickerTest" candidateClass="UIDatePicker"/>
                 <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="editProfileButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="firstNameLabel" candidateClass="UILabel"/>
@@ -617,6 +701,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="outlet" name="studentForm" candidateClass="UIView"/>
                 <relationship kind="outlet" name="studentFormActivityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="studentImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="studentMaskImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="uploadPictureLabel" candidateClass="UILabel"/>
