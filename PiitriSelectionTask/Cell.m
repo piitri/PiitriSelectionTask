@@ -33,8 +33,23 @@
 - (void)setStudentNameCellLabel:(UILabel *)label{
     label.font = [UIFont fontWithName:@"OpenSans-Semibold" size:15];
     label.textColor = [UIColor colorWithRed:0.04 green:0.11 blue:0.01 alpha:1];
+    //label.highlightedTextColor = [UIColor colorWithRed:0.04 green:0.11 blue:0.01 alpha:0.5];
     _studentNameCellLabel=label;
     
+}
+
+- (UILabel *)studentNameCellLabel{
+    if (!_studentNameCellLabel) {
+        _studentNameCellLabel = [[UILabel alloc]init];
+    }
+    if ([_studentNameCellLabel isHighlighted]) {
+        UIColor * newShadow = [UIColor colorWithRed:0.9 green:0.95 blue:0.87 alpha:1];
+        _studentNameCellLabel.shadowColor = newShadow;
+        CGSize myShadowOffset = CGSizeMake(0, 2);
+        [_studentNameCellLabel setShadowOffset:myShadowOffset];
+    }
+    
+    return _studentNameCellLabel;
 }
 
 /*- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -48,7 +63,8 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    UIColor * newShadow = selected ? [UIColor colorWithRed:0.9 green:0.95 blue:0.87 alpha:1] : [UIColor colorWithRed:45 green:72 blue:24 alpha:1];
+    //UIColor * newShadow = selected ? [UIColor colorWithRed:0.9 green:0.95 blue:0.87 alpha:1] : [UIColor colorWithRed:0.45 green:0.72 blue:0.24 alpha:1];
+    UIColor * newShadow = [UIColor colorWithRed:0.45 green:0.72 blue:0.24 alpha:1];
     self.studentNameCellLabel.shadowColor = newShadow;
     CGSize myShadowOffset = CGSizeMake(0, 1);
     [self.studentNameCellLabel setShadowOffset:myShadowOffset];

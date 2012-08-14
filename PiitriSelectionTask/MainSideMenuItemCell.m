@@ -32,11 +32,26 @@
     
 }
 
+- (UILabel *)mainItemCellLabel{
+    if (!_mainItemCellLabel) {
+        _mainItemCellLabel = [[UILabel alloc]init];
+    }
+    if ([_mainItemCellLabel isHighlighted]) {
+        UIColor * newShadow = [UIColor colorWithRed:0.9 green:0.95 blue:0.87 alpha:1];
+        _mainItemCellLabel.shadowColor = newShadow;
+        CGSize myShadowOffset = CGSizeMake(0, 2);
+        [_mainItemCellLabel setShadowOffset:myShadowOffset];
+    }
+    
+    return _mainItemCellLabel;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    UIColor * newShadow = selected ? [UIColor colorWithRed:0.9 green:0.95 blue:0.87 alpha:1] : [UIColor colorWithRed:45 green:72 blue:24 alpha:1];
+    //UIColor * newShadow = selected ? [UIColor colorWithRed:0.9 green:0.95 blue:0.87 alpha:1] : [UIColor colorWithRed:0.44 green:0.72 blue:0.24 alpha:1];
+    UIColor * newShadow = [UIColor colorWithRed:0.17 green:0.30 blue:0.07 alpha:0.5];
     self.mainItemCellLabel.shadowColor = newShadow;
-    CGSize myShadowOffset = CGSizeMake(0, 1);
+    CGSize myShadowOffset = CGSizeMake(0, 2);
     [self.mainItemCellLabel setShadowOffset:myShadowOffset];
     [super setSelected:selected animated:animated];
 

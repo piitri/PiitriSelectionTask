@@ -21,6 +21,7 @@
     NSString * studentImageUrlStr;
     UIImage * tempStudentImage;
     NSMutableData * receivedData;//instance variable to recieve the response of the API Call
+    BOOL justArrive;
 }
 - (void)configureView;
 @end
@@ -79,6 +80,7 @@
 }
 
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -88,6 +90,8 @@
     
     //TableView Customization
     self.tableView.backgroundColor = [UIColor clearColor];
+    justArrive = YES;
+    //counter = 0;
     
     //Student Form Design
 
@@ -252,10 +256,16 @@
         self.popoverControllerBirthday = [[UIPopoverController alloc]initWithContentViewController:datePickerVC];
         self.popoverControllerBirthday.delegate =self;
         }*/
+    
+    
     popoverControllerForDate.delegate = self;
-    [popoverControllerForDate presentPopoverFromRect:textField.frame 
+    CGRect myFrame =textField.frame;
+    myFrame.origin.x = 260;
+    myFrame.origin.y = 320;
+    
+    [popoverControllerForDate presentPopoverFromRect:myFrame 
                                                     inView:self.view 
-                                  permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                  permittedArrowDirections:UIPopoverArrowDirectionDown 
                                                   animated:YES];
     self.popoverControllerBirthday = popoverControllerForDate;
     return YES; // tells the textfield not to start its own editing process (ie show the keyboard)
@@ -825,7 +835,7 @@
             cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         }
         
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         
         
@@ -897,7 +907,7 @@
         }
         /*addStudent.textLabel.text = @"+Add Student";*/
         addStudent.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-inactive.png"]];
-        //addStudent.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-active.png"]];
+        addStudent.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-active.png"]];
         return addStudent;
         
     }else if (indexPath.section==4) {
@@ -928,6 +938,17 @@
     
     
 }
+
+/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section==0)
+        if (justArrive && (counter * == 1)) {
+            [cell setHighlighted:YES animated:YES];
+            justArrive = NO;
+        }
+    counter ++;
+        
+    }
+}*/
 /*
  - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
  if (indexPath.section==0){
