@@ -13,6 +13,7 @@
 @end
 
 @implementation PhotoPickerViewController
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

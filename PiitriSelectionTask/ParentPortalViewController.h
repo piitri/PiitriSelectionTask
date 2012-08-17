@@ -36,7 +36,7 @@
 //Student Form Variables
 - (IBAction)cancelStudentInfo:(id)sender;
 - (IBAction)saveStudentInfo:(id)sender;
-- (IBAction)takePhotoAction:(id)sender;
+- (void)takePhotoAction:(NSString *)sourcePhotoType;
 - (IBAction)datePickerTestChanged:(id)sender;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveStudentInfoButton;
 @property (strong, nonatomic) IBOutlet UIButton *takePhotoButton;

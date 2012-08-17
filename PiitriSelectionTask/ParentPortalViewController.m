@@ -12,8 +12,9 @@
 #import "MainSideMenuItemCell.h"
 #import "AddStudentCell.h"
 #import "DatePickerViewController.h"
+#import "PhotoPickerViewController.h"
 
-@interface ParentPortalViewController () <DatePickerViewControllerDelegate>{
+@interface ParentPortalViewController () <DatePickerViewControllerDelegate, PhotoPickerViewControllerDelegate>{
     NSUserDefaults * defaults;
     NSMutableArray *_objects;
     NSMutableArray * sons;
@@ -21,6 +22,7 @@
     NSString * studentImageUrlStr;
     UIImage * tempStudentImage;
     NSMutableData * receivedData;//instance variable to recieve the response of the API Call
+    UIImagePickerController *imagePickerController;
     BOOL justArrive;
 }
 - (void)configureView;
@@ -307,7 +309,9 @@
 // Popover was dismissed
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
+    imagePickerController = nil;
     self.popoverControllerBirthday = nil;
+    
 }
 
 #pragma mark - Student Form View
@@ -625,13 +629,14 @@
     }
     
     // retain the popover
-    if ([segue.identifier isEqualToString:@"datePickerSegue"]) 
+    if ([segue.identifier isEqualToString:@"Show Photo Picker Options"]) 
     {
         UIStoryboardPopoverSegue *popoverSegue = (UIStoryboardPopoverSegue *)segue;
         UIPopoverController *thePopoverController = [popoverSegue popoverController];
-        thePopoverController.contentViewController.contentSizeForViewInPopover = CGSizeMake(300.0f, 216.0f);        
+        //thePopoverController.contentViewController.contentSizeForViewInPopover = CGSizeMake(300.0f, 216.0f);        
         [thePopoverController setDelegate:self];
         self.popoverControllerBirthday = thePopoverController;
+        [segue.destinationViewController setDelegate:self];
     }
 }
 
@@ -639,12 +644,31 @@
 
 #pragma mark - Take Photo Methods
 
-- (IBAction)takePhotoAction:(id)sender {
-    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;	
-    picker.allowsEditing = YES;
-	picker.sourceType = UIImagePickerControllerSourceTypeCamera;	
-	[self presentModalViewController:picker animated:YES];	
+- (void) photoPickerViewController:(PhotoPickerViewController *)sender chosenPictureMethodStr:(NSString *) pictureMethodStr{
+    [self takePhotoAction:pictureMethodStr];
+}
+
+- (void) takePhotoAction:(NSString *)sourcePhotoType {
+    
+    imagePickerController = [[UIImagePickerController alloc] init];
+    if ([sourcePhotoType isEqualToString:@"UIImagePickerControllerSourceTypeCamera"]) {
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }else {
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }	
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.delegate = self;
+	if (self.popoverControllerBirthday)
+    {
+        [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+        self.popoverControllerBirthday = nil;
+    }
+	self.popoverControllerBirthday = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+    self.popoverControllerBirthday.delegate = self;
+    [self.popoverControllerBirthday presentPopoverFromRect:self.takePhotoButton.frame 
+                                                    inView:self.view 
+                                  permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                                  animated:YES];
 
 }
 
@@ -652,13 +676,18 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info 
 {
 	// Remove View From Controller 
-	[picker dismissModalViewControllerAnimated:YES];
+	//[picker dismissModalViewControllerAnimated:YES];
 	// Stablishes the image taken in the UIImageView
     UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     if (!image) {
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     }
 	self.studentImageView.image = nil;
+    if (self.popoverControllerBirthday)
+    {
+        [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+        self.popoverControllerBirthday = nil;
+    }
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        image, @"picture",
                                        nil];
@@ -676,6 +705,14 @@
     tempStudentImage = image;
 }
 
+// Dismiss picker
+- (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
+{
+    [self dismissModalViewControllerAnimated:YES];
+    imagePickerController = nil;
+}
+
+// Activate Save Button whe the Photo has been Uploaded to Facebook
 - (void)activateSaveButton {
     [self.studentFormActivityIndicator stopAnimating];
     [self.saveStudentInfoButton setEnabled:(YES)];

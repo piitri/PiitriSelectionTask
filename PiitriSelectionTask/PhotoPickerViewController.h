@@ -12,7 +12,7 @@
 
 @protocol PhotoPickerViewControllerDelegate
 @optional
-- (void) photoPickerViewController:(PhotoPickerViewController *)sender chosenPictureMethodStr:(NSString *) dateStr; 
+- (void) photoPickerViewController:(PhotoPickerViewController *)sender chosenPictureMethodStr:(NSString *) pictureMethodStr; 
 
 @end
 
