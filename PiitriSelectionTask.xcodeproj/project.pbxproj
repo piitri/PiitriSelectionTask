@@ -107,7 +107,6 @@
 		24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */; };
 		24EBB51E15D896AF007CB745 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBB51D15D896AF007CB745 /* DatePickerViewController.m */; };
 		24F0DC6615D1E83200CE4A88 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F0DC6515D1E83200CE4A88 /* Cell.m */; };
-		24F2B1B615DDB89E00553637 /* btn-camera-icon-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F2B1B515DDB89E00553637 /* btn-camera-icon-inactive@2x.png */; };
 		24F4F22815C72B8500E93A08 /* log-in-bg-with-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */; };
 		24F4F22915C72B8500E93A08 /* log-in-bg-with-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */; };
 		24F857B215BE1EB100DE6714 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579015BE1EB100DE6714 /* LICENSE.txt */; };
@@ -248,7 +247,6 @@
 		24EBB51D15D896AF007CB745 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 		24F0DC6415D1E83200CE4A88 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		24F0DC6515D1E83200CE4A88 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
-		24F2B1B515DDB89E00553637 /* btn-camera-icon-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-camera-icon-inactive@2x.png"; sourceTree = "<group>"; };
 		24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask.png"; sourceTree = "<group>"; };
 		24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask@2x.png"; sourceTree = "<group>"; };
 		24F8579015BE1EB100DE6714 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 				246D045C15C099960056D3F9 /* btn-camera-icon-active.png */,
 				246D045D15C099960056D3F9 /* btn-camera-icon-active@2x.png */,
 				246D045E15C099960056D3F9 /* btn-camera-icon-inactive.png */,
-				24F2B1B515DDB89E00553637 /* btn-camera-icon-inactive@2x.png */,
 				246D04DA15C0C4230056D3F9 /* btn-edit-profile.png */,
 				246D04DB15C0C4250056D3F9 /* btn-edit-profile@2x.png */,
 				246D046015C099960056D3F9 /* btn-fbconnect-active.png */,
@@ -657,7 +654,6 @@
 				2482D96615D5C83800216249 /* icon-add-student-form-mask@2x.png in Resources */,
 				2482D96715D5C83800216249 /* icon-student-sign-up-placeholder.png in Resources */,
 				2482D96815D5C83800216249 /* icon-student-sign-up-placeholder@2x.png in Resources */,
-				24F2B1B615DDB89E00553637 /* btn-camera-icon-inactive@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
