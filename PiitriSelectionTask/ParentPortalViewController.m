@@ -8,6 +8,7 @@
 
 #import "ParentPortalViewController.h"
 #import "Facebook+Singleton.h"
+#import "ParentProfileCell.h"
 #import "Cell.h"
 #import "MainSideMenuItemCell.h"
 #import "AddStudentCell.h"
@@ -866,14 +867,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
-        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        if (cell==nil) {
-            cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        ParentProfileCell *parent = [tableView dequeueReusableCellWithIdentifier:@"Parent"];
+        if (parent==nil) {
+            parent = [[ParentProfileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Parent"];
         }
         
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
-        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-        cell.studentCellMaskImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-parent-unselected-mask.png"]];
+        parent.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
+        parent.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         
         
         // Create a Dictionary From userData in UserDefaults
@@ -881,15 +881,15 @@
         NSLog(@"Los Datos Traidos de Facebook son %@:", parentData);
 
         // Take out the Name of the Parent to Draw in the Cell
-        cell.studentNameCellLabel.text = [parentData objectForKey:@"name"];
+        parent.parentNameCellLabel.text = [parentData objectForKey:@"name"];
         // Get the Parent Small profile picture.
         NSString * accessToken =[defaults objectForKey:kFBAccessTokenKey];
         NSURL * smallUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]];
         NSData * smalldata = [NSData dataWithContentsOfURL:smallUrl];
         UIImage * parentImage = [[UIImage alloc] initWithData:smalldata];
-        cell.studentCellImageView.image = parentImage;
+        parent.parentCellImageView.image = parentImage;
         
-        return cell;
+        return parent;
         
     }else if (indexPath.section==1) {
         MainSideMenuItemCell *accounts = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];

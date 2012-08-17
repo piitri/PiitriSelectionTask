@@ -95,6 +95,7 @@
 		248CF55015C34D7500028B2B /* metaplus-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54F15C34D7500028B2B /* metaplus-black.ttf */; };
 		24A499BF15DDE2810023E5E8 /* PhotoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A499BE15DDE2810023E5E8 /* PhotoPickerViewController.m */; };
 		24A499C215DDE5B50023E5E8 /* btn-camera-icon-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A499C115DDE5B50023E5E8 /* btn-camera-icon-inactive@2x.png */; };
+		24A499C515DE19CC0023E5E8 /* ParentProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */; };
 		24B6C58115B9CB6700022A4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C58015B9CB6700022A4F /* UIKit.framework */; };
 		24B6C58315B9CB6700022A4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C58215B9CB6700022A4F /* Foundation.framework */; };
 		24B6C58515B9CB6700022A4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C58415B9CB6700022A4F /* CoreGraphics.framework */; };
@@ -216,6 +217,8 @@
 		24A499BD15DDE2810023E5E8 /* PhotoPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPickerViewController.h; sourceTree = "<group>"; };
 		24A499BE15DDE2810023E5E8 /* PhotoPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPickerViewController.m; sourceTree = "<group>"; };
 		24A499C115DDE5B50023E5E8 /* btn-camera-icon-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-camera-icon-inactive@2x.png"; sourceTree = "<group>"; };
+		24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentProfileCell.h; sourceTree = "<group>"; };
+		24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentProfileCell.m; sourceTree = "<group>"; };
 		24B6C57C15B9CB6700022A4F /* PiitriSelectionTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiitriSelectionTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B6C58015B9CB6700022A4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24B6C58215B9CB6700022A4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -438,6 +441,8 @@
 				24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */,
 				24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */,
 				24B6C59215B9CB6700022A4F /* MainStoryboard.storyboard */,
+				24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */,
+				24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */,
 				24A499BD15DDE2810023E5E8 /* PhotoPickerViewController.h */,
 				24A499BE15DDE2810023E5E8 /* PhotoPickerViewController.m */,
 				24EBB51C15D896AF007CB745 /* DatePickerViewController.h */,
@@ -683,6 +688,7 @@
 				24014C0C15D78AED00778B51 /* AddStudentCell.m in Sources */,
 				24EBB51E15D896AF007CB745 /* DatePickerViewController.m in Sources */,
 				24A499BF15DDE2810023E5E8 /* PhotoPickerViewController.m in Sources */,
+				24A499C515DE19CC0023E5E8 /* ParentProfileCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
