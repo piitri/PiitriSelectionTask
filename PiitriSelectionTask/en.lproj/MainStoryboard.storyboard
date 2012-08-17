@@ -391,7 +391,7 @@ Let's get learning!</string>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="Kfm-Yu-SF7">
-                            <rect key="frame" x="271" y="438" width="320" height="216"/>
+                            <rect key="frame" x="271" y="738" width="320" height="216"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <date key="date" timeIntervalSinceReferenceDate="366532466.33253998">
                                 <!--2012-08-13 06:34:26 +0000-->
@@ -436,7 +436,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="Vqg-Uf-yBh">
                                     <rect key="frame" x="37" y="183" width="261" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                 </textField>
@@ -450,7 +450,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="Nye-Ct-G92">
                                     <rect key="frame" x="321" y="183" width="241" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                 </textField>
@@ -513,7 +513,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="KhX-hu-lSW">
                                     <rect key="frame" x="37" y="283" width="261" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
@@ -527,7 +527,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="lSg-iG-vum">
                                     <rect key="frame" x="321" y="283" width="241" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                 </textField>
@@ -636,6 +636,85 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="social-googleconnect-inactive.png" width="43" height="43"/>
         <image name="social-twitterconnect-active.png" width="43" height="43"/>
     </resources>
+    <classes>
+        <class className="AddStudentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddStudentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addStudentBackground" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="Cell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Cell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="studentCellImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="studentCellMaskImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="studentNameCellLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DatePickerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DatePickerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="birthdayDatePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
+        <class className="MainSideMenuItemCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainSideMenuItemCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mainItemCellLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ParentPortalViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentPortalViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButton:"/>
+                <relationship kind="action" name="cancelStudentInfo:"/>
+                <relationship kind="action" name="datePickerTestChanged:"/>
+                <relationship kind="action" name="disconnectFromFB:"/>
+                <relationship kind="action" name="saveStudentInfo:"/>
+                <relationship kind="action" name="takePhotoAction:"/>
+                <relationship kind="outlet" name="addStudentView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="buyCoinsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cajaTextoParentPortal" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="currentSchoolLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="currentSchoolTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dateOfBirthField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dateOfBirthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="datePickerTest" candidateClass="UIDatePicker"/>
+                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="editProfileButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="firstNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="genderSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="imageDimensionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lastNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="parentBirthday" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentFullName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentLocation" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentProfilePicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="saveStudentInfoButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="studentForm" candidateClass="UIView"/>
+                <relationship kind="outlet" name="studentFormActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="studentImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="studentMaskImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="uploadPictureLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="viewParentPortal" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="connectWithFB:"/>
+                <relationship kind="outlet" name="cajaTextoLogin" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="loginFBButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textCreateAccount" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textWelcome" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
