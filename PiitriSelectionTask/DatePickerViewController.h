@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class DatePickerViewController;
+
+@protocol DatePickerViewControllerDelegate
+@optional
+- (void) datePickerViewController:(DatePickerViewController *)sender chosenDateStr:(NSString *) dateStr; 
+
+@end
+
 @interface DatePickerViewController : UIViewController
+@property (nonatomic, strong) IBOutlet UIDatePicker *birthdayDatePicker;
+@property (nonatomic, strong) NSString * birthdayDatePickerDateStr;
+@property (nonatomic, weak) id <DatePickerViewControllerDelegate> delegate;
 
 @end

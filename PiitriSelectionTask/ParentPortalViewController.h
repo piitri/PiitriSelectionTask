@@ -37,7 +37,6 @@
 - (IBAction)cancelStudentInfo:(id)sender;
 - (IBAction)saveStudentInfo:(id)sender;
 - (IBAction)takePhotoAction:(id)sender;
-- (IBAction)birthdayDateChanged:(id)sender;
 - (IBAction)datePickerTestChanged:(id)sender;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveStudentInfoButton;
 @property (strong, nonatomic) IBOutlet UIButton *takePhotoButton;
@@ -52,15 +51,12 @@
 @property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (strong, nonatomic) IBOutlet UILabel *dateOfBirthLabel;
 @property (strong, nonatomic) IBOutlet UITextField *dateOfBirthField;
-@property (strong, nonatomic) IBOutlet UIDatePicker *birthdayDatePicker;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePickerTest;
 @property (strong, nonatomic) IBOutlet UILabel *currentSchoolLabel;
 @property (strong, nonatomic) IBOutlet UITextField *currentSchoolTextField;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *studentFormActivityIndicator;
 @property (strong, nonatomic) UIPopoverController *popoverControllerBirthday;
 
-
-- (IBAction)pickBirthday:(id)sender;
 
 - (IBAction)disconnectFromFB:(id)sender;
 - (IBAction)backButton:(id)sender;

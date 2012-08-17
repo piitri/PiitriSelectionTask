@@ -13,7 +13,7 @@
 #import "AddStudentCell.h"
 #import "DatePickerViewController.h"
 
-@interface ParentPortalViewController (){
+@interface ParentPortalViewController () <DatePickerViewControllerDelegate>{
     NSUserDefaults * defaults;
     NSMutableArray *_objects;
     NSMutableArray * sons;
@@ -28,7 +28,7 @@
 
 @implementation ParentPortalViewController
 
-
+#pragma mark - Parent Portal Vars
 @synthesize parentFullName = _parentFullName;
 @synthesize parentLocation = _parentLocation;
 @synthesize editProfileButton = _editProfileButton;
@@ -38,16 +38,17 @@
 @synthesize parentProfilePicture = _parentProfilePicture;
 @synthesize cajaTextoParentPortal = _cajaTextoParentPortal;
 
-//Vars for TableView
+#pragma mark - Vars for TableView
 @synthesize tableView = _tableView;
 @synthesize detailItem = _detailItem;
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
 
-//Views
+#pragma mark - Views
 @synthesize studentForm = _studentForm;
 @synthesize addStudentView = _addStudentView;
 @synthesize viewParentPortal = _viewParentPortal;
-//Student Form Variables
+
+#pragma mark - Student Form Variables
 @synthesize saveStudentInfoButton = _saveStudentInfoButton;
 @synthesize takePhotoButton = _takePhotoButton;
 @synthesize uploadPictureLabel = _uploadPictureLabel;
@@ -61,13 +62,13 @@
 @synthesize lastNameTextField = _lastNameTextField;
 @synthesize dateOfBirthLabel = _dateOfBirthLabel;
 @synthesize dateOfBirthField = _dateOfBirthField;
-@synthesize birthdayDatePicker = _birthdayDatePicker;
 @synthesize datePickerTest = _datePickerTest;
 @synthesize currentSchoolLabel = _currentSchoolLabel;
 @synthesize currentSchoolTextField = _currentSchoolTextField;
 @synthesize studentFormActivityIndicator = _studentFormActivityIndicator;
 @synthesize popoverControllerBirthday=_popoverControllerBirthday;
 
+#pragma mark - 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,7 +80,7 @@
     return self;
 }
 
-
+#pragma mark - ViewController Methods
 
 - (void)viewDidLoad
 {
@@ -97,6 +98,7 @@
 
     self.takePhotoButton.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"btn-camera-icon-inactive.png"]];
     [self.studentMaskImageView setHidden:YES];
+    [self.studentImageView setHidden:YES];
     self.uploadPictureLabel.font = [UIFont fontWithName:@"MetaPlus" size:18];
     self.imageDimensionLabel.font = [UIFont fontWithName:@"OpenSans-Semibold" size:12];
     self.firstNameLabel.font = [UIFont fontWithName:@"MetaPlus" size:14];
@@ -144,7 +146,7 @@
     
     //self.birthdayDatePicker.frame = CGRectMake(0, 0, 320, 300);
     
-    [popoverView addSubview:self.birthdayDatePicker];
+    //[popoverView addSubview:self.birthdayDatePicker];
     popoverContent.view = popoverView;
     
     //resize the popover view shown
@@ -197,82 +199,6 @@
     
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    
-    //Assign DatePicker to Birthday TextField
-    //build our custom popover view
-    UIViewController* popoverContent = [[UIViewController alloc] init];
-    UIView* popoverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
-    popoverView.backgroundColor = [UIColor whiteColor];
-    
-    self.datePickerTest.frame = CGRectMake(0, 0, 320, 216);
-    
-    [popoverView addSubview:self.datePickerTest];
-    popoverContent.view = popoverView;
-    
-    //resize the popover view shown
-    //in the current view to the view's size
-    popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 216);
-    
-    //create a popover controller
-    
-    // dismiss existing popover
-    if (self.popoverControllerBirthday)
-    {
-        [self.popoverControllerBirthday dismissPopoverAnimated:NO];
-        self.popoverControllerBirthday = nil;
-    }
-        
-        
-    UIPopoverController *popoverControllerForDate = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
-    
-
-    
-    
-    //present the popover view non-modal with a
-    //refrence to the button pressed within the current view
-    //[popoverController presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem 
-    //                          permittedArrowDirections:UIPopoverArrowDirectionAny 
-    //                                          animated:YES];
-    //[popoverControllerForDate presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    
-    
-    
-    /*if (popoverController){
-     [popoverController dismissPopoverAnimated:NO];
-     }
-     popoverController = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
-     popoverController.delegate = self;
-     [popoverController presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];*/
-    
-    //self.dateOfBirthField.inputView = popoverView;
-    //self.dateOfBirthField.inputView = self.birthdayDatePicker;
-
-    /////////////
-    //DatePickerViewController * datePickerVC = [[DatePickerViewController alloc] initwi];
-    
-
-    /*if(self.popoverControllerBirthday == nil){   //make sure popover isn't displayed more than once in the view
-        self.popoverControllerBirthday = [[UIPopoverController alloc]initWithContentViewController:datePickerVC];
-        self.popoverControllerBirthday.delegate =self;
-        }*/
-    
-    
-    popoverControllerForDate.delegate = self;
-    CGRect myFrame =textField.frame;
-    myFrame.origin.x = 260;
-    myFrame.origin.y = 320;
-    
-    [popoverControllerForDate presentPopoverFromRect:myFrame 
-                                                    inView:self.view 
-                                  permittedArrowDirections:UIPopoverArrowDirectionDown 
-                                                  animated:YES];
-    self.popoverControllerBirthday = popoverControllerForDate;
-    return YES; // tells the textfield not to start its own editing process (ie show the keyboard)
-    
-}
-
-
 - (void)viewDidUnload
 {
     [self setParentFullName:nil];
@@ -304,7 +230,6 @@
     [self setGenderSegmentedControl:nil];
     [self setStudentImageView:nil];
     [self setTakePhotoButton:nil];
-    [self setBirthdayDatePicker:nil];
     [self setStudentFormActivityIndicator:nil];
     [self setSaveStudentInfoButton:nil];
     [self setStudentMaskImageView:nil];
@@ -408,6 +333,7 @@
         _dateOfBirthField.text = nil;
         _currentSchoolTextField.text = nil;
         _studentImageView.image = nil;
+        [self.studentImageView setHidden:YES];
         [self.studentMaskImageView setHidden:YES];
         [self.addStudentView removeFromSuperview];
     }];
@@ -475,6 +401,7 @@
         _dateOfBirthField.text = nil;
         _currentSchoolTextField.text = nil;
         _studentImageView.image = nil;
+        [self.studentImageView setHidden:YES];
         [self.studentMaskImageView setHidden:YES];
         [self.addStudentView removeFromSuperview];
         
@@ -497,6 +424,89 @@
     }
     
 }
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    
+    //Assign DatePicker to Birthday TextField
+    //build our custom popover view
+    
+    DatePickerViewController* popoverContent = [[DatePickerViewController alloc] init];
+    
+    popoverContent =[[UIStoryboard storyboardWithName:@"MainStoryboard"
+                                             bundle:nil]
+                   instantiateViewControllerWithIdentifier:@"DatePickerVC"];
+    
+    //UIView* popoverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
+    //popoverView.backgroundColor = [UIColor whiteColor];
+    
+    //self.datePickerTest.frame = CGRectMake(0, 0, 320, 216);
+    
+    //[popoverView addSubview:self.datePickerTest];
+    //popoverContent.view = popoverView;
+    
+    //resize the popover view shown
+    //in the current view to the view's size
+    popoverContent.delegate = self;
+    popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    
+    //create a popover controller
+    
+    // dismiss existing popover
+    if (self.popoverControllerBirthday)
+    {
+        [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+        self.popoverControllerBirthday = nil;
+    }
+    
+    
+    UIPopoverController *popoverControllerForDate = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
+    
+    
+    
+    
+    //present the popover view non-modal with a
+    //refrence to the button pressed within the current view
+    //[popoverController presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem 
+    //                          permittedArrowDirections:UIPopoverArrowDirectionAny 
+    //                                          animated:YES];
+    //[popoverControllerForDate presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    
+    
+    
+    /*if (popoverController){
+     [popoverController dismissPopoverAnimated:NO];
+     }
+     popoverController = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
+     popoverController.delegate = self;
+     [popoverController presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];*/
+    
+    //self.dateOfBirthField.inputView = popoverView;
+    //self.dateOfBirthField.inputView = self.birthdayDatePicker;
+    
+    /////////////
+    //DatePickerViewController * datePickerVC = [[DatePickerViewController alloc] initwi];
+    
+    
+    /*if(self.popoverControllerBirthday == nil){   //make sure popover isn't displayed more than once in the view
+     self.popoverControllerBirthday = [[UIPopoverController alloc]initWithContentViewController:datePickerVC];
+     self.popoverControllerBirthday.delegate =self;
+     }*/
+    
+    
+    popoverControllerForDate.delegate = self;
+    CGRect myFrame =textField.frame;
+    myFrame.origin.x = 260;
+    myFrame.origin.y = 320;
+    
+    [popoverControllerForDate presentPopoverFromRect:myFrame 
+                                              inView:self.view 
+                            permittedArrowDirections:UIPopoverArrowDirectionDown 
+                                            animated:YES];
+    self.popoverControllerBirthday = popoverControllerForDate;
+    return NO; // tells the textfield not to start its own editing process (ie show the keyboard)
+    
+}
+
 
 
 #pragma mark - Create Student in API
@@ -670,22 +680,12 @@
     [self.studentFormActivityIndicator stopAnimating];
     [self.saveStudentInfoButton setEnabled:(YES)];
     [self.studentMaskImageView setHidden:NO];
+    [self.studentImageView setHidden:NO];
     self.studentImageView.image = tempStudentImage;
     
 }
 
 #pragma mark - Birthday DatePicker
-
-- (IBAction)birthdayDateChanged:(id)sender {
-    UIDatePicker *picker = (UIDatePicker *)sender;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-
-    self.dateOfBirthField.text = [dateFormatter stringFromDate:picker.date];
-
-}
 
 - (IBAction)datePickerTestChanged:(id)sender {
     UIDatePicker *picker = (UIDatePicker *)sender;
@@ -695,6 +695,10 @@
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
     self.dateOfBirthField.text = [dateFormatter stringFromDate:picker.date];
+}
+
+- (void)datePickerViewController:(DatePickerViewController *)sender chosenDateStr:(NSString *)dateStr{
+    self.dateOfBirthField.text = dateStr;
 }
      
 #pragma mark - Facebook Data Request
@@ -774,11 +778,6 @@
 }
 
 
-
-- (IBAction)pickBirthday:(id)sender {
-    //[self performSegueWithIdentifier:@"datePickerSegue" sender:self];
-}
-
 - (IBAction)disconnectFromFB:(id)sender {
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(cleanFacebookData) 
@@ -837,6 +836,7 @@
         
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
+        cell.studentCellMaskImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-parent-unselected-mask.png"]];
         
         
         // Create a Dictionary From userData in UserDefaults
