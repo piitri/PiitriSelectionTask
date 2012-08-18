@@ -24,6 +24,7 @@
     UIImage * tempStudentImage;
     NSMutableData * receivedData;//instance variable to recieve the response of the API Call
     UIImagePickerController *imagePickerController;
+    BOOL cameraselected;
     BOOL justArrive;
 }
 - (void)configureView;
@@ -95,6 +96,7 @@
     //TableView Customization
     self.tableView.backgroundColor = [UIColor clearColor];
     justArrive = YES;
+    cameraselected = NO;
     //counter = 0;
     
     //Student Form Design
@@ -652,24 +654,37 @@
 - (void) takePhotoAction:(NSString *)sourcePhotoType {
     
     imagePickerController = [[UIImagePickerController alloc] init];
-    if ([sourcePhotoType isEqualToString:@"UIImagePickerControllerSourceTypeCamera"]) {
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }else {
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }	
-    imagePickerController.allowsEditing = YES;
     imagePickerController.delegate = self;
-	if (self.popoverControllerBirthday)
-    {
-        [self.popoverControllerBirthday dismissPopoverAnimated:NO];
-        self.popoverControllerBirthday = nil;
+    
+    if ([sourcePhotoType isEqualToString:@"UIImagePickerControllerSourceTypeCamera"]) {
+        imagePickerController.allowsEditing = YES;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        if (self.popoverControllerBirthday)
+        {
+            [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+            self.popoverControllerBirthday = nil;
+        }
+        [self presentModalViewController:imagePickerController animated:YES];
+        cameraselected = YES;
+    }else {
+        imagePickerController.allowsEditing = YES;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        if (self.popoverControllerBirthday)
+        {
+            [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+            self.popoverControllerBirthday = nil;
+        }
+        self.popoverControllerBirthday = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+        self.popoverControllerBirthday.delegate = self;
+        CGRect myFrame =self.takePhotoButton.frame;
+        myFrame.origin.x = 250;
+        myFrame.origin.y = 119;
+        
+        [self.popoverControllerBirthday presentPopoverFromRect:myFrame 
+                                                        inView:self.view 
+                                      permittedArrowDirections:UIPopoverArrowDirectionLeft 
+                                                      animated:YES];
     }
-	self.popoverControllerBirthday = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
-    self.popoverControllerBirthday.delegate = self;
-    [self.popoverControllerBirthday presentPopoverFromRect:self.takePhotoButton.frame 
-                                                    inView:self.view 
-                                  permittedArrowDirections:UIPopoverArrowDirectionAny 
-                                                  animated:YES];
 
 }
 
@@ -684,11 +699,26 @@
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     }
 	self.studentImageView.image = nil;
+    if (cameraselected) {
+        [self dismissModalViewControllerAnimated:YES];
+        imagePickerController = nil;
+        cameraselected = NO;
+    }
     if (self.popoverControllerBirthday)
     {
         [self.popoverControllerBirthday dismissPopoverAnimated:NO];
         self.popoverControllerBirthday = nil;
     }
+    
+    //CGRect cropRect = *(__bridge CGRect *)[info objectForKey:@"UIImagePickerControllerCropRect"];
+    //NSLog(@"The image has a crop Rect %@",cropRect);
+    //CGSize cropRectSize = cropRect.size;
+    //NSLog(@"The image has been cut at size %@",cropRectSize);
+    
+    CGSize cropSize = CGSizeMake(130, 130);
+    
+    image = [self image:image ByScalingAndCroppingForSize:cropSize];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        image, @"picture",
                                        nil];
@@ -705,6 +735,65 @@
     }
     tempStudentImage = image;
 }
+
+//Crop image
+
+- (UIImage*)image:(UIImage *)sourceImage ByScalingAndCroppingForSize:(CGSize)targetSize
+{
+    UIImage *newImage = nil;        
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO) 
+    {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        if (widthFactor > heightFactor) 
+            scaleFactor = widthFactor; // scale to fit height
+        else
+            scaleFactor = heightFactor; // scale to fit width
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        // center the image
+        if (widthFactor > heightFactor)
+        {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5; 
+        }
+        else 
+            if (widthFactor < heightFactor)
+            {
+                thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+            }
+    }       
+    
+    UIGraphicsBeginImageContext(targetSize); // this will crop
+    
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width  = scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    if(newImage == nil) 
+        NSLog(@"could not scale image");
+    
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
 
 // Dismiss picker
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
@@ -1019,7 +1108,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
+        [sons removeObjectAtIndex:indexPath.row];
+        [studentsNamesAndImages removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
