@@ -73,25 +73,33 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     NSLog(@"Antes de llamar a Facebook Auth");
     NSLog(@"Los datos de usuario son: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"]);
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"] != nil) {
+         NSLog(@"No hubo necesidad de llamar a Facebook Auth");
         [self presentParentPortal];
+       
+    }else{
+        [[Facebook shared] authorize];
+        NSLog(@"Despues de llamar a Facebook Auth");
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(requestFacebookData:) 
+                                                     name:@"FBDidLogin" 
+                                                   object:nil];
     }
-    [[Facebook shared] authorize];
-    NSLog(@"Despues de llamar a Facebook Auth");
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(requestFacebookData:) 
-                                                 name:@"FBDidLogin" 
-                                               object:nil];
+    
 }
 
 - (void)requestFacebookData:(NSNotification *) notification {
-    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:self];    
+    NSLog(@"The Facebook Auth");
+    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:@"FBDidLogin" 
+                                                  object:nil];
 }
 
 #pragma mark - Facebook Login Callback Function
 
 - (void)request:(FBRequest *)request didLoad:(id)result {
     //Log to know the Data from Facebook
-    NSLog(@"FB request OK");
+    NSLog(@"FB request OK en LoginViewController");
     NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
     NSLog(@"La url del request en viewController.m es: %@", request.url);
     NSLog(@"FB el request result en viewController.m es: %@", userData);
@@ -125,16 +133,16 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     
     //Get Profile Picture to form Request
     NSString * strProfilePicLink = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessTokenClave];
-    /*NSURL * urlProfilePic = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessTokenClave]];
-    NSData * dataProfilePic = [NSData dataWithContentsOfURL:urlProfilePic];
-    UIImage * profilePicLarge = [[UIImage alloc] initWithData:dataProfilePic];
-    NSString *strProfilePic = [[NSString alloc] initWithContentsOfURL:urlProfilePic encoding:NSUTF8StringEncoding error:nil];*/
+    
     
     //Create user Dictionary with email, location, name and picture_url
     NSDictionary * user = [[NSDictionary alloc] initWithObjectsAndKeys:[userData objectForKey:@"email"],@"email",locationStr,@"location",[userData objectForKey:@"name"],@"name", strProfilePicLink, @"picture_url", nil];
     
+    //Create authStrategy Dicttionary with provider and token
+     NSDictionary * authStrategyDict = [[NSDictionary alloc] initWithObjectsAndKeys: @"Facebook", @"provider", accessTokenClave,@"token", nil];
+    
     //Create JSON Request Body Dictionary with email, location, name and picture_url
-    NSDictionary * jsonDict = [[NSDictionary alloc] initWithObjectsAndKeys: @"Facebook", @"OAuthProvider", accessTokenClave,@"AccessToken", @"A1B2C3E4F5123",@"AppID",user,@"user", nil];
+    NSDictionary * jsonDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"A1B2C3E4F5123",@"appID",user,@"user",authStrategyDict,@"authStrategy", nil];
     [defaults setObject:jsonDict forKey:@"jsonParentInfo"];
     [defaults synchronize];
     
@@ -218,21 +226,28 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 
 {
-    
     // do something with the data
     
     // receivedData is declared as a method instance on top of this class.
     NSError* error = nil;
     NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
-    NSDictionary * receivedDataDict = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
+    NSArray * receivedDataDict = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
+    NSMutableArray *receivedDataMutableArray =[[NSMutableArray alloc] initWithArray:receivedDataDict];
+    
     if (error != nil) {
         NSLog(@"Se produjo el siguiete error al crear el JSON: %@", error);
     }
     //Print the received Data
-    NSLog(@"La respuesta a el request del API es: %@", receivedDataDict);
+    NSLog(@"La respuesta a el request del API en LoginViewController es: %@", receivedDataMutableArray);
     //Print the received Cookie
     NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"]];
     NSLog(@"Las cookies son: %@", galletas);
+    
+    //NSLog(@"The size of the sons array in LoginViewController is: %@", receivedDataMutableArray.count);
+    
+    [[NSUserDefaults standardUserDefaults] setObject:receivedDataMutableArray forKey:@"sons"];
+    
+    
     
     [self presentParentPortal];
     

@@ -1,0 +1,14 @@
+
+//How should I send a Parent Login Request
+{"user":
+          {
+            "email":"david@roncancio.me", 
+            "name":"David Roncancio"
+          },
+          "appID":"A1B2C3E4F5123",
+          "authStrategy":
+          {
+            "provider":"Facebook", 
+            "token":"1sa12s1"
+          }
+        }
