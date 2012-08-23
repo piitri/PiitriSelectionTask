@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		24014C0815D75D4500778B51 /* MainSideMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */; };
 		24014C0C15D78AED00778B51 /* AddStudentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24014C0B15D78AED00778B51 /* AddStudentCell.m */; };
+		2454D5D315E5C554001FC605 /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454D5D215E5C554001FC605 /* GradientButton.m */; };
 		24597F6615D0D7B7000E9847 /* btn-add-student-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6215D0D7B7000E9847 /* btn-add-student-active.png */; };
 		24597F6715D0D7B7000E9847 /* btn-add-student-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6315D0D7B7000E9847 /* btn-add-student-active@2x.png */; };
 		24597F6815D0D7B7000E9847 /* btn-add-student-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6415D0D7B7000E9847 /* btn-add-student-inactive.png */; };
@@ -93,6 +94,7 @@
 		248CF54C15C34CDB00028B2B /* icon-parent-unselected-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */; };
 		248CF54D15C34CDB00028B2B /* icon-parent-unselected-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54915C34CDB00028B2B /* icon-parent-unselected-mask@2x.png */; };
 		248CF55015C34D7500028B2B /* metaplus-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 248CF54F15C34D7500028B2B /* metaplus-black.ttf */; };
+		2499AB2315E3ECDA000D048E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2499AB2215E3ECDA000D048E /* QuartzCore.framework */; };
 		24A499BF15DDE2810023E5E8 /* PhotoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A499BE15DDE2810023E5E8 /* PhotoPickerViewController.m */; };
 		24A499C215DDE5B50023E5E8 /* btn-camera-icon-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A499C115DDE5B50023E5E8 /* btn-camera-icon-inactive@2x.png */; };
 		24A499C515DE19CC0023E5E8 /* ParentProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */; };
@@ -108,6 +110,8 @@
 		24B6C5B815B9D9F200022A4F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C5B015B9D9F200022A4F /* libfacebook_ios_sdk.a */; };
 		24B6C5C615B9F71200022A4F /* Facebook+Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */; };
 		24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */; };
+		24D8667F15E3D098000DED1D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D8667D15E3D098000DED1D /* libTestFlight.a */; };
+		24D8668215E3D24A000DED1D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D8668115E3D24A000DED1D /* libz.dylib */; };
 		24EBB51E15D896AF007CB745 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBB51D15D896AF007CB745 /* DatePickerViewController.m */; };
 		24F0DC6615D1E83200CE4A88 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F0DC6515D1E83200CE4A88 /* Cell.m */; };
 		24F4F22815C72B8500E93A08 /* log-in-bg-with-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */; };
@@ -130,6 +134,8 @@
 		24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSideMenuItemCell.m; sourceTree = "<group>"; };
 		24014C0A15D78AED00778B51 /* AddStudentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddStudentCell.h; sourceTree = "<group>"; };
 		24014C0B15D78AED00778B51 /* AddStudentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddStudentCell.m; sourceTree = "<group>"; };
+		2454D5D115E5C554001FC605 /* GradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientButton.h; sourceTree = "<group>"; };
+		2454D5D215E5C554001FC605 /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButton.m; sourceTree = "<group>"; };
 		24597F6215D0D7B7000E9847 /* btn-add-student-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-add-student-active.png"; sourceTree = "<group>"; };
 		24597F6315D0D7B7000E9847 /* btn-add-student-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-add-student-active@2x.png"; sourceTree = "<group>"; };
 		24597F6415D0D7B7000E9847 /* btn-add-student-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-add-student-inactive.png"; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 		248CF54815C34CDB00028B2B /* icon-parent-unselected-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-parent-unselected-mask.png"; sourceTree = "<group>"; };
 		248CF54915C34CDB00028B2B /* icon-parent-unselected-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-parent-unselected-mask@2x.png"; sourceTree = "<group>"; };
 		248CF54F15C34D7500028B2B /* metaplus-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "metaplus-black.ttf"; path = "Meta Plus Black/metaplus-black.ttf"; sourceTree = "<group>"; };
+		2499AB2215E3ECDA000D048E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		24A499BD15DDE2810023E5E8 /* PhotoPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPickerViewController.h; sourceTree = "<group>"; };
 		24A499BE15DDE2810023E5E8 /* PhotoPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPickerViewController.m; sourceTree = "<group>"; };
 		24A499C115DDE5B50023E5E8 /* btn-camera-icon-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-camera-icon-inactive@2x.png"; sourceTree = "<group>"; };
@@ -251,6 +258,9 @@
 		24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Facebook+Singleton.m"; sourceTree = "<group>"; };
 		24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentPortalViewController.h; sourceTree = "<group>"; };
 		24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentPortalViewController.m; sourceTree = "<group>"; };
+		24D8667D15E3D098000DED1D /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		24D8667E15E3D098000DED1D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		24D8668115E3D24A000DED1D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		24EBB51C15D896AF007CB745 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
 		24EBB51D15D896AF007CB745 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 		24F0DC6415D1E83200CE4A88 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
@@ -275,10 +285,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2499AB2315E3ECDA000D048E /* QuartzCore.framework in Frameworks */,
+				24D8668215E3D24A000DED1D /* libz.dylib in Frameworks */,
 				24B6C58115B9CB6700022A4F /* UIKit.framework in Frameworks */,
 				24B6C58315B9CB6700022A4F /* Foundation.framework in Frameworks */,
 				24B6C58515B9CB6700022A4F /* CoreGraphics.framework in Frameworks */,
 				24B6C5B815B9D9F200022A4F /* libfacebook_ios_sdk.a in Frameworks */,
+				24D8667F15E3D098000DED1D /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,9 +431,11 @@
 		24B6C57F15B9CB6700022A4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				24B6C58015B9CB6700022A4F /* UIKit.framework */,
-				24B6C58215B9CB6700022A4F /* Foundation.framework */,
 				24B6C58415B9CB6700022A4F /* CoreGraphics.framework */,
+				24B6C58215B9CB6700022A4F /* Foundation.framework */,
+				24D8668115E3D24A000DED1D /* libz.dylib */,
+				2499AB2215E3ECDA000D048E /* QuartzCore.framework */,
+				24B6C58015B9CB6700022A4F /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -428,6 +443,8 @@
 		24B6C58615B9CB6700022A4F /* PiitriSelectionTask */ = {
 			isa = PBXGroup;
 			children = (
+				24D8667D15E3D098000DED1D /* libTestFlight.a */,
+				24D8667E15E3D098000DED1D /* TestFlight.h */,
 				24014C0A15D78AED00778B51 /* AddStudentCell.h */,
 				24014C0B15D78AED00778B51 /* AddStudentCell.m */,
 				24F0DC6415D1E83200CE4A88 /* Cell.h */,
@@ -457,6 +474,8 @@
 		24B6C58715B9CB6700022A4F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2454D5D115E5C554001FC605 /* GradientButton.h */,
+				2454D5D215E5C554001FC605 /* GradientButton.m */,
 				24B6C5A715B9D9F200022A4F /* facebook-ios-sdk */,
 				24B6C58815B9CB6700022A4F /* PiitriSelectionTask-Info.plist */,
 				24B6C58915B9CB6700022A4F /* InfoPlist.strings */,
@@ -689,6 +708,7 @@
 				24EBB51E15D896AF007CB745 /* DatePickerViewController.m in Sources */,
 				24A499BF15DDE2810023E5E8 /* PhotoPickerViewController.m in Sources */,
 				24A499C515DE19CC0023E5E8 /* ParentProfileCell.m in Sources */,
+				2454D5D315E5C554001FC605 /* GradientButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,6 +756,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -747,7 +768,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -756,6 +777,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -771,9 +793,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PiitriSelectionTask\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8509D64D-617A-4384-9E93-A46A676143A2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9D448498-E826-475B-BFB5-664966BCC1EA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -788,9 +811,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PiitriSelectionTask\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC9A54AF-0510-48A8-97EF-C050FDBA01FB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "95E7C834-8763-431C-BF50-194D95312B29";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

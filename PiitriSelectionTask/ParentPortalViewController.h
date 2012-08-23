@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 
-@interface ParentPortalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UITextFieldDelegate>{
+@interface ParentPortalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>{
     
     
 }

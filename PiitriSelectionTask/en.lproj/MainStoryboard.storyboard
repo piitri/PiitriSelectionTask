@@ -257,7 +257,7 @@ Let's get learning!</string>
                                             <rect key="frame" x="0.0" y="0.0" width="196" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" alpha="0.50000000000000011" contentMode="scaleToFill" id="x0e-HD-edZ">
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="x0e-HD-edZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="196" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -385,6 +385,11 @@ Let's get learning!</string>
                                     <outlet property="delegate" destination="SgR-1a-FUJ" id="hGb-IT-qsP"/>
                                 </connections>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="okf-14-zqo">
+                                <rect key="frame" x="0.0" y="138" width="196" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.25490196078431371" green="0.4392156862745098" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -581,7 +586,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </segmentedControl>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sMD-d0-xU1">
-                                    <rect key="frame" x="35" y="78" width="62" height="62"/>
+                                    <rect key="frame" x="36" y="79" width="60" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </imageView>
@@ -661,20 +666,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DqR-1M-yNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="L3P-Mi-JQD" customClass="PhotoPickerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FFZ-8H-sBU">
-                        <rect key="frame" x="0.0" y="0.0" width="210" height="79"/>
+                        <rect key="frame" x="0.0" y="0.0" width="210" height="82"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="gGB-fH-XL5">
-                                <rect key="frame" x="0.0" y="0.0" width="210" height="122"/>
+                                <rect key="frame" x="0.0" y="0.0" width="210" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.050980396568775177" green="0.10588236153125763" blue="0.21176472306251526" alpha="1" colorSpace="deviceRGB"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W0Y-Zc-47D">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W0Y-Zc-47D" customClass="GradientButton">
                                 <rect key="frame" x="0.0" y="0.0" width="210" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                 <state key="normal" title="Camera">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -684,12 +689,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="takePhoto:" destination="L3P-Mi-JQD" eventType="touchUpInside" id="TIJ-qD-bs1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jpz-Pu-Y5p">
-                                <rect key="frame" x="0.0" y="42" width="210" height="37"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jpz-Pu-Y5p" customClass="GradientButton">
+                                <rect key="frame" x="0.0" y="45" width="210" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                 <state key="normal" title="Photo Gallery">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -703,6 +708,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="cameraButton" destination="W0Y-Zc-47D" id="1Ql-wf-Ghb"/>
+                        <outlet property="galleryButton" destination="Jpz-Pu-Y5p" id="fd2-IG-sUv"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2260" y="870"/>
@@ -748,6 +757,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <relationships>
                 <relationship kind="outlet" name="birthdayDatePicker" candidateClass="UIDatePicker"/>
             </relationships>
+        </class>
+        <class className="GradientButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GradientButton.h"/>
         </class>
         <class className="MainSideMenuItemCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainSideMenuItemCell.h"/>
@@ -806,8 +818,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <class className="PhotoPickerViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoPickerViewController.h"/>
             <relationships>
-                <relationship kind="action" name="chooseFromGallery:" candidateClass="UIButton"/>
-                <relationship kind="action" name="takePhoto:" candidateClass="UIButton"/>
+                <relationship kind="action" name="chooseFromGallery:" candidateClass="GradientButton"/>
+                <relationship kind="action" name="takePhoto:" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="galleryButton" candidateClass="GradientButton"/>
             </relationships>
         </class>
         <class className="ViewController" superclassName="UIViewController">

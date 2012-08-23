@@ -23,7 +23,9 @@
     UIImage * tempStudentImage;
     NSMutableData * receivedData;//instance variable to recieve the response of the API Call
     UIImagePickerController *imagePickerController;
+    NSIndexPath * indexPathDeleteStudent;
     BOOL cameraselected;
+    BOOL deleteStudent;
     BOOL justArrive;
 }
 - (void)configureView;
@@ -96,6 +98,8 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     justArrive = YES;
     cameraselected = NO;
+    deleteStudent = NO;
+    indexPathDeleteStudent = nil;
     //counter = 0;
     
     //Student Form Design
@@ -192,9 +196,9 @@
     [self configureView];   
 
     defaults = [NSUserDefaults standardUserDefaults];
-    if (!sons) {
+    //if (!sons) {
         sons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"sons"]];
-    }    
+    //}    
     
     if ([sons isKindOfClass:[NSMutableArray class]]) {
         NSLog(@"Sons is a NSMutableArray in viewDidLoad");
@@ -286,7 +290,7 @@
 - (void)insertNewStudentInSons:(NSDictionary *)student
 {
     if (!sons) {
-        sons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"sons"]];
+        sons = [[NSMutableArray alloc] init];
     }
     //NSString *errorStr;
     //NSData *studentData = [NSPropertyListSerialization dataFromPropertyList:student format:NSPropertyListXMLFormat_v1_0 errorDescription:&errorStr];
@@ -1200,16 +1204,56 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSString * studentId = [[sons objectAtIndex:indexPath.row] objectForKey:@"_id"];
         NSLog(@"Hasta aca vamos bien con el DELETE");
-
+        
         [sons removeObjectAtIndex:indexPath.row];
-         NSLog(@"Hasta aca todavia vamos bien con el DELETE");
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        NSLog(@"Hasta aca todavia vamos bien con el DELETE");
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [self deleteStudentFromApi:studentId forRowAtIndexPath:indexPath];
+        //indexPathDeleteStudent = nil;
+        /*
+        [self deleteConfirmationAlert];
+        indexPathDeleteStudent = indexPath;
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(deleteStudentforRowAtIndexPath:) 
+                                                     name:@"DeleteStudent" 
+                                                   object:nil];*/
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
+/*
+-(void)deleteConfirmationAlert{
+    UIAlertView * deleteAlert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" 
+                                                           message:@"Deleting a user can not be undone" 
+                                                          delegate:self 
+                                                 cancelButtonTitle:@"Acept" 
+                                                 otherButtonTitles:@"Cancel",nil];
+    [deleteAlert show];
+}
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==0) {
+        deleteStudent = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteStudent" object:self];
+    }else {
+        indexPathDeleteStudent = nil;
+    }
+}
+
+-(void)deleteStudentforRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString * studentId = [[sons objectAtIndex:indexPath.row] objectForKey:@"_id"];
+    NSLog(@"Hasta aca vamos bien con el DELETE");
+    
+    [sons removeObjectAtIndex:indexPath.row];
+    NSLog(@"Hasta aca todavia vamos bien con el DELETE");
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self deleteStudentFromApi:studentId forRowAtIndexPath:indexPath];
+    indexPathDeleteStudent = nil;
+}*/
+
 
 /*
  // Override to support rearranging the table view.

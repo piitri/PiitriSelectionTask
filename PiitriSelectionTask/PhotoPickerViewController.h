@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import <QuartzCore/QuartzCore.h>
+#import "GradientButton.h"
 
 @class PhotoPickerViewController;
 
@@ -18,9 +20,16 @@
 
 
 @interface PhotoPickerViewController : UIViewController
+{
+    GradientButton *cameraButton;
+    GradientButton *galleryButton;
+}
+
 @property (nonatomic, weak) id <PhotoPickerViewControllerDelegate> delegate;
-- (IBAction)takePhoto:(UIButton *)sender;
-- (IBAction)chooseFromGallery:(UIButton *)sender;
+- (IBAction)takePhoto:(GradientButton *)sender;
+- (IBAction)chooseFromGallery:(GradientButton *)sender;
+@property (strong, nonatomic) IBOutlet GradientButton *cameraButton;
+@property (strong, nonatomic) IBOutlet GradientButton *galleryButton;
 
 
 @end
