@@ -272,11 +272,11 @@
     [self.tableView reloadData];
     [super viewWillAppear:animated];
 }
-
+/*
 - (void)viewDidAppear:(BOOL)animated{
     [_firstNameTextField becomeFirstResponder];
     [super viewDidAppear:animated];
-}
+}*/
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
@@ -352,7 +352,7 @@
 - (void)showStudentForm{
     
     [self.viewParentPortal addSubview:self.addStudentView];
-    //[_firstNameTextField becomeFirstResponder];
+    [_firstNameTextField becomeFirstResponder];
     [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 38, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
