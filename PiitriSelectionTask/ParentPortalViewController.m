@@ -196,15 +196,17 @@
     [self configureView];   
 
     defaults = [NSUserDefaults standardUserDefaults];
-    //if (!sons) {
-        sons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"sons"]];
-    //}    
     
+    sons = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"sons"]];
+    NSLog(@"Sons were drawn in the Table");
+        
+    //For Debbuging purposes
     if ([sons isKindOfClass:[NSMutableArray class]]) {
         NSLog(@"Sons is a NSMutableArray in viewDidLoad");
     }else {
         NSLog(@"Sons is not a NSMutableArray in viewDidLoad");
     }
+    
     NSLog(@"The sons in the Parent Portal are: %@", sons);
     NSLog(@"and it has %i objects", sons.count);
     
@@ -271,6 +273,10 @@
     [super viewWillAppear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [_firstNameTextField becomeFirstResponder];
+    [super viewDidAppear:animated];
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
@@ -346,7 +352,7 @@
 - (void)showStudentForm{
     
     [self.viewParentPortal addSubview:self.addStudentView];
-    [_firstNameTextField becomeFirstResponder];
+    //[_firstNameTextField becomeFirstResponder];
     [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
         _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 38, _studentForm.frame.size.width, _studentForm.frame.size.height);
     } completion:^(BOOL finished) {
@@ -524,7 +530,7 @@
 
 
 
-#pragma mark - Create and Delete Student in API
+#pragma mark - Create, Delete and Logout Student from API
  
 - (NSString *)sendStudentToApi:(NSDictionary *)user{
     //Post Student info to Node.js API
@@ -596,6 +602,33 @@
         // Inform the user that the connection failed.
         NSLog(@"The connection to DELETE has FAILED!");
         return @"DELETE FAILED";
+    }
+    
+}
+- (NSString *)logoutFromApi{
+    
+    
+    //Create the URL
+    NSURL *urlRequestLink = [NSURL URLWithString:[NSString stringWithFormat:@"http://piitri-api.herokuapp.com/v1/logout"]];
+    
+    //Create the URL Request
+    NSMutableURLRequest * requestApiLogout = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [requestApiLogout setHTTPMethod:@"GET"];
+    
+    //Call the URL Connection with the Builded Request Structure
+    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApiLogout delegate:self];
+    if (theConnection) {
+        // Create the NSMutableData to hold the received data.
+        // receivedData is an instance variable declared elsewhere.
+        receivedData = [NSMutableData data];
+        NSLog(@"The connection to LOGOUT has STARTED! ");
+        return @"LOGOUT STARTED";
+        
+    } else {
+        // Inform the user that the connection failed.
+        NSLog(@"The connection to LOGOUT has FAILED!");
+        return @"LOGOUT FAILED";
     }
     
 }
@@ -672,8 +705,8 @@
                               withRowAnimation:UITableViewRowAnimationAutomatic];
         NSLog(@"We are good saving the student form until here");
         NSLog(@"The Sons Array after API Response is %@:", sons);
-        [defaults setObject:[[NSMutableArray alloc] initWithArray:sons] forKey:@"sons"];
-        [defaults synchronize];
+        ////////[defaults setObject:[[NSMutableArray alloc] initWithArray:sons] forKey:@"sons"];
+        ////////[defaults synchronize];
         
         [_firstNameTextField resignFirstResponder];
         self.takePhotoButton.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"btn-camera-icon-inactive.png"]];
@@ -687,8 +720,6 @@
         //[self.tableView reloadData];
         [self.addStudentView removeFromSuperview];
         
-
-        
     }else if ([connection.originalRequest.HTTPMethod isEqualToString:@"DELETE"]) {
         NSMutableArray * receivedDataArray = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
         if (error != nil) {
@@ -700,14 +731,19 @@
         //sons = [[NSMutableArray alloc] initWithArray:receivedDataArray];
         
         NSLog(@"The Sons Array after API DELETE Response is %@:", sons);
-        [defaults setObject:[[NSMutableArray alloc] initWithArray:receivedDataArray] forKey:@"sons"];
-        [defaults synchronize];
+        ////////[defaults setObject:[[NSMutableArray alloc] initWithArray:receivedDataArray] forKey:@"sons"];
+        ////////[defaults synchronize];
         //[self.tableView reloadData];
-    }
-    
-    
-
         
+    }else if ([connection.originalRequest.HTTPMethod isEqualToString:@"GET"]) {
+        NSLog(@"The Logout Connection is: %@", connection.currentRequest.allHTTPHeaderFields);
+        /*NSMutableArray * receivedDataArray = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
+        if (error != nil) {
+            NSLog(@"We have the following error when creating the JSON object in LOGOUT: %@", error);
+        }
+        //Print the received Data
+        NSLog(@"The response to the LOGOUT API request is: %@", receivedDataArray);*/
+    }
 }
 #pragma mark - Prepare for Segue Method
 
@@ -968,11 +1004,10 @@
 - (void)request:(FBRequest *)request didLoad:(id)result {
     NSLog(@"FB request OK in Parent Portal");
     NSLog(@"FB request URL in ParentPortal is %@",request.url);
-    NSString * tokenDeAcceso =[defaults objectForKey:kFBAccessTokenKey];
+    NSString * tokenDeAcceso =[defaults stringForKey:kFBAccessTokenKey];
     
     if([request.url rangeOfString:@"me?fields=id,email"].location != NSNotFound) {
         NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
-        //defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:userData forKey:@"facebookParentInfo"];
         [defaults synchronize];
         NSLog(@"La url del request en ParentPortal.m es: %@", request.url);
@@ -1003,11 +1038,21 @@
     [[Facebook shared] logout];
 }
 - (void)cleanFacebookData {
-    /*defaults = [NSUserDefaults standardUserDefaults];*/
     [defaults removeObjectForKey:@"facebookParentInfo"];
+    [defaults removeObjectForKey:kFBAccessTokenKey];
+    [defaults removeObjectForKey:kFBExpirationDateKey];
+    [defaults removeObjectForKey:@"jsonParentInfo"];
+    [defaults removeObjectForKey:@"sons"];
     [defaults synchronize];
-    NSLog(@"En Logout los datos de usuario son: %@", [defaults objectForKey:@"facebookParentInfo"]);
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"FBDidLogin" object:self];
+    
+    NSString * logoutRequest = [[NSString alloc] initWithString:[self logoutFromApi]];
+    NSLog(@"%@", logoutRequest);
+    
+    NSLog(@"In Logout the user data is: %@", [defaults objectForKey:@"facebookParentInfo"]);
+    NSLog(@"The access token is: %@", [defaults objectForKey:kFBAccessTokenKey]);
+    NSLog(@"the expitation Date is: %@", [defaults objectForKey:kFBExpirationDateKey]);
+    NSLog(@"the json parent infor is: %@", [defaults objectForKey:@"jsonParentInfo"]);
+    NSLog(@"and the sons are: %@", [defaults objectForKey:@"sons"]);
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -1058,12 +1103,12 @@
         
         // Create a Dictionary From userData in UserDefaults
         NSDictionary * parentData = [[NSDictionary alloc] initWithDictionary:[defaults objectForKey:@"facebookParentInfo"]];
-        NSLog(@"Los Datos Traidos de Facebook son %@:", parentData);
+        NSLog(@"The Data imported from Facebook is %@:", parentData);
 
         // Take out the Name of the Parent to Draw in the Cell
         parent.parentNameCellLabel.text = [parentData objectForKey:@"name"];
         // Get the Parent Small profile picture.
-        NSString * accessToken =[defaults objectForKey:kFBAccessTokenKey];
+        NSString * accessToken =[defaults stringForKey:kFBAccessTokenKey];
         NSURL * smallUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]];
         NSData * smalldata = [NSData dataWithContentsOfURL:smallUrl];
         UIImage * parentImage = [[UIImage alloc] initWithData:smalldata];

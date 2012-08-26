@@ -105,7 +105,7 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     NSLog(@"FB el request result en viewController.m es: %@", userData);
     // Access Token an Expiration Day asignation
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * accessTokenClave = [defaults objectForKey:kFBAccessTokenKey]; 
+    NSString * accessTokenClave = [defaults stringForKey:kFBAccessTokenKey]; 
     NSDate * datoExpirationDate = [defaults objectForKey:kFBExpirationDateKey];
     //Show Facebook Access Token
     NSMutableString * textoDeCaja = [[NSMutableString alloc] init];
@@ -232,13 +232,15 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     NSError* error = nil;
     NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
     NSArray * receivedDataDict = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
+    //Print the received Data
+    NSLog(@"La respuesta a el request del API en LoginViewController es: %@", receivedDataDict);
     NSMutableArray *receivedDataMutableArray =[[NSMutableArray alloc] initWithArray:receivedDataDict];
     
     if (error != nil) {
         NSLog(@"Se produjo el siguiete error al crear el JSON: %@", error);
     }
     //Print the received Data
-    NSLog(@"La respuesta a el request del API en LoginViewController es: %@", receivedDataMutableArray);
+    NSLog(@"La respuesta a el request del API en LoginViewController como MutableArray es: %@", receivedDataMutableArray);
     //Print the received Cookie
     NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"]];
     NSLog(@"Las cookies son: %@", galletas);
@@ -246,6 +248,7 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     //NSLog(@"The size of the sons array in LoginViewController is: %@", receivedDataMutableArray.count);
     
     [[NSUserDefaults standardUserDefaults] setObject:receivedDataMutableArray forKey:@"sons"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     
     
