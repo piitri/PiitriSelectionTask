@@ -11,16 +11,16 @@
 
 @interface ViewController ()
 
+@property (nonatomic, strong) NSMutableData * receivedData;//instance variable to recieve the response of the API Call
+
 @end
 
 @implementation ViewController
-@synthesize cajaTextoLogin = _cajaTextoLogin;
+@synthesize receivedData = _receivedData;
 @synthesize textCreateAccount = _textCreateAccount;
 @synthesize textWelcome = _textWelcome;
 @synthesize loginFBButton = _loginFBButton;
 
-int numero = 1;
-NSMutableData * receivedData;//instance variable to recieve the response of the API Call
 
 - (id)init {
     if ((self = [super init])) {
@@ -35,16 +35,15 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
 	// Do any additional setup after loading the view, typically from a nib.
     UIColor *backgroundLogin = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"log-in-bg-with-mask.png"]];
     self.view.backgroundColor = backgroundLogin;
-    /*self.textCreateAccount.font = [UIFont boldSystemFontOfSize:48];*/
     self.textCreateAccount.font = [UIFont fontWithName:@"MetaPlus"  size:30];
     self.textWelcome.font = [UIFont fontWithName:@"Open Sans"  size:16];
+    
     
 }
 
 - (void)viewDidUnload
 {
     [self setLoginFBButton:nil];
-    [self setCajaTextoLogin:nil];
     [self setTextCreateAccount:nil];
     [self setTextWelcome:nil];
     [super viewDidUnload];
@@ -52,79 +51,123 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     [[NSNotificationCenter defaultCenter] removeObserver:self 
                                                     name:@"FBDidLogin" 
                                                   object:nil];
-
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:@"FBParentInfoIsReady" 
+                                                  object:nil];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-    /*return YES;*/
 }
 
 #pragma mark - Connect With Facebook Button
 
 - (IBAction)connectWithFB:(id)sender {
     //Code to Log in with Facebook
-    NSMutableString * textoDeCaja = [[NSMutableString alloc] initWithString:@"Let's Login With Facebook "];
-    NSString * numeroString = [NSString stringWithFormat:@"%i", numero];
-    [textoDeCaja appendString:numeroString];
-    self.cajaTextoLogin.text = textoDeCaja;
-    numero=numero+1;
-    NSLog(@"Antes de llamar a Facebook Auth");
-    NSLog(@"Los datos de usuario son: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"]);
+    NSLog(@"Before Calling Facebook Auth in Login");
+    NSLog(@"The user Data when the Connect with Facebook Button was pressed is: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"]);
+    NSLog(@"and the Access Token is: %@", [[NSUserDefaults standardUserDefaults] objectForKey:kFBAccessTokenKey]);
+    
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"] != nil) {
          NSLog(@"No hubo necesidad de llamar a Facebook Auth");
         [self presentParentPortal];
        
     }else{
-        [[Facebook shared] authorize];
-        NSLog(@"Despues de llamar a Facebook Auth");
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(requestFacebookData:) 
                                                      name:@"FBDidLogin" 
                                                    object:nil];
+        
+        [self autorizeWithFacebook];
+        
+         NSLog(@"The ***FBDidLogin*** Observer is SET");
     }
     
 }
 
 - (void)requestFacebookData:(NSNotification *) notification {
+    NSLog(@"\n****** FBDidLogin was CALLED ******\n");
+    
+    NSLog(@"Inside the requestFacebookData Method in LoginViewController");
+    NSLog(@"The user Data requestFacebookData is: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"]);
+    NSLog(@"and the Access Token is: %@", [[NSUserDefaults standardUserDefaults] objectForKey:kFBAccessTokenKey]);
+    [self requestFacebookDataParent];
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(sendParentInfo) 
+                                                 name:@"FBParentInfoIsReady" 
+                                               object:nil];
+}
+
+
+#pragma mark - Facebook Login Callback Function
+- (void) autorizeWithFacebook{
+    [[Facebook shared] authorize];
+    NSLog(@"After Calling Facebook Auth in Login");
+}
+
+- (void)requestFacebookDataParent {
     NSLog(@"The Facebook Auth");
-    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:self];
+    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:[Facebook shared]];
     [[NSNotificationCenter defaultCenter] removeObserver:self 
                                                     name:@"FBDidLogin" 
                                                   object:nil];
 }
 
-#pragma mark - Facebook Login Callback Function
+- (void)uploadPhotoToFacebook:(NSMutableDictionary *)params{
+    [[Facebook shared] requestWithGraphPath:@"me/photos"
+                                  andParams:params
+                              andHttpMethod:@"POST"
+                                andDelegate:[Facebook shared]];
+}
 
-- (void)request:(FBRequest *)request didLoad:(id)result {
-    //Log to know the Data from Facebook
-    NSLog(@"FB request OK en LoginViewController");
-    NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
-    NSLog(@"La url del request en viewController.m es: %@", request.url);
-    NSLog(@"FB el request result en viewController.m es: %@", userData);
-    // Access Token an Expiration Day asignation
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * accessTokenClave = [defaults stringForKey:kFBAccessTokenKey]; 
-    NSDate * datoExpirationDate = [defaults objectForKey:kFBExpirationDateKey];
-    //Show Facebook Access Token
-    NSMutableString * textoDeCaja = [[NSMutableString alloc] init];
-    [textoDeCaja appendString:@"The AccessToken is: \n"];
-    [textoDeCaja appendString:accessTokenClave];
-    //Show Facebook Expiration Date
-    [textoDeCaja appendString:@" \nand the Expiration Date is : "];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    NSString * textoExpirationDate = [dateFormatter stringFromDate:datoExpirationDate];
-    [textoDeCaja appendString:textoExpirationDate];
+- (void)logoutFromFacebook{
+    [[Facebook shared] logout];
+}
+
+#pragma mark - Send Info To API
+
+- (void)sendParentInfo{
     
-    self.cajaTextoLogin.text = textoDeCaja;
+    NSLog(@"\n****** FBParentInfoIsReady was CALLED ******\n");
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:@"FBParentInfoIsReady" 
+                                                  object:nil];
+    
+    //Send Parent Info to Model to form the URL Request to Save Parent Info in API
+    // Access Token asignation
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString * accessToken = [defaults stringForKey:kFBAccessTokenKey]; 
     
     //Safe userData to standardUserDefaults in key facebookParentInfo
-    [defaults setObject:userData forKey:@"facebookParentInfo"];
-    [defaults synchronize];
+    //Log to know the Data from Facebook
+    NSDictionary * parentData = [defaults objectForKey:@"facebookParentInfo"];
+    NSLog(@"The facebookParentInfo assigned to userData is: %@", parentData);
+
+    NSMutableURLRequest * requestApiReturned = [self sendParentInfoToApi:parentData andToken:accessToken];
+
     
-    
+    //Call the URL Connection with the Builded Request Structure
+    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApiReturned delegate:self];
+    if (theConnection) {
+        // Create the NSMutableData to hold the received data.
+        // receivedData is an instance variable declared elsewhere.
+        self.receivedData = [NSMutableData data];
+        NSLog(@"The connection to Send Parent Info has STARTED! ");
+        
+        
+    } else {
+        // Inform the user that the connection failed.
+        NSLog(@"The connection to Send Parent Info has FAILED!");
+    }
+                                                  
+}
+
+- (NSMutableURLRequest * )sendParentInfoToApi:(NSDictionary *)userData andToken:accessTokenKey{
+    NSLog(@"Inside sendParentInfoToApi");
     
     //Post Node.js API
     //Get Location to form Request
@@ -132,36 +175,36 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     NSString * locationStr = [locationDic objectForKey:@"name"];
     
     //Get Profile Picture to form Request
-    NSString * strProfilePicLink = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessTokenClave];
-    
+    NSString * strProfilePicLink = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessTokenKey];
     
     //Create user Dictionary with email, location, name and picture_url
     NSDictionary * user = [[NSDictionary alloc] initWithObjectsAndKeys:[userData objectForKey:@"email"],@"email",locationStr,@"location",[userData objectForKey:@"name"],@"name", strProfilePicLink, @"picture_url", nil];
     
     //Create authStrategy Dicttionary with provider and token
-     NSDictionary * authStrategyDict = [[NSDictionary alloc] initWithObjectsAndKeys: @"Facebook", @"provider", accessTokenClave,@"token", nil];
+    NSDictionary * authStrategyDict = [[NSDictionary alloc] initWithObjectsAndKeys: @"Facebook", @"provider", accessTokenKey,@"token", nil];
     
     //Create JSON Request Body Dictionary with email, location, name and picture_url
     NSDictionary * jsonDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"A1B2C3E4F5123",@"appID",user,@"user",authStrategyDict,@"authStrategy", nil];
-    [defaults setObject:jsonDict forKey:@"jsonParentInfo"];
-    [defaults synchronize];
+    //[defaults setObject:jsonDict forKey:@"jsonParentInfo"];
+    //[defaults synchronize];
     
-    NSLog(@"El diccionario JSON para el request al API en viewController.m es: %@", jsonDict);
+    NSLog(@"The JSON Dictionary for the API request in viewController.m is: %@", jsonDict);
     
     //Parse the jsonDict to JSON data with native NSJSONSerialization and create a NSString
     NSError* error = nil;
     NSData *jsonRequestData = [NSJSONSerialization dataWithJSONObject:jsonDict options:kNilOptions error:&error];
-    NSString *jsonRequestAscii = [[NSString alloc] initWithData:jsonRequestData encoding:NSASCIIStringEncoding]; //cambié de utf8 a ascii
+    NSString *jsonRequestAscii = [[NSString alloc] initWithData:jsonRequestData encoding:NSASCIIStringEncoding]; //Change from utf8 to ascii
     NSString *jsonRequestUtf8 = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];
-    NSLog(@"El string JSON para el request al API en viewController.m es: %@", jsonRequestAscii);
     
     //Create the URL
     NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"];
+    //
+    //http://postbin.defensio.com/bfb029d
     
     //Create the URL Request
     NSMutableURLRequest * requestApi = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    NSLog(@"el jsonRequest en ASCII es: %@ y su longitud es: %i",jsonRequestAscii,[jsonRequestAscii length]);
+    NSLog(@"The jsonRequest in ASCII is: %@ and the longitude is: %i",jsonRequestAscii,[jsonRequestAscii length]);
     
     //Buid the Request Data
     NSData  * requestData = [NSData dataWithBytes:[jsonRequestUtf8 UTF8String] length:[jsonRequestAscii length]];
@@ -170,21 +213,25 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     [requestApi setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [requestApi setHTTPBody:requestData];
     
-    
-    //Call the URL Connection with the Builded Request Structure
-    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApi delegate:self];
-    if (theConnection) {
-        // Create the NSMutableData to hold the received data.
-        // receivedData is an instance variable declared elsewhere.
-        receivedData = [NSMutableData data];
-        NSLog(@"The connection has STARTED! ");
-       
-    } else {
-        // Inform the user that the connection failed.
-        NSLog(@"The connection has FAILED!");
-    }
+    return requestApi;
     
 }
+
+
+
+#pragma mark - Call parent Portal
+
+- (void) presentParentPortal{
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIViewController*  ParentPortalVC = [storyboard instantiateViewControllerWithIdentifier:@"ParentPortal"];
+    
+    [ParentPortalVC setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    [self performSegueWithIdentifier:@"fromLoginToParentPortal" sender:self];
+    
+}
+
 #pragma mark - NSURLResponse Delegate Metods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -192,7 +239,11 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
 {
     // receivedData is an instance variable declared on top of this class.
     
-    [receivedData setLength:0];
+    [self.receivedData setLength:0];
+    /*NSString * responseStatusCodeStr = [[NSString alloc] initWith:(NSURLResponse *)response];*/
+    NSLog(@"The URL Response is :%@", response.URL);
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+    NSLog(@"Status code %d", [httpResponse statusCode]);
     
 }
 
@@ -204,7 +255,7 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     
     // receivedData is an instance variable declared on top of this class.
     
-    [receivedData appendData:data];
+    [self.receivedData appendData:data];
     
 }
 
@@ -230,45 +281,46 @@ NSMutableData * receivedData;//instance variable to recieve the response of the 
     
     // receivedData is declared as a method instance on top of this class.
     NSError* error = nil;
-    NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
-    NSArray * receivedDataDict = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
-    //Print the received Data
-    NSLog(@"La respuesta a el request del API en LoginViewController es: %@", receivedDataDict);
-    NSMutableArray *receivedDataMutableArray =[[NSMutableArray alloc] initWithArray:receivedDataDict];
+    NSError* errorJson = nil;
+    NSLog(@"Succeeded! Received %d bytes of data in Login ",[self.receivedData length]);
     
-    if (error != nil) {
-        NSLog(@"Se produjo el siguiete error al crear el JSON: %@", error);
+    NSString * requestMethod = [[NSString alloc] initWithString:connection.originalRequest.HTTPMethod];
+    NSLog(@"And the request Method in Login was %@",requestMethod);
+    
+    if ([connection.originalRequest.HTTPMethod isEqualToString:@"POST"]) {
+        
+        NSURL * testURL = connection.originalRequest.URL.standardizedURL;
+        NSString * originalRequestUrlStr = [[NSString alloc] initWithContentsOfURL:testURL encoding:NSUTF8StringEncoding error:&error];
+       
+        if (error != nil) {
+            NSLog(@"We have the following error when creating the originalRequestUrlStr in Login: %@", error);
+        }
+        NSLog(@"The Original Request URL is%@",originalRequestUrlStr);
+        NSLog(@"The Original Direct Request URL is: %@",connection.originalRequest.URL);
+        NSLog(@"The Test Request URL is: %@",testURL);
+        
+        NSArray * receivedDataDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:kNilOptions error:&errorJson];
+        
+        if (errorJson != nil) {
+            NSLog(@"We have the following error when creating the JSON object in Login: %@", errorJson);
+        }
+        
+        NSMutableArray *receivedDataMutableArray =[[NSMutableArray alloc] initWithArray:receivedDataDict];
+        
+        //Print the received Data
+        NSLog(@"The response to the Parent Info API request in Login as MutableArray is: %@", receivedDataMutableArray);
+        //Print the received Cookie
+        NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"]];
+        NSLog(@"The cookies are: %@", galletas);
+        
+        //NSLog(@"The size of the sons array in LoginViewController is: %@", receivedDataMutableArray.count);
+        
+        [[NSUserDefaults standardUserDefaults] setObject:receivedDataMutableArray forKey:@"sons"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self presentParentPortal];
+        
     }
-    //Print the received Data
-    NSLog(@"La respuesta a el request del API en LoginViewController como MutableArray es: %@", receivedDataMutableArray);
-    //Print the received Cookie
-    NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"]];
-    NSLog(@"Las cookies son: %@", galletas);
-    
-    //NSLog(@"The size of the sons array in LoginViewController is: %@", receivedDataMutableArray.count);
-    
-    [[NSUserDefaults standardUserDefaults] setObject:receivedDataMutableArray forKey:@"sons"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
-    
-    [self presentParentPortal];
-    
-    
-}
-
-#pragma mark - Call parent Portal
-
-- (void) presentParentPortal{
-    
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    UIViewController*  ParentPortalVC = [storyboard instantiateViewControllerWithIdentifier:@"ParentPortal"];
-    
-    [ParentPortalVC setModalPresentationStyle:UIModalPresentationFullScreen];
-    
-    /*[self presentModalViewController:ParentPortalVC animated:YES];*/
-    [self performSegueWithIdentifier:@"fromLoginToParentPortal" sender:self];
-    
 }
 
 

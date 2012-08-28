@@ -127,6 +127,7 @@
 		24F857BA15BE1EB100DE6714 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579815BE1EB100DE6714 /* OpenSans-Regular.ttf */; };
 		24F857BB15BE1EB100DE6714 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579915BE1EB100DE6714 /* OpenSans-Semibold.ttf */; };
 		24F857BC15BE1EB100DE6714 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579A15BE1EB100DE6714 /* OpenSans-SemiboldItalic.ttf */; };
+		24FFD61615EABC0A00C252F1 /* ParentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FFD61515EABC0A00C252F1 /* ParentModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -278,6 +279,8 @@
 		24F8579815BE1EB100DE6714 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		24F8579915BE1EB100DE6714 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		24F8579A15BE1EB100DE6714 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		24FFD61415EABC0A00C252F1 /* ParentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentModel.h; sourceTree = "<group>"; };
+		24FFD61515EABC0A00C252F1 /* ParentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -457,6 +460,8 @@
 				24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */,
 				24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */,
 				24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */,
+				24FFD61415EABC0A00C252F1 /* ParentModel.h */,
+				24FFD61515EABC0A00C252F1 /* ParentModel.m */,
 				24B6C59215B9CB6700022A4F /* MainStoryboard.storyboard */,
 				24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */,
 				24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */,
@@ -709,6 +714,7 @@
 				24A499BF15DDE2810023E5E8 /* PhotoPickerViewController.m in Sources */,
 				24A499C515DE19CC0023E5E8 /* ParentProfileCell.m in Sources */,
 				2454D5D315E5C554001FC605 /* GradientButton.m in Sources */,
+				24FFD61615EABC0A00C252F1 /* ParentModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

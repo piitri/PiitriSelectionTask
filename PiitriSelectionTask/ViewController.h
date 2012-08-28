@@ -10,7 +10,6 @@
 #import <Foundation/Foundation.h>
 
 @interface ViewController : UIViewController
-@property (strong, nonatomic) IBOutlet UITextView *cajaTextoLogin;
 @property (strong, nonatomic) IBOutlet UILabel *textCreateAccount;
 @property (strong, nonatomic) IBOutlet UITextView *textWelcome;
 @property (strong, nonatomic) IBOutlet UIButton *loginFBButton;
