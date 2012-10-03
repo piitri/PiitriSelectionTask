@@ -105,7 +105,7 @@
 		24B6C58D15B9CB6700022A4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C58C15B9CB6700022A4F /* main.m */; };
 		24B6C59115B9CB6700022A4F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C59015B9CB6700022A4F /* AppDelegate.m */; };
 		24B6C59415B9CB6700022A4F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24B6C59215B9CB6700022A4F /* MainStoryboard.storyboard */; };
-		24B6C59715B9CB6700022A4F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C59615B9CB6700022A4F /* ViewController.m */; };
+		24B6C59715B9CB6700022A4F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C59615B9CB6700022A4F /* LoginViewController.m */; };
 		24B6C5B715B9D9F200022A4F /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 24B6C5AA15B9D9F200022A4F /* FBDialog.bundle */; };
 		24B6C5B815B9D9F200022A4F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B6C5B015B9D9F200022A4F /* libfacebook_ios_sdk.a */; };
 		24B6C5C615B9F71200022A4F /* Facebook+Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */; };
@@ -113,7 +113,7 @@
 		24D8667F15E3D098000DED1D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D8667D15E3D098000DED1D /* libTestFlight.a */; };
 		24D8668215E3D24A000DED1D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D8668115E3D24A000DED1D /* libz.dylib */; };
 		24EBB51E15D896AF007CB745 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBB51D15D896AF007CB745 /* DatePickerViewController.m */; };
-		24F0DC6615D1E83200CE4A88 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F0DC6515D1E83200CE4A88 /* Cell.m */; };
+		24F0DC6615D1E83200CE4A88 /* StudentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F0DC6515D1E83200CE4A88 /* StudentCell.m */; };
 		24F4F22815C72B8500E93A08 /* log-in-bg-with-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */; };
 		24F4F22915C72B8500E93A08 /* log-in-bg-with-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */; };
 		24F857B215BE1EB100DE6714 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579015BE1EB100DE6714 /* LICENSE.txt */; };
@@ -227,19 +227,19 @@
 		24A499C115DDE5B50023E5E8 /* btn-camera-icon-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-camera-icon-inactive@2x.png"; sourceTree = "<group>"; };
 		24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentProfileCell.h; sourceTree = "<group>"; };
 		24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentProfileCell.m; sourceTree = "<group>"; };
-		24B6C57C15B9CB6700022A4F /* PiitriSelectionTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiitriSelectionTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24B6C57C15B9CB6700022A4F /* Piitri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piitri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B6C58015B9CB6700022A4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24B6C58215B9CB6700022A4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24B6C58415B9CB6700022A4F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		24B6C58815B9CB6700022A4F /* PiitriSelectionTask-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PiitriSelectionTask-Info.plist"; sourceTree = "<group>"; };
+		24B6C58815B9CB6700022A4F /* Piitri-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Piitri-Info.plist"; sourceTree = "<group>"; };
 		24B6C58A15B9CB6700022A4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		24B6C58C15B9CB6700022A4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		24B6C58E15B9CB6700022A4F /* PiitriSelectionTask-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PiitriSelectionTask-Prefix.pch"; sourceTree = "<group>"; };
+		24B6C58E15B9CB6700022A4F /* Piitri-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Piitri-Prefix.pch"; sourceTree = "<group>"; };
 		24B6C58F15B9CB6700022A4F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		24B6C59015B9CB6700022A4F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		24B6C59315B9CB6700022A4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		24B6C59515B9CB6700022A4F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		24B6C59615B9CB6700022A4F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		24B6C59515B9CB6700022A4F /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		24B6C59615B9CB6700022A4F /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		24B6C5A815B9D9F200022A4F /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		24B6C5A915B9D9F200022A4F /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
 		24B6C5AA15B9D9F200022A4F /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
@@ -264,8 +264,8 @@
 		24D8668115E3D24A000DED1D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		24EBB51C15D896AF007CB745 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
 		24EBB51D15D896AF007CB745 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
-		24F0DC6415D1E83200CE4A88 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
-		24F0DC6515D1E83200CE4A88 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		24F0DC6415D1E83200CE4A88 /* StudentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentCell.h; sourceTree = "<group>"; };
+		24F0DC6515D1E83200CE4A88 /* StudentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentCell.m; sourceTree = "<group>"; };
 		24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask.png"; sourceTree = "<group>"; };
 		24F4F22715C72B8400E93A08 /* log-in-bg-with-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log-in-bg-with-mask@2x.png"; sourceTree = "<group>"; };
 		24F8579015BE1EB100DE6714 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -307,8 +307,7 @@
 				246D045315C099680056D3F9 /* piitri-logo-iPad.png */,
 				246D045415C099680056D3F9 /* piitri-logo-iPad@2x.png */,
 			);
-			name = Icons;
-			path = PiitriSelectionTask/Icons;
+			path = Icons;
 			sourceTree = "<group>";
 		};
 		246D045715C099950056D3F9 /* images */ = {
@@ -399,8 +398,60 @@
 				246D049515C099960056D3F9 /* top-header-curve.png */,
 				246D049715C099960056D3F9 /* top-header-curve@2x.png */,
 			);
-			name = images;
-			path = PiitriSelectionTask/images;
+			path = images;
+			sourceTree = "<group>";
+		};
+		248766CC16179B070014857F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				24F0DC6415D1E83200CE4A88 /* StudentCell.h */,
+				24F0DC6515D1E83200CE4A88 /* StudentCell.m */,
+				24014C0A15D78AED00778B51 /* AddStudentCell.h */,
+				24014C0B15D78AED00778B51 /* AddStudentCell.m */,
+				24014C0615D75D4500778B51 /* MainSideMenuItemCell.h */,
+				24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */,
+				24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */,
+				24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		248766CE16179B210014857F /* External */ = {
+			isa = PBXGroup;
+			children = (
+				24B6C5A715B9D9F200022A4F /* facebook-ios-sdk */,
+				24B6C5C415B9F71200022A4F /* Facebook+Singleton.h */,
+				24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */,
+				24D8667D15E3D098000DED1D /* libTestFlight.a */,
+				24D8667E15E3D098000DED1D /* TestFlight.h */,
+				2454D5D215E5C554001FC605 /* GradientButton.m */,
+				2454D5D115E5C554001FC605 /* GradientButton.h */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		248766CF16179B660014857F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				24FFD61415EABC0A00C252F1 /* ParentModel.h */,
+				24FFD61515EABC0A00C252F1 /* ParentModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		248766D016179F2E0014857F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				24EBB51C15D896AF007CB745 /* DatePickerViewController.h */,
+				24EBB51D15D896AF007CB745 /* DatePickerViewController.m */,
+				24B6C59515B9CB6700022A4F /* LoginViewController.h */,
+				24B6C59615B9CB6700022A4F /* LoginViewController.m */,
+				24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */,
+				24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */,
+				24A499BD15DDE2810023E5E8 /* PhotoPickerViewController.h */,
+				24A499BE15DDE2810023E5E8 /* PhotoPickerViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		248CF55115C34DA000028B2B /* Meta Plus Black */ = {
@@ -414,10 +465,7 @@
 		24B6C57115B9CB6700022A4F = {
 			isa = PBXGroup;
 			children = (
-				246D045715C099950056D3F9 /* images */,
-				246D045215C099680056D3F9 /* Icons */,
-				24F8577115BE1EB100DE6714 /* fonts */,
-				24B6C58615B9CB6700022A4F /* PiitriSelectionTask */,
+				24B6C58615B9CB6700022A4F /* Piitri */,
 				24B6C57F15B9CB6700022A4F /* Frameworks */,
 				24B6C57D15B9CB6700022A4F /* Products */,
 			);
@@ -426,7 +474,7 @@
 		24B6C57D15B9CB6700022A4F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				24B6C57C15B9CB6700022A4F /* PiitriSelectionTask.app */,
+				24B6C57C15B9CB6700022A4F /* Piitri.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -443,49 +491,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		24B6C58615B9CB6700022A4F /* PiitriSelectionTask */ = {
+		24B6C58615B9CB6700022A4F /* Piitri */ = {
 			isa = PBXGroup;
 			children = (
-				24D8667D15E3D098000DED1D /* libTestFlight.a */,
-				24D8667E15E3D098000DED1D /* TestFlight.h */,
-				24014C0A15D78AED00778B51 /* AddStudentCell.h */,
-				24014C0B15D78AED00778B51 /* AddStudentCell.m */,
-				24F0DC6415D1E83200CE4A88 /* Cell.h */,
-				24F0DC6515D1E83200CE4A88 /* Cell.m */,
-				24B6C5C415B9F71200022A4F /* Facebook+Singleton.h */,
-				24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */,
+				248766CC16179B070014857F /* Cells */,
+				248766CE16179B210014857F /* External */,
+				248766CF16179B660014857F /* Model */,
+				24B6C58715B9CB6700022A4F /* Supporting Files */,
+				248766D016179F2E0014857F /* ViewControllers */,
 				24B6C58F15B9CB6700022A4F /* AppDelegate.h */,
 				24B6C59015B9CB6700022A4F /* AppDelegate.m */,
-				24014C0615D75D4500778B51 /* MainSideMenuItemCell.h */,
-				24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */,
-				24B6C5E615BA126D00022A4F /* ParentPortalViewController.h */,
-				24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */,
-				24FFD61415EABC0A00C252F1 /* ParentModel.h */,
-				24FFD61515EABC0A00C252F1 /* ParentModel.m */,
 				24B6C59215B9CB6700022A4F /* MainStoryboard.storyboard */,
-				24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */,
-				24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */,
-				24A499BD15DDE2810023E5E8 /* PhotoPickerViewController.h */,
-				24A499BE15DDE2810023E5E8 /* PhotoPickerViewController.m */,
-				24EBB51C15D896AF007CB745 /* DatePickerViewController.h */,
-				24EBB51D15D896AF007CB745 /* DatePickerViewController.m */,
-				24B6C59515B9CB6700022A4F /* ViewController.h */,
-				24B6C59615B9CB6700022A4F /* ViewController.m */,
-				24B6C58715B9CB6700022A4F /* Supporting Files */,
 			);
+			name = Piitri;
 			path = PiitriSelectionTask;
 			sourceTree = "<group>";
 		};
 		24B6C58715B9CB6700022A4F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2454D5D115E5C554001FC605 /* GradientButton.h */,
-				2454D5D215E5C554001FC605 /* GradientButton.m */,
-				24B6C5A715B9D9F200022A4F /* facebook-ios-sdk */,
-				24B6C58815B9CB6700022A4F /* PiitriSelectionTask-Info.plist */,
+				246D045715C099950056D3F9 /* images */,
+				246D045215C099680056D3F9 /* Icons */,
+				24F8577115BE1EB100DE6714 /* fonts */,
+				24B6C58815B9CB6700022A4F /* Piitri-Info.plist */,
 				24B6C58915B9CB6700022A4F /* InfoPlist.strings */,
 				24B6C58C15B9CB6700022A4F /* main.m */,
-				24B6C58E15B9CB6700022A4F /* PiitriSelectionTask-Prefix.pch */,
+				24B6C58E15B9CB6700022A4F /* Piitri-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -518,8 +549,7 @@
 				248CF55115C34DA000028B2B /* Meta Plus Black */,
 				24F8578F15BE1EB100DE6714 /* Open Sans */,
 			);
-			name = fonts;
-			path = PiitriSelectionTask/fonts;
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		24F8578F15BE1EB100DE6714 /* Open Sans */ = {
@@ -543,9 +573,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		24B6C57B15B9CB6700022A4F /* PiitriSelectionTask */ = {
+		24B6C57B15B9CB6700022A4F /* Piitri */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24B6C59A15B9CB6700022A4F /* Build configuration list for PBXNativeTarget "PiitriSelectionTask" */;
+			buildConfigurationList = 24B6C59A15B9CB6700022A4F /* Build configuration list for PBXNativeTarget "Piitri" */;
 			buildPhases = (
 				24B6C57815B9CB6700022A4F /* Sources */,
 				24B6C57915B9CB6700022A4F /* Frameworks */,
@@ -555,9 +585,9 @@
 			);
 			dependencies = (
 			);
-			name = PiitriSelectionTask;
+			name = Piitri;
 			productName = PiitriSelectionTask;
-			productReference = 24B6C57C15B9CB6700022A4F /* PiitriSelectionTask.app */;
+			productReference = 24B6C57C15B9CB6700022A4F /* Piitri.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -569,7 +599,7 @@
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = Piitri;
 			};
-			buildConfigurationList = 24B6C57615B9CB6700022A4F /* Build configuration list for PBXProject "PiitriSelectionTask" */;
+			buildConfigurationList = 24B6C57615B9CB6700022A4F /* Build configuration list for PBXProject "Piitri" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -581,7 +611,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				24B6C57B15B9CB6700022A4F /* PiitriSelectionTask */,
+				24B6C57B15B9CB6700022A4F /* Piitri */,
 			);
 		};
 /* End PBXProject section */
@@ -704,10 +734,10 @@
 			files = (
 				24B6C58D15B9CB6700022A4F /* main.m in Sources */,
 				24B6C59115B9CB6700022A4F /* AppDelegate.m in Sources */,
-				24B6C59715B9CB6700022A4F /* ViewController.m in Sources */,
+				24B6C59715B9CB6700022A4F /* LoginViewController.m in Sources */,
 				24B6C5C615B9F71200022A4F /* Facebook+Singleton.m in Sources */,
 				24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */,
-				24F0DC6615D1E83200CE4A88 /* Cell.m in Sources */,
+				24F0DC6615D1E83200CE4A88 /* StudentCell.m in Sources */,
 				24014C0815D75D4500778B51 /* MainSideMenuItemCell.m in Sources */,
 				24014C0C15D78AED00778B51 /* AddStudentCell.m in Sources */,
 				24EBB51E15D896AF007CB745 /* DatePickerViewController.m in Sources */,
@@ -746,7 +776,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Luz Ribero (UZQVT4AP67)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Luz Ribero (UZQVT4AP67)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -761,6 +792,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PROVISIONING_PROFILE = "562FC47B-0412-49A4-96B3-8BA07883267F";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -773,7 +805,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: L.S.R. Marketing Service";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: L.S.R. Marketing Service";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -782,6 +815,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "4B3F71A5-B606-4F84-9EDA-497BBA5A8C8A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4B3F71A5-B606-4F84-9EDA-497BBA5A8C8A";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -794,15 +829,14 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Luz Ribero (UZQVT4AP67)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PiitriSelectionTask/PiitriSelectionTask-Prefix.pch";
-				INFOPLIST_FILE = "PiitriSelectionTask/PiitriSelectionTask-Info.plist";
+				GCC_PREFIX_HEADER = "PiitriSelectionTask/Piitri-Prefix.pch";
+				INFOPLIST_FILE = "PiitriSelectionTask/Piitri-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PiitriSelectionTask\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9D448498-E826-475B-BFB5-664966BCC1EA";
+				PRODUCT_NAME = Piitri;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -812,15 +846,14 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: L.S.R. Marketing Service";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PiitriSelectionTask/PiitriSelectionTask-Prefix.pch";
-				INFOPLIST_FILE = "PiitriSelectionTask/PiitriSelectionTask-Info.plist";
+				GCC_PREFIX_HEADER = "PiitriSelectionTask/Piitri-Prefix.pch";
+				INFOPLIST_FILE = "PiitriSelectionTask/Piitri-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PiitriSelectionTask\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "95E7C834-8763-431C-BF50-194D95312B29";
+				PRODUCT_NAME = Piitri;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -828,7 +861,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		24B6C57615B9CB6700022A4F /* Build configuration list for PBXProject "PiitriSelectionTask" */ = {
+		24B6C57615B9CB6700022A4F /* Build configuration list for PBXProject "Piitri" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24B6C59815B9CB6700022A4F /* Debug */,
@@ -837,7 +870,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24B6C59A15B9CB6700022A4F /* Build configuration list for PBXNativeTarget "PiitriSelectionTask" */ = {
+		24B6C59A15B9CB6700022A4F /* Build configuration list for PBXNativeTarget "Piitri" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24B6C59B15B9CB6700022A4F /* Debug */,

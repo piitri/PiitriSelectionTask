@@ -157,7 +157,9 @@
         NSLog(@"The result in Facebook+Singleton.m  calling Photo Upload is: %@", photoResultDict);
         NSLog(@"and the url in calling Photo Upload is: %@", request.url);
         //Save the Facebook Photo ID
-        NSString *photoIdStr = [[NSString alloc] initWithFormat:[photoResultDict objectForKey:@"id"]];
+        //Next line is commented because it was generating a Warning
+        //NSString *photoIdStr = [[NSString alloc] initWithFormat:[photoResultDict objectForKey:@"id"]];
+        NSString *photoIdStr = [photoResultDict objectForKey:@"id"];
         // Save the Uploaded Student picture URL.
         NSString *urlStr = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=thumbnail&access_token=%@",photoIdStr, tokenDeAcceso];
         [defaults setObject:urlStr forKey:@"studentImageUrlStr"];

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-@interface ViewController : UIViewController
+@interface LoginViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *textCreateAccount;
 @property (strong, nonatomic) IBOutlet UITextView *textWelcome;
 @property (strong, nonatomic) IBOutlet UIButton *loginFBButton;

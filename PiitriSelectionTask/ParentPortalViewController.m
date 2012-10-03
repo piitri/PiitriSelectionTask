@@ -10,7 +10,7 @@
 #import "ParentModel.h"
 #import "Facebook+Singleton.h"
 #import "ParentProfileCell.h"
-#import "Cell.h"
+#import "StudentCell.h"
 #import "MainSideMenuItemCell.h"
 #import "AddStudentCell.h"
 #import "DatePickerViewController.h"
@@ -626,7 +626,9 @@
     self.parentLocation.text = [resultado objectForKey:@"school"];
     
     // Get the user's profile picture.
-    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:[resultado objectForKey:@"picture_url"]]];
+    //Next line is commented because it was generating a Warning
+    //NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:[resultado objectForKey:@"picture_url"]]];
+    NSURL * url = [NSURL URLWithString:[resultado objectForKey:@"picture_url"]];
     NSData * data = [NSData dataWithContentsOfURL:url];
     UIImage * profilePicLarge = [[UIImage alloc] initWithData:data];
     
@@ -740,9 +742,9 @@
         return accounts;
         
     }else if (indexPath.section==2) {
-        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        StudentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         if (cell==nil) {
-            cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+            cell = [[StudentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         }
         
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
@@ -753,7 +755,9 @@
         NSDictionary *studentNameAndImageObjectDict = [[NSDictionary alloc] initWithDictionary:[sonsArray objectAtIndex:indexPath.row]];
         
         // Take out the Name of the Student to Draw in the Cell
-        NSMutableString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"first_name"]];
+        //Next line is commented because it was generating a Warning
+        //NSMutableString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"first_name"]];
+        NSMutableString * studentName = [[studentNameAndImageObjectDict objectForKey:@"first_name"] mutableCopy];
         [studentName appendString:@" "];
         [studentName appendString:[studentNameAndImageObjectDict objectForKey:@"last_name"]];
         cell.studentNameCellLabel.text = studentName;
@@ -761,8 +765,9 @@
         //Student Small Picture
         if ([studentNameAndImageObjectDict objectForKey:@"picture_url"]) {
             //Take out the Url of the Facebook Student Photo to Draw in the Cell
-            NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"picture_url"]];
-            
+            //Next line is commented because it was generating a Warning
+            //NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"picture_url"]];
+            NSString * studentPictureUrl = [[studentNameAndImageObjectDict objectForKey:@"picture_url"] mutableCopy];
             // Create a UIImage with the Uploaded Student picture URL.
             NSURL * url = [NSURL URLWithString:studentPictureUrl];
             NSData * data = [NSData dataWithContentsOfURL:url];

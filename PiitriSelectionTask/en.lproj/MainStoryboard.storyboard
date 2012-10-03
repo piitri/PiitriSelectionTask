@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Login-->
+        <!--Login View Controller - Login-->
         <scene sceneID="4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
-                <viewController title="Login" id="2" customClass="ViewController" sceneMemberID="viewController">
+                <viewController title="Login" id="2" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,7 +42,7 @@
                                 <color key="textColor" red="0.29411765933036804" green="0.25882354378700256" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="center" id="ATd-6w-TCd">
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" textAlignment="center" id="ATd-6w-TCd">
                                 <rect key="frame" x="286" y="313" width="452" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,13 +65,13 @@ Let's get learning!</string>
                         <segue destination="SgR-1a-FUJ" kind="modal" identifier="fromLoginToParentPortal" modalTransitionStyle="flipHorizontal" id="gfZ-c4-MUC"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-140" y="-81"/>
         </scene>
         <!--Parent Portal View Controller - Parent Portal-->
         <scene sceneID="1Nk-G6-1h4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GDZ-6u-cGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ParentPortal" title="Parent Portal" id="SgR-1a-FUJ" customClass="ParentPortalViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nqI-8z-0zX">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
@@ -274,7 +271,7 @@ Let's get learning!</string>
                                             <outlet property="mainItemCellLabel" destination="Xl6-s0-ZaO" id="UeS-c0-L4m"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationLevel="2" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="1sW-42-1C1" customClass="Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationLevel="2" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="1sW-42-1C1" customClass="StudentCell">
                                         <rect key="frame" x="0.0" y="141" width="196" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -381,6 +378,7 @@ Let's get learning!</string>
                         <outlet property="viewParentPortal" destination="nqI-8z-0zX" id="uD8-4Z-Tir"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GDZ-6u-cGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="L2L-EK-wAc">
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -415,7 +413,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             </timeZone>
                         </datePicker>
                         <view contentMode="scaleToFill" id="yl4-an-Gsr">
-                            <rect key="frame" x="216" y="738" width="597" height="359"/>
+                            <rect key="frame" x="216" y="38" width="597" height="359"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="First Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YrL-Rm-daB">
@@ -560,7 +558,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Date Picker View Controller-->
         <scene sceneID="l5G-aW-4fc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ine-Zt-rQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DatePickerVC" id="NqN-PI-KoQ" customClass="DatePickerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v5T-KB-GN5">
                         <rect key="frame" x="0.0" y="20" width="300" height="216"/>
@@ -607,16 +604,16 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="birthdayDatePicker" destination="ta7-xp-ua8" id="AwT-NE-V3c"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ine-Zt-rQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2330" y="150"/>
         </scene>
         <!--Photo Picker View Controller-->
         <scene sceneID="qT9-JR-5IO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DqR-1M-yNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="L3P-Mi-JQD" customClass="PhotoPickerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FFZ-8H-sBU">
-                        <rect key="frame" x="0.0" y="0.0" width="210" height="82"/>
+                        <rect key="frame" x="0.0" y="20" width="210" height="82"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="gGB-fH-XL5">
@@ -663,6 +660,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="galleryButton" destination="Jpz-Pu-Y5p" id="fd2-IG-sUv"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DqR-1M-yNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2260" y="870"/>
         </scene>
@@ -687,100 +685,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="social-googleconnect-inactive.png" width="43" height="43"/>
         <image name="social-twitterconnect-active.png" width="43" height="43"/>
     </resources>
-    <classes>
-        <class className="AddStudentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddStudentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addStudentBackground" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="Cell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Cell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="studentCellImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="studentCellMaskImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="studentNameCellLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="DatePickerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DatePickerViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="birthdayDatePicker" candidateClass="UIDatePicker"/>
-            </relationships>
-        </class>
-        <class className="GradientButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GradientButton.h"/>
-        </class>
-        <class className="MainSideMenuItemCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainSideMenuItemCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mainItemCellLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ParentPortalViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentPortalViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButton:"/>
-                <relationship kind="action" name="cancelStudentInfo:"/>
-                <relationship kind="action" name="disconnectFromFB:"/>
-                <relationship kind="action" name="saveStudentInfo:"/>
-                <relationship kind="outlet" name="addStudentView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="buyCoinsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="currentSchoolLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="currentSchoolTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dateOfBirthField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dateOfBirthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="editProfileButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="facebookButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="firstNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="genderSegmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="googlePlusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="imageDimensionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lastNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="parentFullName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentLocation" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="parentProfilePicture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="saveStudentInfoButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="studentForm" candidateClass="UIView"/>
-                <relationship kind="outlet" name="studentFormActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="studentImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="studentMaskImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="twitterButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="uploadPictureLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="viewParentPortal" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ParentProfileCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentProfileCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="parentCellImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="parentCellMaskImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="parentNameCellLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PhotoPickerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoPickerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="chooseFromGallery:" candidateClass="GradientButton"/>
-                <relationship kind="action" name="takePhoto:" candidateClass="GradientButton"/>
-                <relationship kind="outlet" name="cameraButton" candidateClass="GradientButton"/>
-                <relationship kind="outlet" name="galleryButton" candidateClass="GradientButton"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="connectWithFB:"/>
-                <relationship kind="outlet" name="loginFBButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="textCreateAccount" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textWelcome" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>

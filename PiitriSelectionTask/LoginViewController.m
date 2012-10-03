@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 LSR Marketing Service. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "LoginViewController.h"
 #import "Facebook+Singleton.h"
 
-@interface ViewController ()
+@interface LoginViewController ()
 
 @property (nonatomic, strong) NSMutableData * receivedData;//instance variable to recieve the response of the API Call
 
 @end
 
-@implementation ViewController
+@implementation LoginViewController
 @synthesize receivedData = _receivedData;
 @synthesize textCreateAccount = _textCreateAccount;
 @synthesize textWelcome = _textWelcome;

@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 LSR Marketing Service. All rights reserved.
 //
 
-#import "Cell.h"
+#import "StudentCell.h"
 
-@implementation Cell
+@implementation StudentCell
 
 @synthesize studentCellImageView = _studentCellImageView;
 @synthesize studentCellMaskImageView = _studentCellMaskImageView;
