@@ -46,6 +46,9 @@
                                 <rect key="frame" x="286" y="313" width="452" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
                                 <string key="text">Welcome to Piitri! We want to get you started as
 quickly as possible - please connect with Facebook to
 create a Piitri Account &amp; you'll be on your way!
@@ -55,10 +58,15 @@ Let's get learning!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="t1Q-9l-coc">
+                                <rect key="frame" x="494" y="494" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
+                        <outlet property="loginActivityIndicator" destination="t1Q-9l-coc" id="ymq-Ld-ydB"/>
                         <outlet property="loginFBButton" destination="CuN-Z7-cLe" id="5Qu-EP-cq3"/>
                         <outlet property="textCreateAccount" destination="iY4-eB-ctn" id="hn4-19-x7U"/>
                         <outlet property="textWelcome" destination="ATd-6w-TCd" id="AW2-JN-agX"/>
@@ -685,6 +693,101 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="social-googleconnect-inactive.png" width="43" height="43"/>
         <image name="social-twitterconnect-active.png" width="43" height="43"/>
     </resources>
+    <classes>
+        <class className="AddStudentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddStudentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addStudentBackground" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="DatePickerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DatePickerViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="birthdayDatePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
+        <class className="GradientButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GradientButton.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="connectWithFB:"/>
+                <relationship kind="outlet" name="loginActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="loginFBButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textCreateAccount" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textWelcome" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="MainSideMenuItemCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainSideMenuItemCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mainItemCellLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ParentPortalViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentPortalViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButton:"/>
+                <relationship kind="action" name="cancelStudentInfo:"/>
+                <relationship kind="action" name="disconnectFromFB:"/>
+                <relationship kind="action" name="saveStudentInfo:"/>
+                <relationship kind="outlet" name="addStudentView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="buyCoinsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="currentSchoolLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="currentSchoolTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dateOfBirthField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dateOfBirthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="editProfileButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="facebookButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="firstNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="genderSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="googlePlusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="imageDimensionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lastNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="parentFullName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentLocation" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="parentProfilePicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="saveStudentInfoButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="studentForm" candidateClass="UIView"/>
+                <relationship kind="outlet" name="studentFormActivityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="studentImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="studentMaskImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="twitterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="uploadPictureLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="viewParentPortal" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="ParentProfileCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParentProfileCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="parentCellImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="parentCellMaskImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="parentNameCellLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PhotoPickerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoPickerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="chooseFromGallery:" candidateClass="GradientButton"/>
+                <relationship kind="action" name="takePhoto:" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="galleryButton" candidateClass="GradientButton"/>
+            </relationships>
+        </class>
+        <class className="StudentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StudentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="studentCellImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="studentCellMaskImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="studentNameCellLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>

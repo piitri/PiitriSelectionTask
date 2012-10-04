@@ -46,6 +46,7 @@
     [self setLoginFBButton:nil];
     [self setTextCreateAccount:nil];
     [self setTextWelcome:nil];
+    [self setLoginActivityIndicator:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [[NSNotificationCenter defaultCenter] removeObserver:self 
@@ -71,7 +72,7 @@
     NSLog(@"and the Access Token is: %@", [[NSUserDefaults standardUserDefaults] objectForKey:kFBAccessTokenKey]);
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"facebookParentInfo"] != nil) {
-         NSLog(@"No hubo necesidad de llamar a Facebook Auth");
+         NSLog(@"There was no need to call Facebook Auth");
         [self presentParentPortal];
        
     }else{
@@ -117,16 +118,6 @@
                                                   object:nil];
 }
 
-- (void)uploadPhotoToFacebook:(NSMutableDictionary *)params{
-    [[Facebook shared] requestWithGraphPath:@"me/photos"
-                                  andParams:params
-                              andHttpMethod:@"POST"
-                                andDelegate:[Facebook shared]];
-}
-
-- (void)logoutFromFacebook{
-    [[Facebook shared] logout];
-}
 
 #pragma mark - Send Info To API
 
@@ -134,8 +125,11 @@
     
     NSLog(@"\n****** FBParentInfoIsReady was CALLED ******\n");
     [[NSNotificationCenter defaultCenter] removeObserver:self 
-                                                    name:@"FBParentInfoIsReady" 
+                                                    name:@"FBParentInfoIsReady"
                                                   object:nil];
+    
+    [self.loginActivityIndicator startAnimating];
+    [self.loginFBButton setEnabled:NO];
     
     //Send Parent Info to Model to form the URL Request to Save Parent Info in API
     // Access Token asignation
@@ -317,7 +311,8 @@
         
         [[NSUserDefaults standardUserDefaults] setObject:receivedDataMutableArray forKey:@"sons"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
+        [self.loginActivityIndicator stopAnimating];
+        [self.loginFBButton setEnabled:YES];
         [self presentParentPortal];
         
     }

@@ -404,14 +404,14 @@
 		248766CC16179B070014857F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */,
+				24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */,
 				24F0DC6415D1E83200CE4A88 /* StudentCell.h */,
 				24F0DC6515D1E83200CE4A88 /* StudentCell.m */,
 				24014C0A15D78AED00778B51 /* AddStudentCell.h */,
 				24014C0B15D78AED00778B51 /* AddStudentCell.m */,
 				24014C0615D75D4500778B51 /* MainSideMenuItemCell.h */,
 				24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */,
-				24A499C315DE19CB0023E5E8 /* ParentProfileCell.h */,
-				24A499C415DE19CB0023E5E8 /* ParentProfileCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";

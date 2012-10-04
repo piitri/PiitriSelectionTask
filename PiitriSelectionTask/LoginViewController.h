@@ -12,6 +12,7 @@
 @interface LoginViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *textCreateAccount;
 @property (strong, nonatomic) IBOutlet UITextView *textWelcome;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loginActivityIndicator;
 @property (strong, nonatomic) IBOutlet UIButton *loginFBButton;
 - (IBAction)connectWithFB:(id)sender;
 
