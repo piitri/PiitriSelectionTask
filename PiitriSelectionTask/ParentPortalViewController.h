@@ -14,6 +14,7 @@
     
     
 }
+//Parent Portal View Objects
 @property (strong, nonatomic) IBOutlet UILabel *parentFullName;
 @property (strong, nonatomic) IBOutlet UILabel *parentLocation;
 @property (strong, nonatomic) IBOutlet UIButton *twitterButton;

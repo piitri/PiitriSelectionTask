@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		24014C0815D75D4500778B51 /* MainSideMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */; };
 		24014C0C15D78AED00778B51 /* AddStudentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24014C0B15D78AED00778B51 /* AddStudentCell.m */; };
+		2412729E161F5091000E2C47 /* APICommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 2412729D161F5091000E2C47 /* APICommunication.m */; };
 		2454D5D315E5C554001FC605 /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454D5D215E5C554001FC605 /* GradientButton.m */; };
 		24597F6615D0D7B7000E9847 /* btn-add-student-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6215D0D7B7000E9847 /* btn-add-student-active.png */; };
 		24597F6715D0D7B7000E9847 /* btn-add-student-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24597F6315D0D7B7000E9847 /* btn-add-student-active@2x.png */; };
@@ -135,6 +136,8 @@
 		24014C0715D75D4500778B51 /* MainSideMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSideMenuItemCell.m; sourceTree = "<group>"; };
 		24014C0A15D78AED00778B51 /* AddStudentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddStudentCell.h; sourceTree = "<group>"; };
 		24014C0B15D78AED00778B51 /* AddStudentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddStudentCell.m; sourceTree = "<group>"; };
+		2412729C161F5091000E2C47 /* APICommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APICommunication.h; path = APICommunication/APICommunication.h; sourceTree = "<group>"; };
+		2412729D161F5091000E2C47 /* APICommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APICommunication.m; path = APICommunication/APICommunication.m; sourceTree = "<group>"; };
 		2454D5D115E5C554001FC605 /* GradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientButton.h; sourceTree = "<group>"; };
 		2454D5D215E5C554001FC605 /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButton.m; sourceTree = "<group>"; };
 		24597F6215D0D7B7000E9847 /* btn-add-student-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-add-student-active.png"; sourceTree = "<group>"; };
@@ -301,6 +304,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2412729B161F4DD4000E2C47 /* APICommunication */ = {
+			isa = PBXGroup;
+			children = (
+				2412729C161F5091000E2C47 /* APICommunication.h */,
+				2412729D161F5091000E2C47 /* APICommunication.m */,
+			);
+			name = APICommunication;
+			sourceTree = "<group>";
+		};
 		246D045215C099680056D3F9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,8 +436,8 @@
 				24B6C5C515B9F71200022A4F /* Facebook+Singleton.m */,
 				24D8667D15E3D098000DED1D /* libTestFlight.a */,
 				24D8667E15E3D098000DED1D /* TestFlight.h */,
-				2454D5D215E5C554001FC605 /* GradientButton.m */,
 				2454D5D115E5C554001FC605 /* GradientButton.h */,
+				2454D5D215E5C554001FC605 /* GradientButton.m */,
 			);
 			name = External;
 			sourceTree = "<group>";
@@ -494,6 +506,7 @@
 		24B6C58615B9CB6700022A4F /* Piitri */ = {
 			isa = PBXGroup;
 			children = (
+				2412729B161F4DD4000E2C47 /* APICommunication */,
 				248766CC16179B070014857F /* Cells */,
 				248766CE16179B210014857F /* External */,
 				248766CF16179B660014857F /* Model */,
@@ -745,6 +758,7 @@
 				24A499C515DE19CC0023E5E8 /* ParentProfileCell.m in Sources */,
 				2454D5D315E5C554001FC605 /* GradientButton.m in Sources */,
 				24FFD61615EABC0A00C252F1 /* ParentModel.m in Sources */,
+				2412729E161F5091000E2C47 /* APICommunication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +806,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "562FC47B-0412-49A4-96B3-8BA07883267F";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -814,6 +829,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "4B3F71A5-B606-4F84-9EDA-497BBA5A8C8A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4B3F71A5-B606-4F84-9EDA-497BBA5A8C8A";

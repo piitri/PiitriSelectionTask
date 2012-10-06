@@ -38,6 +38,8 @@
     return _receivedData;
 }
 
+#pragma mark - Student Methods
+
 - (void) retrieveApiSavedStudents:(NSArray *)sonsFromApi{
     //Assign sons key from NSUserDefaults to sons local Mutable Array
     self.sons = [[NSMutableArray alloc] initWithArray:sonsFromApi];
@@ -51,9 +53,10 @@
 {
     [self.sons insertObject:student atIndex:0];
 }
+
 #pragma mark - Facebook Methods
 
-- (void) autorizeWithFacebook{
+- (void)autorizeWithFacebook{
     [[Facebook shared] authorize];
     NSLog(@"After Calling Facebook Auth in Login");
 }
@@ -133,9 +136,7 @@
     return newImage;
 }
 
-#pragma mark - Create, Delete and Logout Student from API
-
-
+#pragma mark - API Methods
 
 - (NSMutableURLRequest * )sendStudentToApi:(NSDictionary *)user{
     //Post Student info to Node.js API

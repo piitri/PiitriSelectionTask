@@ -27,17 +27,19 @@
     BOOL deleteStudent;
 }
 
+//instance variable to recieve the response of the API Call
+@property (nonatomic, strong) NSMutableData * receivedData;
 @property (nonatomic, strong) ParentModel * parentUserModel;
-@property (nonatomic, strong) NSMutableData * receivedData;//instance variable to recieve the response of the API Call
+
 
 @end
 
 @implementation ParentPortalViewController
 
-@synthesize parentUserModel = _parentUserModel;
 @synthesize receivedData = _receivedData;
+@synthesize parentUserModel = _parentUserModel;
 
-#pragma mark - Parent Portal Vars
+#pragma mark - Parent Portal View Objects
 @synthesize parentFullName = _parentFullName;
 @synthesize parentLocation = _parentLocation;
 @synthesize twitterButton = _twitterButton;
@@ -183,7 +185,7 @@
     
     if (![defaults objectForKey:@"facebookParentInfo"]) {
         [self.parentUserModel requestFacebookDataParent];
-        NSLog(@"Ther was no facebookParentInfo in the Parent Portal!!!!!");
+        NSLog(@"There was no facebookParentInfo in the Parent Portal!!!!!");
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(useDataLogin) 
                                                      name:@"FBParentInfoIsReady" 
@@ -646,7 +648,6 @@
 }
 
 - (void)cleanFacebookData {
-    
     //Send Student Id to Model to form the URL Request to Delete the student
     NSMutableURLRequest * requestApiLogout = [self.parentUserModel logoutFromApi];
     

@@ -13,6 +13,7 @@
 }
 
 @property (nonatomic, strong) NSMutableArray * sons;
+
 //Student Methods
 - (void)retrieveApiSavedStudents:(NSArray *)sonsFromApi;
 - (void)insertNewStudentInSons:(NSDictionary *)student;

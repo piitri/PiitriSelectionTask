@@ -39,16 +39,19 @@
 
 #import "Facebook+Singleton.h"
 
+
 @implementation Facebook (Singleton)
 
 - (id)init {
     if ((self = [self initWithAppId:@"364390736967265" andDelegate:self])) {
         [self authorize];
+        NSLog(@"Facebook singleton initializated");
     }
     return self;
 }
 
 - (void)authorize {
+    NSLog(@"authorize *** called in Facebook+Singleton.m");
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:kFBAccessTokenKey] && [defaults objectForKey:kFBExpirationDateKey]) {
         self.accessToken = [defaults objectForKey:kFBAccessTokenKey];
@@ -62,6 +65,7 @@
         
         // This is the method Facebook wants users to use. 
         // It will leave your app and authoize through the Facebook app or Safari.
+        NSLog(@"Session Invalid so let's Authorize with permissions");
         NSArray *permissions =  [NSArray arrayWithObjects:@"email", @"user_photos", @"user_about_me",@"user_birthday",@"publish_actions", nil];
         [self authorize:permissions/* localAppId:nil*/];
         
