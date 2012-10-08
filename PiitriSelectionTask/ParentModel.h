@@ -18,18 +18,9 @@
 - (void)retrieveApiSavedStudents:(NSArray *)sonsFromApi;
 - (void)insertNewStudentInSons:(NSDictionary *)student;
 
-//Facebook Methods
-- (void)autorizeWithFacebook;
-- (void)requestFacebookDataParent;
-- (void)uploadPhotoToFacebook:(NSMutableDictionary *)params;
-- (void)logoutFromFacebook;
-
-//Image Crop Method
-- (UIImage*)image:(UIImage *)sourceImage ByScalingAndCroppingForSize:(CGSize)targetSize;
-
 //API Methods
 - (NSMutableURLRequest * )sendStudentToApi:(NSDictionary *)user;
-- (NSMutableURLRequest * )deleteStudentFromApi:(NSString *)userId 
-                 forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSMutableURLRequest * )deleteStudentFromApi:(NSString *)userId
+                             forRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSMutableURLRequest * )logoutFromApi;
 @end

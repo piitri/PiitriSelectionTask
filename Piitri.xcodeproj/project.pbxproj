@@ -128,6 +128,7 @@
 		24F857BA15BE1EB100DE6714 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579815BE1EB100DE6714 /* OpenSans-Regular.ttf */; };
 		24F857BB15BE1EB100DE6714 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579915BE1EB100DE6714 /* OpenSans-Semibold.ttf */; };
 		24F857BC15BE1EB100DE6714 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F8579A15BE1EB100DE6714 /* OpenSans-SemiboldItalic.ttf */; };
+		24F921331623761B004290E6 /* CropImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F921321623761B004290E6 /* CropImage.m */; };
 		24FFD61615EABC0A00C252F1 /* ParentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FFD61515EABC0A00C252F1 /* ParentModel.m */; };
 /* End PBXBuildFile section */
 
@@ -282,6 +283,8 @@
 		24F8579815BE1EB100DE6714 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		24F8579915BE1EB100DE6714 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		24F8579A15BE1EB100DE6714 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		24F921311623761B004290E6 /* CropImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CropImage.h; path = External/CropImage.h; sourceTree = "<group>"; };
+		24F921321623761B004290E6 /* CropImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CropImage.m; path = External/CropImage.m; sourceTree = "<group>"; };
 		24FFD61415EABC0A00C252F1 /* ParentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentModel.h; sourceTree = "<group>"; };
 		24FFD61515EABC0A00C252F1 /* ParentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -438,6 +441,8 @@
 				24D8667E15E3D098000DED1D /* TestFlight.h */,
 				2454D5D115E5C554001FC605 /* GradientButton.h */,
 				2454D5D215E5C554001FC605 /* GradientButton.m */,
+				24F921311623761B004290E6 /* CropImage.h */,
+				24F921321623761B004290E6 /* CropImage.m */,
 			);
 			name = External;
 			sourceTree = "<group>";
@@ -759,6 +764,7 @@
 				2454D5D315E5C554001FC605 /* GradientButton.m in Sources */,
 				24FFD61615EABC0A00C252F1 /* ParentModel.m in Sources */,
 				2412729E161F5091000E2C47 /* APICommunication.m in Sources */,
+				24F921331623761B004290E6 /* CropImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

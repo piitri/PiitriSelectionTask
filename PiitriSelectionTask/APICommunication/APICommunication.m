@@ -44,6 +44,8 @@
     NSDictionary * parentData = [defaults objectForKey:@"facebookParentInfo"];
     NSLog(@"The facebookParentInfo assigned to userData is: %@", parentData);
     
+    
+    
     NSMutableURLRequest * requestApiReturned = [self createURLRequestWithParentData:parentData andToken:accessToken];
     
     //Call the URL Connection with the Builded Request Structure
@@ -53,13 +55,13 @@
         // receivedData is an instance variable declared elsewhere.
         self.receivedData = [NSMutableData data];
         NSLog(@"The connection to Send Parent Info has STARTED!");
-        return @"The connection to Send Parent Info has STARTED!";
+        return @"RETURN The connection to Send Parent Info has STARTED!";
         
         
     } else {
         // Inform the user that the connection failed.
         NSLog(@"The connection to Send Parent Info has FAILED!");
-        return @"The connection to Send Parent Info has FAILED!";
+        return @"RETURN The connection to Send Parent Info has FAILED!";
     }
     
     

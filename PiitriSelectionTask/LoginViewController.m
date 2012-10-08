@@ -14,7 +14,7 @@
 @interface LoginViewController ()
 
 //instance variable to recieve the response of the API Call
-@property (nonatomic, strong) NSMutableData * receivedData;
+
 @property (nonatomic, strong) ParentModel * parentUserLoginModel;
 @property (nonatomic, strong) APICommunication * apiLoginCommunication;
 
@@ -22,7 +22,6 @@
 
 @implementation LoginViewController
 
-@synthesize receivedData = _receivedData;
 @synthesize parentUserLoginModel = _parentUserLoginModel;
 @synthesize apiLoginCommunication = _apiLoginCommunication;
 @synthesize textCreateAccount = _textCreateAccount;
@@ -130,24 +129,15 @@
                                                     name:@"FBDidLogin"
                                                   object:nil];
     //Request Parent info from Facebook
-    [self requestFacebookDataParent];
+    //Facebook+Singleton requestWithGraphPath
+    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:[Facebook shared]];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(sendParentInfo) 
                                                  name:@"FBParentInfoIsReady" 
                                                object:nil];
     
 }
-
-
-#pragma mark - Facebook Login Callback Function
-
-- (void)requestFacebookDataParent {
-    NSLog(@"The Facebook Auth");
-    
-    //Facebook+Singleton requestWithGraphPath
-    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" andDelegate:[Facebook shared]];
-}
-
 
 #pragma mark - Send Info To API
 
@@ -164,6 +154,7 @@
     
 
     //APICommunication sendParentInfoToApi Method
+    
     NSString * apiConnectionResult = [self.apiLoginCommunication sendParentInfoToApi];
     NSLog(@"%@",apiConnectionResult);
 

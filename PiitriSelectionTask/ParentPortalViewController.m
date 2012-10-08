@@ -15,6 +15,7 @@
 #import "AddStudentCell.h"
 #import "DatePickerViewController.h"
 #import "PhotoPickerViewController.h"
+#import "CropImage.h"
 
 @interface ParentPortalViewController () <DatePickerViewControllerDelegate, PhotoPickerViewControllerDelegate>{
     NSUserDefaults * defaults;
@@ -184,7 +185,8 @@
     [self.parentUserModel retrieveApiSavedStudents:[defaults arrayForKey:@"sons"]];
     
     if (![defaults objectForKey:@"facebookParentInfo"]) {
-        [self.parentUserModel requestFacebookDataParent];
+        [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location"
+                                    andDelegate:[Facebook shared]];
         NSLog(@"There was no facebookParentInfo in the Parent Portal!!!!!");
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(useDataLogin) 
@@ -525,12 +527,16 @@
     
     CGSize cropSize = CGSizeMake(260, 260);
     
-    image = [self.parentUserModel image:image ByScalingAndCroppingForSize:cropSize];
+    CropImage * cropImageMethod = [[CropImage alloc] init];
+    image = [cropImageMethod image:image ByScalingAndCroppingForSize:cropSize];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        image, @"picture",
                                        nil];
-    [self.parentUserModel uploadPhotoToFacebook:parameters];
+    [[Facebook shared] requestWithGraphPath:@"me/photos"
+                                  andParams:parameters
+                              andHttpMethod:@"POST"
+                                andDelegate:[Facebook shared]];
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(activateSaveButton) 
                                                  name:@"FBDidUploadPhoto" 
@@ -644,7 +650,7 @@
                                              selector:@selector(cleanFacebookData) 
                                                  name:@"FBDidLogout" 
                                                object:nil];
-    [self.parentUserModel logoutFromFacebook];
+    [[Facebook shared] logout];
 }
 
 - (void)cleanFacebookData {

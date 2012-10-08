@@ -61,4 +61,12 @@
     return [[Facebook shared] handleOpenURL:url];
 }
 
+//iOS6 UIImagePickerController crash Fix taken from http://grembe.wordpress.com/2012/09/19/here-is-what-i/
+
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)w {
+    
+    return (NSUInteger)[application supportedInterfaceOrientationsForWindow:w] | (1<<UIInterfaceOrientationPortrait);
+    
+}
+
 @end
