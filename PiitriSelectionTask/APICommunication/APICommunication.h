@@ -15,14 +15,15 @@
 @property (nonatomic, strong) NSMutableData * receivedData;
 
 // API Methods
-- (NSMutableURLRequest * )logoutFromApi;
+- (NSString * )logoutFromApi;
 
 // Parent API Methods
 - (NSString * )sendParentInfoToApi;
 
 // Student API Methods
-- (NSMutableURLRequest * )sendStudentToApi:(NSDictionary *)user;
-- (NSMutableURLRequest * )deleteStudentFromApi:(NSString *)userId
+// Send to API
+- (NSString * )sendStudentToApi:(NSDictionary *)user;
+- (NSString * )deleteStudentFromApi:(NSString *)userId
                              forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

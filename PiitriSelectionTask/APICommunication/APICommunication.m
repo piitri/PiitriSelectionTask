@@ -15,17 +15,20 @@
 
 #pragma mark - API Methods
 
-- (NSMutableURLRequest * )logoutFromApi{
+- (NSString * )logoutFromApi{
     
     //Create the URL
     NSURL *urlRequestLink = [NSURL URLWithString:[NSString stringWithFormat:@"http://piitri-api.herokuapp.com/v1/logout"]];
     
     //Create the URL Request
-    NSMutableURLRequest * requestApiLogout = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    NSMutableURLRequest * requestApiLogout = [NSMutableURLRequest requestWithURL:urlRequestLink
+                                                                     cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                                 timeoutInterval:60.0];
     
     [requestApiLogout setHTTPMethod:@"GET"];
     
-    return requestApiLogout;
+    return [self createConection:@"Logout" WithRequest:requestApiLogout];
+    
     
 }
 
@@ -48,25 +51,56 @@
     
     NSMutableURLRequest * requestApiReturned = [self createURLRequestWithParentData:parentData andToken:accessToken];
     
-    //Call the URL Connection with the Builded Request Structure
-    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApiReturned delegate:self];
-    if (theConnection) {
-        // Create the NSMutableData to hold the received data.
-        // receivedData is an instance variable declared elsewhere.
-        self.receivedData = [NSMutableData data];
-        NSLog(@"The connection to Send Parent Info has STARTED!");
-        return @"RETURN The connection to Send Parent Info has STARTED!";
-        
-        
-    } else {
-        // Inform the user that the connection failed.
-        NSLog(@"The connection to Send Parent Info has FAILED!");
-        return @"RETURN The connection to Send Parent Info has FAILED!";
-    }
-    
-    
-    
+    return [self createConection:@"Send Parent Info" WithRequest:requestApiReturned];
+
 }
+
+#pragma mark - Student API Methods
+- (NSString * )sendStudentToApi:(NSDictionary *)user{
+    //Post Student info to Node.js API
+    
+    //Parse the jsonDict to JSON data with native NSJSONSerialization and create a NSString
+    NSError* error = nil;
+    NSData *jsonRequestData = [NSJSONSerialization dataWithJSONObject:user options:kNilOptions error:&error];
+    NSString *jsonRequestAscii = [[NSString alloc] initWithData:jsonRequestData encoding:NSASCIIStringEncoding]; //cambié de utf8 a ascii
+    NSString *jsonRequestUtf8 = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];
+    NSLog(@"The JSON string for the request to the API in ParentPortalViewController.m is: %@", jsonRequestAscii);
+    
+    //Create the URL
+    NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/student"];
+    
+    //Create the URL Request
+    NSMutableURLRequest * requestApi = [NSMutableURLRequest requestWithURL:urlRequestLink
+                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           timeoutInterval:60.0];
+    
+    NSLog(@"The jsonRequest in ASCII is: %@ and the longitude is: %i",jsonRequestAscii,[jsonRequestAscii length]);
+    
+    //Buid the Request Data
+    NSData  * requestData = [NSData dataWithBytes:[jsonRequestUtf8 UTF8String] length:[jsonRequestAscii length]];
+    [requestApi setHTTPMethod:@"POST"];
+    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [requestApi setHTTPBody:requestData];
+    
+    return [self createConection:@"Add Student" WithRequest:requestApi];
+}
+
+- (NSString * )deleteStudentFromApi:(NSString *)userId forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    //Create the URL
+    NSURL *urlRequestLink = [NSURL URLWithString:[NSString stringWithFormat:@"http://piitri-api.herokuapp.com/v1/student/%@",userId]];
+    
+    //Create the URL Request
+    NSMutableURLRequest * requestApiDelete = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    [requestApiDelete setHTTPMethod:@"DELETE"];
+    
+    return [self createConection:@"Delete Student" WithRequest:requestApiDelete];
+}
+
+#pragma mark - Auxliliary Methods
 
 - (NSMutableURLRequest * )createURLRequestWithParentData:(NSDictionary *)userData andToken:accessTokenKey{
     NSLog(@"Inside sendParentInfoToApi");
@@ -100,7 +134,6 @@
     
     //Create the URL
     NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"];
-    //
     //http://postbin.defensio.com/bfb029d
     
     //Create the URL Request
@@ -119,52 +152,24 @@
     
 }
 
-#pragma mark - Student API Methods
-- (NSMutableURLRequest * )sendStudentToApi:(NSDictionary *)user{
-    //Post Student info to Node.js API
-    
-    //Create user Dictionary with email, location, name and picture_url
-    //NSDictionary * user = [[NSDictionary alloc] initWithObjectsAndKeys:sons,@"sons", nil];
-    
-    
-    //Parse the jsonDict to JSON data with native NSJSONSerialization and create a NSString
-    NSError* error = nil;
-    NSData *jsonRequestData = [NSJSONSerialization dataWithJSONObject:user options:kNilOptions error:&error];
-    NSString *jsonRequestAscii = [[NSString alloc] initWithData:jsonRequestData encoding:NSASCIIStringEncoding]; //cambié de utf8 a ascii
-    NSString *jsonRequestUtf8 = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];
-    NSLog(@"The JSON string for the request to the API in ParentPortalViewController.m is: %@", jsonRequestAscii);
-    
-    //Create the URL
-    NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/student"];
-    
-    //Create the URL Request
-    NSMutableURLRequest * requestApi = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-    
-    NSLog(@"The jsonRequest in ASCII is: %@ and the longitude is: %i",jsonRequestAscii,[jsonRequestAscii length]);
-    [requestApi setHTTPMethod:@"POST"];
-    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    //Buid the Request Data
-    NSData  * requestData = [NSData dataWithBytes:[jsonRequestUtf8 UTF8String] length:[jsonRequestAscii length]];
-    [requestApi setHTTPBody:requestData];
-    
-    
-    return requestApi;
-}
-
-- (NSMutableURLRequest * )deleteStudentFromApi:(NSString *)userId forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    //Create the URL
-    NSURL *urlRequestLink = [NSURL URLWithString:[NSString stringWithFormat:@"http://piitri-api.herokuapp.com/v1/student/%@",userId]];
-    
-    //Create the URL Request
-    NSMutableURLRequest * requestApiDelete = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-    
-    [requestApiDelete setHTTPMethod:@"DELETE"];
-    
-    return requestApiDelete;
+- (NSString *)createConection:(NSString *)connectionType WithRequest:(NSMutableURLRequest *) theURLRequest{
+    //Call the URL Connection with the Builded Request Structure
+    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theURLRequest delegate:self];
+    if (theConnection) {
+        // Create the NSMutableData to hold the received data.
+        // receivedData is an instance variable declared elsewhere.
+        self.receivedData = [NSMutableData data];
+        NSString * stringSuccessForConnectionLog = [NSString stringWithFormat:@"RETURN The connection %@ has STARTED!", connectionType];
+        NSLog(@"%@", stringSuccessForConnectionLog);
+        return stringSuccessForConnectionLog;
+        
+        
+    } else {
+        // Inform the user that the connection failed.
+        NSString * stringFailedForConnectionLog = [NSString stringWithFormat:@"RETURN The connection %@ has FAILED!", connectionType];
+        NSLog(@"%@", stringFailedForConnectionLog);
+        return stringFailedForConnectionLog;
+    }
 }
 
 #pragma mark - NSURLConnectionDataDelegate Methods
@@ -176,7 +181,7 @@ didReceiveResponse:(NSURLResponse *)response
     // receivedData is an instance variable declared on top of this class.
     
     [self.receivedData setLength:0];
-    /*NSString * responseStatusCodeStr = [[NSString alloc] initWith:(NSURLResponse *)response];*/
+    //NSString * responseStatusCodeStr = [[NSString alloc] initWith:(NSURLResponse *)response];
     NSLog(@"The URL Response is :%@", response.URL);
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
     NSLog(@"Status code %d", [httpResponse statusCode]);
@@ -216,45 +221,69 @@ didReceiveResponse:(NSURLResponse *)response
     // do something with the data
     
     // receivedData is declared as a method instance on top of this class.
-    NSError* error = nil;
     NSError* errorJson = nil;
-    NSLog(@"Succeeded! Received %d bytes of data in Login ",[self.receivedData length]);
+    NSLog(@"Succeeded! Received %d bytes of data",[self.receivedData length]);
     
     NSString * requestMethod = [[NSString alloc] initWithString:connection.originalRequest.HTTPMethod];
-    NSLog(@"And the request Method in Login was %@",requestMethod);
+    NSLog(@"And the request Method was %@",requestMethod);
     
     if ([connection.originalRequest.HTTPMethod isEqualToString:@"POST"]) {
-        
-        NSURL * testURL = connection.originalRequest.URL.standardizedURL;
-        NSString * originalRequestUrlStr = [[NSString alloc] initWithContentsOfURL:testURL encoding:NSUTF8StringEncoding error:&error];
-        
-        if (error != nil) {
-            NSLog(@"We have the following error when creating the originalRequestUrlStr in Login: %@", error);
-        }
+        NSString * originalRequestUrlStr = [connection.originalRequest.URL absoluteString];
         NSLog(@"The Original Request URL is%@",originalRequestUrlStr);
-        NSLog(@"The Original Direct Request URL is: %@",connection.originalRequest.URL);
-        NSLog(@"The Test Request URL is: %@",testURL);
         
-        NSArray * receivedDataDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:kNilOptions error:&errorJson];
-        
+        if ([originalRequestUrlStr rangeOfString:@"/v1/login"].location != NSNotFound) {
+            
+            NSArray * receivedDataDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:kNilOptions error:&errorJson];
+            
+            if (errorJson != nil) {
+                NSLog(@"We have the following error when creating the JSON object in Login: %@", errorJson);
+            }
+            
+            //Print the received Data
+            NSLog(@"The response to the Parent Info API request is: %@", receivedDataDict);
+            //Print the received Cookie
+            NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"]];
+            NSLog(@"The cookies are: %@", galletas);
+            
+            
+            NSDictionary * sonsDictionary = @{ @"type" : @"sons",@"object" : receivedDataDict};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"APISonsReceived"
+                                                                object:self
+                                                              userInfo:sonsDictionary];
+            
+        }else if ([originalRequestUrlStr rangeOfString:@"/v1/student"].location != NSNotFound){
+            NSDictionary * receivedDataDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:kNilOptions error:&errorJson];
+            
+            if (errorJson != nil) {
+                NSLog(@"We have the following error when creating the JSON object in Add Student: %@", errorJson);
+            }
+            //Print the received Data
+            NSLog(@"The response to the Add Student API request is: %@", receivedDataDict);
+            
+            NSDictionary * studentDictionary = @{ @"type" : @"student",@"object" : receivedDataDict};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"APIStudentAdded"
+                                                                object:self
+                                                              userInfo:studentDictionary]; 
+        } 
+    }else if ([connection.originalRequest.HTTPMethod isEqualToString:@"DELETE"]) {
+        NSMutableArray * receivedDataArray = [NSJSONSerialization JSONObjectWithData:self.receivedData options:kNilOptions error:&errorJson];
         if (errorJson != nil) {
-            NSLog(@"We have the following error when creating the JSON object in Login: %@", errorJson);
+            NSLog(@"We have the following error when creating the JSON object in DELETE: %@", errorJson);
         }
-        
-        NSMutableArray *receivedDataMutableArray =[[NSMutableArray alloc] initWithArray:receivedDataDict];
-        
         //Print the received Data
-        NSLog(@"The response to the Parent Info API request in Login as MutableArray is: %@", receivedDataMutableArray);
-        //Print the received Cookie
-        NSHTTPCookie * galletas = (NSHTTPCookie *)[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/login"]];
-        NSLog(@"The cookies are: %@", galletas);
+        NSLog(@"The response to the DELETE Student API request is: %@", receivedDataArray);
         
-        
-        NSDictionary * sonsDictionary = @{ @"type" : @"sons",@"object" : receivedDataMutableArray};
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"APISonsReceived"
+        NSDictionary * remainingStudentsDictionary = @{ @"type" : @"remainingStudents",@"object" : receivedDataArray};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"APIStudentDeleted"
                                                             object:self
-                                                          userInfo:sonsDictionary];
+                                                          userInfo:remainingStudentsDictionary];
         
+        
+    }else if ([connection.originalRequest.HTTPMethod isEqualToString:@"GET"]) {
+        NSLog(@"The Logout Connection is: %@", connection.currentRequest.allHTTPHeaderFields);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"APILogout"
+                                                            object:self
+                                                          userInfo:nil];
     }
 }
 

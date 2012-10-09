@@ -156,7 +156,7 @@
     //APICommunication sendParentInfoToApi Method
     
     NSString * apiConnectionResult = [self.apiLoginCommunication sendParentInfoToApi];
-    NSLog(@"%@",apiConnectionResult);
+    NSLog(@"In Login %@",apiConnectionResult);
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(saveRecivedSonsFromApi:)

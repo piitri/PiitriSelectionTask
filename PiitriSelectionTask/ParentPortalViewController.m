@@ -8,6 +8,7 @@
 
 #import "ParentPortalViewController.h"
 #import "ParentModel.h"
+#import "APICommunication.h"
 #import "Facebook+Singleton.h"
 #import "ParentProfileCell.h"
 #import "StudentCell.h"
@@ -31,6 +32,7 @@
 //instance variable to recieve the response of the API Call
 @property (nonatomic, strong) NSMutableData * receivedData;
 @property (nonatomic, strong) ParentModel * parentUserModel;
+@property (nonatomic, strong) APICommunication * apiParentPortalCommunication;
 
 
 @end
@@ -39,6 +41,7 @@
 
 @synthesize receivedData = _receivedData;
 @synthesize parentUserModel = _parentUserModel;
+@synthesize apiParentPortalCommunication = _apiParentPortalCommunication;
 
 #pragma mark - Parent Portal View Objects
 @synthesize parentFullName = _parentFullName;
@@ -87,7 +90,15 @@
     return _parentUserModel;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (APICommunication *) apiParentPortalCommunication
+{
+    if (!_apiParentPortalCommunication) {
+        _apiParentPortalCommunication = [[APICommunication alloc] init];
+    }
+    return _apiParentPortalCommunication;
+}
+
+/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -95,7 +106,7 @@
         
     }
     return self;
-}
+}*/
 
 #pragma mark - ViewController Methods
 
@@ -297,11 +308,12 @@
         if ((self.firstNameTextField.text.length > 1) && (self.lastNameTextField.text.length > 1)) {
             //If there is an image, then Upload it to Facebook
             if (image) {
-                                
+                
                 // Create a UIImage with the Uploaded Student picture URL.
                 NSURL * url = [NSURL URLWithString:studentImageUrlStr];
                 NSData * data = [NSData dataWithContentsOfURL:url];
-                image = [[UIImage alloc] initWithData:data];
+                image = [UIImage imageWithData:data];
+                
                 
                 
                 //Create Student Info Dictionary with Image URL
@@ -309,6 +321,30 @@
                 studentImageUrlStr = nil;
                 
                 NSLog(@"The Student Info With Image URL is %@:", studentInfo);
+                /*Multi Threading Test
+                // Create a UIImage with the Uploaded Student picture URL.
+                NSURL *url = [NSURL URLWithString:studentImageUrlStr];
+                
+                __block NSData *data = nil;
+                
+                dispatch_queue_t download = dispatch_queue_create("ApiImageUpload", NULL);
+                
+                dispatch_async(download, ^{
+                    //Block in Background
+                    data = [NSData dataWithContentsOfURL:url];
+                    
+                    //Bloque main thread
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        image = [UIImage imageWithData:data];
+                        //Create Student Info Dictionary with Image URL
+                        studentInfo = [self createStudentInfoDictionary];
+                        studentImageUrlStr = nil;
+                        
+                        NSLog(@"The Student Info With Image URL is %@:", studentInfo);
+                    });
+                });
+                */
             }else {
                 //Create Student Info Dictionary without an Image URL
                 studentImageUrlStr = @" ";
@@ -325,20 +361,12 @@
             NSLog(@"Sending Student Object to API");
             
             //Send Student Objet to Model to form the URL Request
-            NSMutableURLRequest * requestApi = [self.parentUserModel sendStudentToApi:studentObject];
-            
-            //Call the URL Connection with the Builded Request Structure
-            NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApi delegate:self];
-            if (theConnection) {
-                // Create the NSMutableData to hold the received data.
-                // receivedData is an instance variable declared elsewhere.
-                self.receivedData = [NSMutableData data];
-                NSLog(@"The connection to Add Student has STARTED! ");
-                
-            } else {
-                // Inform the user that the connection failed.
-                NSLog(@"The connection to Add Student has FAILED!");
-            }
+            NSString * apiConnectionResult = [self.apiParentPortalCommunication sendStudentToApi:studentObject];
+            NSLog(@"In Parent Portal %@",apiConnectionResult);
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(insertSavedApiStudentInSonsModelObject:)
+                                                         name:@"APIStudentAdded"
+                                                       object:nil];
             
         }else {
             [self removeStudentFormSubView];
@@ -350,6 +378,42 @@
     }];
     
     
+}
+
+- (void) insertSavedApiStudentInSonsModelObject: (NSNotification *) aNotification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"APIStudentAdded"
+                                                  object:nil];
+    
+    //Insert New Student Object in Sons Array
+    NSDictionary * Student= [aNotification.userInfo objectForKey:@"object"];
+    NSLog(@"Going to call insertNewStudentInSons Method");
+    
+    NSLog(@"The Sons Array Before API Response is %@:", [self.parentUserModel sons]);
+    
+    [self.parentUserModel insertNewStudentInSons:Student];
+    
+    NSLog(@"The Sons Array after API Response is %@:", [self.parentUserModel sons]);
+    
+    //Insert Row in Table View
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSLog(@"We are good saving the student form until here");
+    
+    [self removeStudentFormSubView];
+}
+
+- (void) showRemainingStudentsAfterStudentDeleteFromApi: (NSNotification *) aNotification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"APIStudentDeleted"
+                                                  object:nil];
+    
+    //Log Api & Model remaining Students
+    NSMutableArray * apiStudents = [aNotification.userInfo objectForKey:@"object"];
+    
+    NSLog(@"The Sons Array after API DELETE Response in API is %@:", apiStudents);
+    NSLog(@"The Sons Array after API DELETE Response in Model is %@:", [self.parentUserModel sons]);
 }
 
 
@@ -648,34 +712,38 @@
 - (IBAction)disconnectFromFB:(id)sender {
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(cleanFacebookData) 
-                                                 name:@"FBDidLogout" 
+                                                 name:@"FBDidLogout"
                                                object:nil];
     [[Facebook shared] logout];
 }
 
 - (void)cleanFacebookData {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"FBDidLogout"
+                                                  object:nil];
     //Send Student Id to Model to form the URL Request to Delete the student
-    NSMutableURLRequest * requestApiLogout = [self.parentUserModel logoutFromApi];
+    NSString * apiConnectionResult = [self.apiParentPortalCommunication logoutFromApi];
+    NSLog(@"In Parent Portal %@",apiConnectionResult);
     
-    //Call the URL Connection with the Builded Request Structure
-    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApiLogout delegate:self];
-    if (theConnection) {
-        // Create the NSMutableData to hold the received data.
-        // receivedData is an instance variable declared elsewhere.
-        self.receivedData = [NSMutableData data];
-        NSLog(@"The connection to LOGOUT has STARTED! ");
-    } else {
-        // Inform the user that the connection failed.
-        NSLog(@"The connection to LOGOUT has FAILED!");
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterLogoutDismissParentPortalViewController)
+                                                 name:@"APILogout"
+                                               object:nil];
+}
+
+- (void)afterLogoutDismissParentPortalViewController{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"APILogout"
+                                                  object:nil];
     
     NSLog(@"In Logout the user data is: %@", [defaults objectForKey:@"facebookParentInfo"]);
     NSLog(@"The access token is: %@", [defaults objectForKey:kFBAccessTokenKey]);
     NSLog(@"the expitation Date is: %@", [defaults objectForKey:kFBExpirationDateKey]);
-    //NSLog(@"the json parent info is: %@", [defaults objectForKey:@"jsonParentInfo"]);
     NSLog(@"and the sons are: %@", [defaults objectForKey:@"sons"]);
     [self dismissModalViewControllerAnimated:YES];
 }
+
 
 - (IBAction)backButton:(id)sender {
     
@@ -865,21 +933,14 @@
         NSLog(@"Hasta aca todavia vamos bien con el DELETE");
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
-        //Send Student Id to Model to form the URL Request to Delete the student
-        NSMutableURLRequest * requestApiDelete = [self.parentUserModel deleteStudentFromApi:studentId forRowAtIndexPath:indexPath];
+        //Send Student Id to APIConnection Class to form the URL Request that Delete the student
+        NSString * apiConnectionResult = [self.apiParentPortalCommunication deleteStudentFromApi:studentId forRowAtIndexPath:indexPath];
+        NSLog(@"In Parent Portal %@",apiConnectionResult);
         
-        //Call the URL Connection with the Builded Request Structure
-        NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApiDelete delegate:self];
-        if (theConnection) {
-            // Create the NSMutableData to hold the received data.
-            // receivedData is an instance variable declared elsewhere.
-            self.receivedData = [NSMutableData data];
-            NSLog(@"The connection to DELETE has STARTED! ");
-            
-        } else {
-            // Inform the user that the connection failed.
-            NSLog(@"The connection to DELETE has FAILED!");
-        }
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(showRemainingStudentsAfterStudentDeleteFromApi:)
+                                                     name:@"APIStudentDeleted"
+                                                   object:nil];
 
         
         //indexPathDeleteStudent = nil;
@@ -963,111 +1024,6 @@
         
     }
     
-}
-
-#pragma mark - NSURLResponse Delegate Metods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-
-{
-    // receivedData is an instance variable declared on top of this class.
-    
-    [self.receivedData setLength:0];
-    /*NSString * responseStatusCodeStr = [[NSString alloc] initWith:(NSURLResponse *)response];*/
-    NSLog(@"The URL Response is :%@", response);
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-    NSLog(@"Status code %d", [httpResponse statusCode]);
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-
-{
-    
-    // Append the new data to receivedData.
-    
-    // receivedData is an instance variable declared on top of this class.
-    
-    [self.receivedData appendData:data];
-    
-}
-
-- (void)connection:(NSURLConnection *)connection
-
-  didFailWithError:(NSError *)error
-
-{
-    // inform the user
-    
-    NSLog(@"Connection failed! Error - %@ %@",
-          
-          [error localizedDescription],
-          
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-
-{
-    // do something with the data
-    
-    // receivedData is declared as a method instance on top of this class.
-    NSError* error = nil;
-    NSError* errorJson = nil;
-    NSLog(@"Succeeded! Received %d bytes of data in Parent Portal ",[self.receivedData length]);
-    
-    NSString * requestMethod = [[NSString alloc] initWithString:connection.originalRequest.HTTPMethod];
-    NSLog(@"And the request Method in Parent Portal was %@",requestMethod);
-    
-    if ([connection.originalRequest.HTTPMethod isEqualToString:@"POST"]) {
-        
-        NSString * originalRequestUrlStr = [[NSString alloc] initWithContentsOfURL:connection.originalRequest.URL encoding:NSUTF8StringEncoding error:&error];
-        
-        if (error != nil) {
-            NSLog(@"We have the following error when creating the originalRequestUrlStr in Login: %@", error);
-        }
-        
-        NSLog(@"The Original Request URL is%@",originalRequestUrlStr);
-        NSLog(@"The Original Direct Request URL is: %@",connection.originalRequest.URL);
-        
-        NSDictionary * receivedDataDict = [NSJSONSerialization JSONObjectWithData:self.receivedData options:kNilOptions error:&errorJson];
-        
-        if (errorJson != nil) {
-            NSLog(@"We have the following error when creating the JSON object in Add Student: %@", errorJson);
-        }
-        //Print the received Data
-        NSLog(@"The response to the Add Student API request is: %@", receivedDataDict);
-        //Insert New Student Object in Sons Array
-        NSLog(@"Going to call insertNewStudentInSons Method");
-        
-        NSLog(@"The Sons Array Before API Response is %@:", [self.parentUserModel sons]);
-        
-        [self.parentUserModel insertNewStudentInSons:receivedDataDict];
-        
-        NSLog(@"The Sons Array after API Response is %@:", [self.parentUserModel sons]);
-        
-        //Insert Row in Table View
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                              withRowAnimation:UITableViewRowAnimationAutomatic];
-        NSLog(@"We are good saving the student form until here");
-        
-        [self removeStudentFormSubView];
-        
-    }else if ([connection.originalRequest.HTTPMethod isEqualToString:@"DELETE"]) {
-        NSMutableArray * receivedDataArray = [NSJSONSerialization JSONObjectWithData:self.receivedData options:kNilOptions error:&error];
-        if (error != nil) {
-            NSLog(@"We have the following error when creating the JSON object in DELETE: %@", error);
-        }
-        //Print the received Data
-        NSLog(@"The response to the DELETE Student API request is: %@", receivedDataArray);
-        
-        NSLog(@"The Sons Array after API DELETE Response is %@:", [self.parentUserModel sons]);
-        
-    }else if ([connection.originalRequest.HTTPMethod isEqualToString:@"GET"]) {
-        NSLog(@"The Logout Connection is: %@", connection.currentRequest.allHTTPHeaderFields);
-    }
 }
 
 
