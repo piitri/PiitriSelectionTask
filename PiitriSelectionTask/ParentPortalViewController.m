@@ -796,11 +796,19 @@
         // Take out the Name of the Parent to Draw in the Cell
         parent.parentNameCellLabel.text = [parentData objectForKey:@"name"];
         // Get the Parent Small profile picture.
+        
         NSString * accessToken =[defaults stringForKey:kFBAccessTokenKey];
+        /*
         NSURL * smallUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]];
         NSData * smalldata = [NSData dataWithContentsOfURL:smallUrl];
         UIImage * parentImage = [[UIImage alloc] initWithData:smalldata];
         parent.parentCellImageView.image = parentImage;
+         */
+        
+        // Here we use the new provided setImageWithURL: method to load the web image
+        [parent.parentCellImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]]
+                                   placeholderImage:[UIImage imageNamed:@"icon-student-sign-up-placeholder.png"]];
+        
         
         return parent;
         
@@ -839,16 +847,22 @@
         
         //Student Small Picture
         if ([studentNameAndImageObjectDict objectForKey:@"picture_url"]) {
+            
             //Take out the Url of the Facebook Student Photo to Draw in the Cell
             //Next line is commented because it was generating a Warning
             //NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"picture_url"]];
-            NSString * studentPictureUrl = [[studentNameAndImageObjectDict objectForKey:@"picture_url"] mutableCopy];
+            NSString * studentPictureUrl = [studentNameAndImageObjectDict objectForKey:@"picture_url"];
             // Create a UIImage with the Uploaded Student picture URL.
+            /*
             NSURL * url = [NSURL URLWithString:studentPictureUrl];
             NSData * data = [NSData dataWithContentsOfURL:url];
             UIImage * studentImage = [[UIImage alloc] initWithData:data];
-            
             cell.studentCellImageView.image = studentImage;
+             */
+             
+            // Here we use the new provided setImageWithURL: method to load the web image
+            [cell.studentCellImageView setImageWithURL:[NSURL URLWithString:studentPictureUrl]
+                                      placeholderImage:[UIImage imageNamed:@"icon-student-sign-up-placeholder.png"]];
             
         }else {
             cell.studentCellImageView.image = nil;

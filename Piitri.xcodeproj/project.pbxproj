@@ -113,6 +113,8 @@
 		24B6C5E815BA126D00022A4F /* ParentPortalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B6C5E715BA126D00022A4F /* ParentPortalViewController.m */; };
 		24D8667F15E3D098000DED1D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D8667D15E3D098000DED1D /* libTestFlight.a */; };
 		24D8668215E3D24A000DED1D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D8668115E3D24A000DED1D /* libz.dylib */; };
+		24EB5ACF1624A88F0062F6D7 /* libSDWebImageARC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24EB5AC91624A8090062F6D7 /* libSDWebImageARC.a */; };
+		24EB5AD11624A8A20062F6D7 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24EB5AD01624A8A20062F6D7 /* ImageIO.framework */; };
 		24EBB51E15D896AF007CB745 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBB51D15D896AF007CB745 /* DatePickerViewController.m */; };
 		24F0DC6615D1E83200CE4A88 /* StudentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F0DC6515D1E83200CE4A88 /* StudentCell.m */; };
 		24F4F22815C72B8500E93A08 /* log-in-bg-with-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F4F22615C72B8300E93A08 /* log-in-bg-with-mask.png */; };
@@ -131,6 +133,37 @@
 		24F921331623761B004290E6 /* CropImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F921321623761B004290E6 /* CropImage.m */; };
 		24FFD61615EABC0A00C252F1 /* ParentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FFD61515EABC0A00C252F1 /* ParentModel.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		24EB5AC61624A8090062F6D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24EB5ABD1624A8080062F6D7 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53922D6F148C55820056699D;
+			remoteInfo = SDWebImage;
+		};
+		24EB5AC81624A8090062F6D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24EB5ABD1624A8080062F6D7 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53761325155AD0D5005750A4;
+			remoteInfo = "SDWebImage ARC";
+		};
+		24EB5ACA1624A8090062F6D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24EB5ABD1624A8080062F6D7 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 531041E0157EAFA400BBABC3;
+			remoteInfo = "SDWebImage ARC+MKAnnotation";
+		};
+		24EB5ACD1624A8480062F6D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24EB5ABD1624A8080062F6D7 /* SDWebImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 53761307155AD0D5005750A4;
+			remoteInfo = "SDWebImage ARC";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		24014C0615D75D4500778B51 /* MainSideMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSideMenuItemCell.h; sourceTree = "<group>"; };
@@ -266,6 +299,8 @@
 		24D8667D15E3D098000DED1D /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		24D8667E15E3D098000DED1D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		24D8668115E3D24A000DED1D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		24EB5ABD1624A8080062F6D7 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = ../ExternalClasses/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		24EB5AD01624A8A20062F6D7 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		24EBB51C15D896AF007CB745 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
 		24EBB51D15D896AF007CB745 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 		24F0DC6415D1E83200CE4A88 /* StudentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentCell.h; sourceTree = "<group>"; };
@@ -294,6 +329,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24EB5AD11624A8A20062F6D7 /* ImageIO.framework in Frameworks */,
+				24EB5ACF1624A88F0062F6D7 /* libSDWebImageARC.a in Frameworks */,
 				2499AB2315E3ECDA000D048E /* QuartzCore.framework in Frameworks */,
 				24D8668215E3D24A000DED1D /* libz.dylib in Frameworks */,
 				24B6C58115B9CB6700022A4F /* UIKit.framework in Frameworks */,
@@ -482,6 +519,7 @@
 		24B6C57115B9CB6700022A4F = {
 			isa = PBXGroup;
 			children = (
+				24EB5ABD1624A8080062F6D7 /* SDWebImage.xcodeproj */,
 				24B6C58615B9CB6700022A4F /* Piitri */,
 				24B6C57F15B9CB6700022A4F /* Frameworks */,
 				24B6C57D15B9CB6700022A4F /* Products */,
@@ -502,6 +540,7 @@
 				24B6C58415B9CB6700022A4F /* CoreGraphics.framework */,
 				24B6C58215B9CB6700022A4F /* Foundation.framework */,
 				24D8668115E3D24A000DED1D /* libz.dylib */,
+				24EB5AD01624A8A20062F6D7 /* ImageIO.framework */,
 				2499AB2215E3ECDA000D048E /* QuartzCore.framework */,
 				24B6C58015B9CB6700022A4F /* UIKit.framework */,
 			);
@@ -561,6 +600,16 @@
 			path = "facebook-ios-sdk";
 			sourceTree = "<group>";
 		};
+		24EB5ABE1624A8080062F6D7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24EB5AC71624A8090062F6D7 /* libSDWebImage.a */,
+				24EB5AC91624A8090062F6D7 /* libSDWebImageARC.a */,
+				24EB5ACB1624A8090062F6D7 /* libSDWebImageARC+MKAnnotation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		24F8577115BE1EB100DE6714 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -602,6 +651,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				24EB5ACE1624A8480062F6D7 /* PBXTargetDependency */,
 			);
 			name = Piitri;
 			productName = PiitriSelectionTask;
@@ -627,12 +677,42 @@
 			mainGroup = 24B6C57115B9CB6700022A4F;
 			productRefGroup = 24B6C57D15B9CB6700022A4F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 24EB5ABE1624A8080062F6D7 /* Products */;
+					ProjectRef = 24EB5ABD1624A8080062F6D7 /* SDWebImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				24B6C57B15B9CB6700022A4F /* Piitri */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		24EB5AC71624A8090062F6D7 /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = 24EB5AC61624A8090062F6D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		24EB5AC91624A8090062F6D7 /* libSDWebImageARC.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImageARC.a;
+			remoteRef = 24EB5AC81624A8090062F6D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		24EB5ACB1624A8090062F6D7 /* libSDWebImageARC+MKAnnotation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libSDWebImageARC+MKAnnotation.a";
+			remoteRef = 24EB5ACA1624A8090062F6D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		24B6C57A15B9CB6700022A4F /* Resources */ = {
@@ -770,6 +850,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		24EB5ACE1624A8480062F6D7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SDWebImage ARC";
+			targetProxy = 24EB5ACD1624A8480062F6D7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		24B6C58915B9CB6700022A4F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -852,12 +940,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Luz Ribero (UZQVT4AP67)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PiitriSelectionTask/Piitri-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+				);
 				INFOPLIST_FILE = "PiitriSelectionTask/Piitri-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PiitriSelectionTask\"",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Piitri;
 				WRAPPER_EXTENSION = app;
 			};
@@ -869,12 +962,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: L.S.R. Marketing Service";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PiitriSelectionTask/Piitri-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+				);
 				INFOPLIST_FILE = "PiitriSelectionTask/Piitri-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PiitriSelectionTask/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PiitriSelectionTask\"",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Piitri;
 				WRAPPER_EXTENSION = app;
 			};
