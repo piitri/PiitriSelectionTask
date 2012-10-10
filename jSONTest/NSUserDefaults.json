@@ -1,0 +1,75 @@
+//#define kFBAccessTokenKey  @"FBAccessTokenKey"
+{
+    "FBAccessTokenKey": BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD;
+}
+
+//#define kFBExpirationDateKey  @"FBExpirationDateKey"
+{
+    "FBExpirationDateKey": 2012-10-24 19:03:07 +0000;
+}
+
+//facebookParentInfo created with userData
+{
+    "facebookParentInfo": {
+        birthday = "09/06/1984";
+        email = "david6p2@hotmail.com";
+        id = 641811329;
+        location =     {
+            id = 102194039822307;
+            name = "Bogot\U00e1, Colombia";
+        };
+        name = "David Cespedes";
+        picture =     {
+            data =         {
+                "is_silhouette" = 0;
+                url = "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg";
+            };
+        };
+    }
+}
+//jsonParentInfo created with jsonDict
+{
+    "jsonParentInfo": {
+        appID = A1B2C3E4F5123;
+        authStrategy =     {
+            provider = Facebook;
+            token = BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD;
+        };
+        user =     {
+            email = "david6p2@hotmail.com";
+            location = "Bogot\U00e1, Colombia";
+            name = "David Cespedes";
+            "picture_url" = "https://graph.facebook.com/me/picture?type=large&access_token=BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD";
+        };
+    }
+}
+//sons created with receivedDataMutableArray in ViewController.m
+//Getter Called in ParentPortalViewController.m in - (void)viewDidLoad
+
+{
+    "sons": [
+            {
+            "_id" = 5033edf5f7df810200000004;
+            "date_of_birth" = "21/09/2012";
+            "first_name" = Pedro;
+            gender = male;
+            "last_name" = Perez;
+            "parent_id" = 503030fed2c6c50bffd4fbfc;
+            "picture_url" = "https://graph.facebook.com/10150978509716330/picture?type=thumbnail&access_token=BAAFLaVRvtmEBAGIaSNLvBgZAPH0aYoLJh04QFO6NxmX3X9UxZCx480BZBp6cN9Qw0zvtb9ZC2LWb9xEkcOuRLfSVavQsKmfu5OAGPTD3pjoPzGbIQSjtlsYW2FHRNogZD";
+            school = Sasas;
+        },
+            {
+            "_id" = 5035b228b9fa7a0200000004;
+            "date_of_birth" = "22/07/2012";
+            "first_name" = Luz;
+            gender = female;
+            "last_name" = Ribero;
+            "parent_id" = 503030fed2c6c50bffd4fbfc;
+            "picture_url" = "";
+            school = YeahTuyo;
+        }
+    ]
+}
+
+
+

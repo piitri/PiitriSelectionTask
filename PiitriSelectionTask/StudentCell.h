@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Cell : UITableViewCell{
+@interface StudentCell : UITableViewCell{
     UIImageView * studentCellImageView;
     UIImageView * studentCellMaskImageView;
     UILabel * studentNameCellLabel;

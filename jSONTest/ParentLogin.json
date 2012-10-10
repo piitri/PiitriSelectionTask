@@ -1,0 +1,59 @@
+
+
+//How should I send a Parent Login Request
+{
+  "user": {
+      "email": "david@roncancio.me",
+      "name": "David Roncancio"
+  },
+  "appID": "A1B2C3E4F5123",
+  "authStrategy": {
+      "provider": "Facebook",
+      "token": "1sa12s1"
+  }
+}
+
+//How I was sending the Parent Login before
+//JSON Funcionado el 26 de Julio a las 19:53
+{
+    "OAuthProvider": "Facebook",
+    "AccessToken": "AAAFWvgPjDHwBAEz6rRG3VvZAKHsYvpmdCE4EZBB0SNC5rqjA4bu4FDhVIaGlNBivvKaPfOZCv8tKd66YoyqoYI4R23acrsC0ZBLgh4jJaAZDZD",
+    "AppID": "A1B2C3E4F5123",
+    "user": {
+        "email": "david6p2@hotmail.com",
+        "location": "Bogotá, Colombia",
+        "name": "David Cespedes",
+        "picture_url": "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg"
+    }
+}
+//Father Object
+//El diccionario JSON para el request al API en viewController.m es: [defaults setObject:jsonDict forKey:@"jsonParentInfo"];
+{
+    AccessToken = BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD;
+    AppID = A1B2C3E4F5123;
+    OAuthProvider = Facebook;
+    user =     {
+        email = "david6p2@hotmail.com";
+        location = "Bogot\U00e1, Colombia";
+        name = "David Cespedes";
+        "picture_url" = "https://graph.facebook.com/me/picture?type=large&access_token=BAAFLaVRvtmEBAPyC4BGOFCKHIcVZBoklXSdggy1shCffugy3ncuctgWGtZCohbDe0CqxZCqomRa95V5sz8aQjiVAro0esQD91DS0zmxY78C8BlGftbcDIIeLF6TmnSbvzAPFDDOLAZDZD";
+    };
+}
+
+//result=userdata en - (void)request:(FBRequest *)request didLoad:(id)result en viewController.m
+{
+    birthday = "09/06/1984";
+    email = "david6p2@hotmail.com";
+    id = 641811329;
+    location =     {
+        id = 102194039822307;
+        name = "Bogot\U00e1, Colombia";
+    };
+    name = "David Cespedes";
+    picture =     {
+        data =         {
+            "is_silhouette" = 0;
+            url = "http://profile.ak.fbcdn.net/hprofile-ak-ash2/260893_641811329_1278694535_q.jpg";
+        };
+    };
+}

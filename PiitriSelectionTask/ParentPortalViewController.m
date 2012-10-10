@@ -7,41 +7,54 @@
 //
 
 #import "ParentPortalViewController.h"
+#import "ParentModel.h"
+#import "APICommunication.h"
 #import "Facebook+Singleton.h"
-#import "Cell.h"
+#import "ParentProfileCell.h"
+#import "StudentCell.h"
 #import "MainSideMenuItemCell.h"
 #import "AddStudentCell.h"
 #import "DatePickerViewController.h"
+#import "PhotoPickerViewController.h"
+#import "CropImage.h"
 
-@interface ParentPortalViewController () <DatePickerViewControllerDelegate>{
+@interface ParentPortalViewController () <DatePickerViewControllerDelegate, PhotoPickerViewControllerDelegate>{
     NSUserDefaults * defaults;
-    NSMutableArray *_objects;
-    NSMutableArray * sons;
-    NSMutableArray * studentsNamesAndImages;
+    //To erase NSMutableArray * sons;
     NSString * studentImageUrlStr;
     UIImage * tempStudentImage;
-    NSMutableData * receivedData;//instance variable to recieve the response of the API Call
-    BOOL justArrive;
+    UIImagePickerController *imagePickerController;
+    NSIndexPath * indexPathDeleteStudent;
+    BOOL cameraselected;
+    BOOL deleteStudent;
 }
-- (void)configureView;
+
+//instance variable to recieve the response of the API Call
+@property (nonatomic, strong) NSMutableData * receivedData;
+@property (nonatomic, strong) ParentModel * parentUserModel;
+@property (nonatomic, strong) APICommunication * apiParentPortalCommunication;
+
+
 @end
 
 @implementation ParentPortalViewController
 
-#pragma mark - Parent Portal Vars
+@synthesize receivedData = _receivedData;
+@synthesize parentUserModel = _parentUserModel;
+@synthesize apiParentPortalCommunication = _apiParentPortalCommunication;
+
+#pragma mark - Parent Portal View Objects
 @synthesize parentFullName = _parentFullName;
 @synthesize parentLocation = _parentLocation;
+@synthesize twitterButton = _twitterButton;
+@synthesize facebookButton = _facebookButton;
+@synthesize googlePlusButton = _googlePlusButton;
 @synthesize editProfileButton = _editProfileButton;
 @synthesize buyCoinsButton = _buyCoinsButton;
-@synthesize parentEmail = _parentEmail;
-@synthesize parentBirthday = _parentBirthday;
 @synthesize parentProfilePicture = _parentProfilePicture;
-@synthesize cajaTextoParentPortal = _cajaTextoParentPortal;
 
 #pragma mark - Vars for TableView
 @synthesize tableView = _tableView;
-@synthesize detailItem = _detailItem;
-@synthesize detailDescriptionLabel = _detailDescriptionLabel;
 
 #pragma mark - Views
 @synthesize studentForm = _studentForm;
@@ -62,7 +75,6 @@
 @synthesize lastNameTextField = _lastNameTextField;
 @synthesize dateOfBirthLabel = _dateOfBirthLabel;
 @synthesize dateOfBirthField = _dateOfBirthField;
-@synthesize datePickerTest = _datePickerTest;
 @synthesize currentSchoolLabel = _currentSchoolLabel;
 @synthesize currentSchoolTextField = _currentSchoolTextField;
 @synthesize studentFormActivityIndicator = _studentFormActivityIndicator;
@@ -70,7 +82,23 @@
 
 #pragma mark - 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (ParentModel *) parentUserModel
+{
+    if (!_parentUserModel) {
+        _parentUserModel = [[ParentModel alloc] init];
+    }
+    return _parentUserModel;
+}
+
+- (APICommunication *) apiParentPortalCommunication
+{
+    if (!_apiParentPortalCommunication) {
+        _apiParentPortalCommunication = [[APICommunication alloc] init];
+    }
+    return _apiParentPortalCommunication;
+}
+
+/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -78,21 +106,26 @@
         
     }
     return self;
-}
+}*/
 
 #pragma mark - ViewController Methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.    
+	// Do any additional setup after loading the view.
+    
+    //Parent Info Customization
     self.parentFullName.font = [UIFont fontWithName:@"MetaPlus" size:30];
     self.parentLocation.font = [UIFont fontWithName:@"OpenSans-Semibold" size:14];
     
     //TableView Customization
     self.tableView.backgroundColor = [UIColor clearColor];
-    justArrive = YES;
-    //counter = 0;
+    //To know if Camera or Photo Gallery was selected
+    cameraselected = NO;
+    //To Make the Alert appear when a Student is to be removed
+    deleteStudent = NO;
+    indexPathDeleteStudent = nil;
     
     //Student Form Design
 
@@ -105,94 +138,73 @@
     self.lastNameLabel.font = [UIFont fontWithName:@"MetaPlus" size:14];
     self.dateOfBirthLabel.font = [UIFont fontWithName:@"MetaPlus" size:14];
     self.currentSchoolLabel.font = [UIFont fontWithName:@"MetaPlus" size:14];
-    CGRect firstFrameRect = _firstNameTextField.frame;
+    self.editProfileButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:17];
+    self.buyCoinsButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:17];
+    CGRect firstFrameRect = self.firstNameTextField.frame;
     firstFrameRect.size.height = 60;
-    _firstNameTextField.frame = firstFrameRect;
+    self.firstNameTextField.frame = firstFrameRect;
     
-    CGRect lastFrameRect = _lastNameTextField.frame;
+    CGRect lastFrameRect = self.lastNameTextField.frame;
     lastFrameRect.size.height = 60;
-    _lastNameTextField.frame = lastFrameRect;
+    self.lastNameTextField.frame = lastFrameRect;
     
-    CGRect birthFrameRect = _dateOfBirthField.frame;
+    CGRect birthFrameRect = self.dateOfBirthField.frame;
     birthFrameRect.size.height = 60;
-    _dateOfBirthField.frame = birthFrameRect;
+    self.dateOfBirthField.frame = birthFrameRect;
     
-    CGRect schoolFrameRect = _currentSchoolTextField.frame;
+    CGRect schoolFrameRect = self.currentSchoolTextField.frame;
     schoolFrameRect.size.height = 60;
-    _currentSchoolTextField.frame = schoolFrameRect;
+    self.currentSchoolTextField.frame = schoolFrameRect;
     
     UIColor *backgroundAddStudent = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"light-box-black.png"]];
-    _addStudentView.backgroundColor = backgroundAddStudent;
+    self.addStudentView.backgroundColor = backgroundAddStudent;
     UIColor *backgroundStudentForm = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"student-form.png"]];
-    _studentForm.backgroundColor = backgroundStudentForm;
+   self.studentForm.backgroundColor = backgroundStudentForm;
     
     //Segmented Control customization
-    // Image between two unselected segments.
-    [_genderSegmentedControl setDividerImage:[UIImage imageNamed:@"gender-inactive-segmented.png"] forLeftSegmentState:UIControlStateNormal
+    
+    //Image between two unselected segments.
+    [self.genderSegmentedControl setDividerImage:[UIImage imageNamed:@"gender-inactive-segmented.png"] forLeftSegmentState:UIControlStateNormal
                       rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
     // Image between segment selected on the left and unselected on the right.
-    [_genderSegmentedControl setDividerImage:[UIImage imageNamed:@"gender-boy-active-segmented.png"] forLeftSegmentState:UIControlStateSelected
+    [self.genderSegmentedControl setDividerImage:[UIImage imageNamed:@"gender-boy-active-segmented.png"] forLeftSegmentState:UIControlStateSelected
                       rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    // Image between segment selected on the right and unselected on the right.
-    [_genderSegmentedControl setDividerImage:[UIImage imageNamed:@"gender-girl-active-segmented.png"] forLeftSegmentState:UIControlStateNormal
+    
+    // Image between segment selected on the right and unselected on the left.
+    [self.genderSegmentedControl setDividerImage:[UIImage imageNamed:@"gender-girl-active-segmented.png"] forLeftSegmentState:UIControlStateNormal
                       rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [_genderSegmentedControl setFrame:CGRectMake(_genderSegmentedControl.frame.origin.x, _genderSegmentedControl.frame.origin.y, _genderSegmentedControl.frame.size.width, 62)];
+    
+    [self.genderSegmentedControl setFrame:CGRectMake(self.genderSegmentedControl.frame.origin.x, self.genderSegmentedControl.frame.origin.y, self.genderSegmentedControl.frame.size.width, 62)];
     
     //Assign DatePicker to Birthday TextField
     //build our custom popover view
     UIViewController* popoverContent = [[UIViewController alloc] init];
     UIView* popoverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
     popoverView.backgroundColor = [UIColor whiteColor];
-    
-    //self.birthdayDatePicker.frame = CGRectMake(0, 0, 320, 300);
-    
-    //[popoverView addSubview:self.birthdayDatePicker];
     popoverContent.view = popoverView;
     
     //resize the popover view shown
     //in the current view to the view's size
     popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 244);
     
-    //create a popover controller
-    //UIPopoverController *popoverControllerForDate = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
-    
-    //present the popover view non-modal with a
-    //refrence to the button pressed within the current view
-    //[popoverController presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem 
-    //                          permittedArrowDirections:UIPopoverArrowDirectionAny 
-    //                                          animated:YES];
-    //[popoverControllerForDate presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-
-
-    
-    /*if (popoverController){
-        [popoverController dismissPopoverAnimated:NO];
-    }
-    popoverController = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
-    popoverController.delegate = self;
-    [popoverController presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];*/
-    
-    //self.dateOfBirthField.inputView = popoverView;
-    //self.dateOfBirthField.inputView = self.birthdayDatePicker;
-
-    
-    /*[_genderSegmentedControl setBackgroundImage:[UIImage imageNamed:@"gender-boy-active.png"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];*/
-    
-    /*_addStudentView.transform = CGAffineTransformMakeRotation( ( -180 * M_PI ) / 360 );*/
     self.dateOfBirthField.delegate = self;
-
     
-    
-    self.editProfileButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:17];
-    self.buyCoinsButton.titleLabel.font = [UIFont fontWithName:@"MetaPlus" size:17];
-    [self configureView];   
-
+    //Assign NSUserDefaults to defaults
     defaults = [NSUserDefaults standardUserDefaults];
     
+    [self.parentUserModel retrieveApiSavedStudents:[defaults arrayForKey:@"sons"]];
+    
     if (![defaults objectForKey:@"facebookParentInfo"]) {
-        [self requestFacebookData];
+        [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location"
+                                    andDelegate:[Facebook shared]];
+        NSLog(@"There was no facebookParentInfo in the Parent Portal!!!!!");
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(useDataLogin) 
+                                                     name:@"FBParentInfoIsReady" 
+                                                   object:nil];
     }else {
-        [self useDatosLogin:[defaults objectForKey:@"facebookParentInfo"] withToken:(NSString *) [defaults objectForKey:kFBAccessTokenKey]];
+        [self useDataLogin];
     }
     
     
@@ -204,18 +216,13 @@
     [self setParentFullName:nil];
     [self setParentLocation:nil];
     [self setParentProfilePicture:nil];
-    [self setCajaTextoParentPortal:nil];
-    [self setParentEmail:nil];
-    [self setParentBirthday:nil];
     [self setEditProfileButton:nil];
     [self setBuyCoinsButton:nil];
     //TableView vars
     [self setTableView:nil];
-    [self setDetailDescriptionLabel:nil];
     [self setStudentForm:nil];
     [self setViewParentPortal:nil];
     [self setTableView:nil];
-    [self setDetailDescriptionLabel:nil];
     [self setStudentForm:nil];
     [self setFirstNameTextField:nil];
     [self setLastNameTextField:nil];
@@ -233,9 +240,20 @@
     [self setStudentFormActivityIndicator:nil];
     [self setSaveStudentInfoButton:nil];
     [self setStudentMaskImageView:nil];
-    [self setDatePickerTest:nil];
+    [self setTwitterButton:nil];
+    [self setFacebookButton:nil];
+    [self setGooglePlusButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:@"FBDidUploadPhoto" 
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:@"FBDidLogout" 
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"FBParentInfoIsReady"
+                                                  object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -246,60 +264,8 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-    /*return YES;*/
 }
 
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)insertNewStudentInSons:(NSDictionary *)student
-{
-    if (!sons) {
-        sons = [[NSMutableArray alloc] init];
-    }
-    [sons insertObject:student atIndex:0];
-}
-
-- (void)insertNewStudentNameAndImage:(NSDictionary *)studentNameAndImage
-{
-    if (!studentsNamesAndImages) {
-        studentsNamesAndImages = [[NSMutableArray alloc] init];
-    }
-    [studentsNamesAndImages insertObject:studentNameAndImage atIndex:0];
-}
-
-
-#pragma mark - Managing the detail item
-
-- (void)setDetailItem:(id)newDetailItem
-{
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-        
-        // Update the view.
-        [self configureView];
-    }
-    
-    /*if (self.masterPopoverController != nil) {
-     [self.masterPopoverController dismissPopoverAnimated:YES];
-     } */       
-}
-
-- (void)configureView
-{
-    // Update the user interface for the detail item.
-    
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-    }
-}
 
 #pragma mark - Popover Methods
 
@@ -307,16 +273,18 @@
 // Popover was dismissed
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)aPopoverController
 {
+    imagePickerController = nil;
     self.popoverControllerBirthday = nil;
+    
 }
 
 #pragma mark - Student Form View
 - (void)showStudentForm{
     
     [self.viewParentPortal addSubview:self.addStudentView];
-    [_firstNameTextField becomeFirstResponder];
+    [self.firstNameTextField becomeFirstResponder];
     [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
-        _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 38, _studentForm.frame.size.width, _studentForm.frame.size.height);
+        self.studentForm.frame = CGRectMake(self.studentForm.frame.origin.x, 38, self.studentForm.frame.size.width, self.studentForm.frame.size.height);
     } completion:^(BOOL finished) {
         
     }];
@@ -324,18 +292,9 @@
 
 - (IBAction)cancelStudentInfo:(id)sender {
     [UIView animateWithDuration:0.5 delay:0.25 options:UIViewAnimationOptionTransitionNone animations:^{
-        _studentForm.frame = CGRectMake(_studentForm.frame.origin.x, 738, _studentForm.frame.size.width, _studentForm.frame.size.height);
+        self.studentForm.frame = CGRectMake(self.studentForm.frame.origin.x, 738, self.studentForm.frame.size.width, self.studentForm.frame.size.height);
     } completion:^(BOOL finished) {
-        [_firstNameTextField resignFirstResponder];
-        self.takePhotoButton.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"btn-camera-icon-inactive.png"]];
-        _firstNameTextField.text = nil;
-        _lastNameTextField.text = nil;
-        _dateOfBirthField.text = nil;
-        _currentSchoolTextField.text = nil;
-        _studentImageView.image = nil;
-        [self.studentImageView setHidden:YES];
-        [self.studentMaskImageView setHidden:YES];
-        [self.addStudentView removeFromSuperview];
+        [self removeStudentFormSubView];
     }];
     
 }
@@ -349,18 +308,48 @@
         if ((self.firstNameTextField.text.length > 1) && (self.lastNameTextField.text.length > 1)) {
             //If there is an image, then Upload it to Facebook
             if (image) {
-                                
+                
                 // Create a UIImage with the Uploaded Student picture URL.
                 NSURL * url = [NSURL URLWithString:studentImageUrlStr];
                 NSData * data = [NSData dataWithContentsOfURL:url];
-                image = [[UIImage alloc] initWithData:data];
+                image = [UIImage imageWithData:data];
+                
+                
                 
                 //Create Student Info Dictionary with Image URL
-                studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",studentImageUrlStr,@"picture_url", nil];
+                studentInfo = [self createStudentInfoDictionary];
+                studentImageUrlStr = nil;
+                
                 NSLog(@"The Student Info With Image URL is %@:", studentInfo);
+                /*Multi Threading Test
+                // Create a UIImage with the Uploaded Student picture URL.
+                NSURL *url = [NSURL URLWithString:studentImageUrlStr];
+                
+                __block NSData *data = nil;
+                
+                dispatch_queue_t download = dispatch_queue_create("ApiImageUpload", NULL);
+                
+                dispatch_async(download, ^{
+                    //Block in Background
+                    data = [NSData dataWithContentsOfURL:url];
+                    
+                    //Bloque main thread
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        image = [UIImage imageWithData:data];
+                        //Create Student Info Dictionary with Image URL
+                        studentInfo = [self createStudentInfoDictionary];
+                        studentImageUrlStr = nil;
+                        
+                        NSLog(@"The Student Info With Image URL is %@:", studentInfo);
+                    });
+                });
+                */
             }else {
                 //Create Student Info Dictionary without an Image URL
-                studentInfo = [[NSDictionary alloc] initWithObjectsAndKeys:_firstNameTextField.text,@"first_name",_lastNameTextField.text,@"last_name",_dateOfBirthField.text,@"date_of_birth",[self genderSelection:_genderSegmentedControl],@"gender",_currentSchoolTextField.text,@"school",@"",@"picture_url", nil];
+                studentImageUrlStr = @" ";
+                studentInfo = [self createStudentInfoDictionary];
+                
                 NSLog(@"The Student Info without an Image URL is %@:", studentInfo);
             }
             
@@ -368,54 +357,94 @@
             //Create Student Object For Piitri API
             NSDictionary * studentObject = [[NSDictionary alloc] initWithObjectsAndKeys:@"A1B2C3E4F5123",@"appID",studentInfo,@"student", nil];
             NSLog(@"The Student Object is %@:", studentObject);
+
+            NSLog(@"Sending Student Object to API");
             
-            //Insert New Student Object in Sons Array
-            [self insertNewStudentInSons:studentObject];
-            NSLog(@"The Sons Array is %@:", sons);
+            //Send Student Objet to Model to form the URL Request
+            NSString * apiConnectionResult = [self.apiParentPortalCommunication sendStudentToApi:studentObject];
+            NSLog(@"In Parent Portal %@",apiConnectionResult);
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(insertSavedApiStudentInSonsModelObject:)
+                                                         name:@"APIStudentAdded"
+                                                       object:nil];
             
-            // Save Name, Image and Image URL to display in Parent Portal TableView
-            //Create Cell Student Name
-            NSMutableString * studentName = [[NSMutableString alloc] initWithString:self.firstNameTextField.text];
-            [studentName appendString:@" "];
-            [studentName appendString:self.lastNameTextField.text];
-            
-            //Create Cell Student Image
-            UIImage * studentImage = image;
-            
-            //Create Cell Student Name and Image Dictionary
-            NSDictionary * studentNameAndImageDict = [[NSDictionary alloc] initWithObjectsAndKeys:studentName,@"studentName", studentImage, @"studentImage",studentImageUrlStr,@"studentImageUrl", nil];
-            [self insertNewStudentNameAndImage:studentNameAndImageDict];
-            
-            //Insert Row in Table View
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self sendStudentToApi];
+        }else {
+            [self removeStudentFormSubView];
             
         }
         
-        [_firstNameTextField resignFirstResponder];
-        self.takePhotoButton.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"btn-camera-icon-inactive.png"]];
-        _firstNameTextField.text = nil;
-        _lastNameTextField.text = nil;
-        _dateOfBirthField.text = nil;
-        _currentSchoolTextField.text = nil;
-        _studentImageView.image = nil;
-        [self.studentImageView setHidden:YES];
-        [self.studentMaskImageView setHidden:YES];
-        [self.addStudentView removeFromSuperview];
+        
         
     }];
     
     
 }
 
+- (void) insertSavedApiStudentInSonsModelObject: (NSNotification *) aNotification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"APIStudentAdded"
+                                                  object:nil];
+    
+    //Insert New Student Object in Sons Array
+    NSDictionary * Student= [aNotification.userInfo objectForKey:@"object"];
+    NSLog(@"Going to call insertNewStudentInSons Method");
+    
+    NSLog(@"The Sons Array Before API Response is %@:", [self.parentUserModel sons]);
+    
+    [self.parentUserModel insertNewStudentInSons:Student];
+    
+    NSLog(@"The Sons Array after API Response is %@:", [self.parentUserModel sons]);
+    
+    //Insert Row in Table View
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSLog(@"We are good saving the student form until here");
+    
+    [self removeStudentFormSubView];
+}
+
+- (void) showRemainingStudentsAfterStudentDeleteFromApi: (NSNotification *) aNotification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"APIStudentDeleted"
+                                                  object:nil];
+    
+    //Log Api & Model remaining Students
+    NSMutableArray * apiStudents = [aNotification.userInfo objectForKey:@"object"];
+    
+    NSLog(@"The Sons Array after API DELETE Response in API is %@:", apiStudents);
+    NSLog(@"The Sons Array after API DELETE Response in Model is %@:", [self.parentUserModel sons]);
+}
+
+
+- (void)removeStudentFormSubView{
+    [self.firstNameTextField resignFirstResponder];
+    self.takePhotoButton.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"btn-camera-icon-inactive.png"]];
+    self.firstNameTextField.text = nil;
+    self.lastNameTextField.text = nil;
+    self.dateOfBirthField.text = nil;
+    self.currentSchoolTextField.text = nil;
+    self.studentImageView.image = nil;
+    [self.studentImageView setHidden:YES];
+    [self.studentMaskImageView setHidden:YES];
+    [self.addStudentView removeFromSuperview];
+    
+}
+
+//Should be a Model Method ????
+- (NSDictionary *)createStudentInfoDictionary{
+    NSDictionary * studentInfoCreatedDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:self.firstNameTextField.text,@"first_name",self.lastNameTextField.text,@"last_name",self.dateOfBirthField.text,@"date_of_birth",[self genderSelection:self.genderSegmentedControl],@"gender",self.currentSchoolTextField.text,@"school",studentImageUrlStr,@"picture_url", nil];
+    return studentInfoCreatedDictionary;
+    
+}
+
+
 -(NSString *)genderSelection:(UISegmentedControl *)segmentedControl{
     NSString * stundentGender = [[NSString alloc] init];
-    if ([_genderSegmentedControl selectedSegmentIndex] == 0) {
+    if ([self.genderSegmentedControl selectedSegmentIndex] == 0) {
         stundentGender = @"male";
         return stundentGender;
-    }else if ([_genderSegmentedControl selectedSegmentIndex] == 1) {
+    }else if ([self.genderSegmentedControl selectedSegmentIndex] == 1) {
         stundentGender = @"female";
         return stundentGender;
     }else {
@@ -436,22 +465,17 @@
                                              bundle:nil]
                    instantiateViewControllerWithIdentifier:@"DatePickerVC"];
     
-    //UIView* popoverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
-    //popoverView.backgroundColor = [UIColor whiteColor];
-    
-    //self.datePickerTest.frame = CGRectMake(0, 0, 320, 216);
-    
-    //[popoverView addSubview:self.datePickerTest];
-    //popoverContent.view = popoverView;
+    //Set the popover delegate to self
+    popoverContent.delegate = self;
     
     //resize the popover view shown
     //in the current view to the view's size
-    popoverContent.delegate = self;
+    
     popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 216);
     
-    //create a popover controller
+    //Create a popover controller
     
-    // dismiss existing popover
+    //dismiss existing popover
     if (self.popoverControllerBirthday)
     {
         [self.popoverControllerBirthday dismissPopoverAnimated:NO];
@@ -460,39 +484,7 @@
     
     
     UIPopoverController *popoverControllerForDate = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
-    
-    
-    
-    
-    //present the popover view non-modal with a
-    //refrence to the button pressed within the current view
-    //[popoverController presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem 
-    //                          permittedArrowDirections:UIPopoverArrowDirectionAny 
-    //                                          animated:YES];
-    //[popoverControllerForDate presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    
-    
-    
-    /*if (popoverController){
-     [popoverController dismissPopoverAnimated:NO];
-     }
-     popoverController = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
-     popoverController.delegate = self;
-     [popoverController presentPopoverFromRect:self.birthdayDatePicker.frame inView:self.dateOfBirthField.inputView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];*/
-    
-    //self.dateOfBirthField.inputView = popoverView;
-    //self.dateOfBirthField.inputView = self.birthdayDatePicker;
-    
-    /////////////
-    //DatePickerViewController * datePickerVC = [[DatePickerViewController alloc] initwi];
-    
-    
-    /*if(self.popoverControllerBirthday == nil){   //make sure popover isn't displayed more than once in the view
-     self.popoverControllerBirthday = [[UIPopoverController alloc]initWithContentViewController:datePickerVC];
-     self.popoverControllerBirthday.delegate =self;
-     }*/
-    
-    
+
     popoverControllerForDate.delegate = self;
     CGRect myFrame =textField.frame;
     myFrame.origin.x = 260;
@@ -507,112 +499,6 @@
     
 }
 
-
-
-#pragma mark - Create Student in API
- 
-- (NSString *)sendStudentToApi{
-    //Post Student info to Node.js API
-    
-    //Create user Dictionary with email, location, name and picture_url
-    NSDictionary * user = [[NSDictionary alloc] initWithObjectsAndKeys:sons,@"sons", nil];
-    
-    
-    //Parse the jsonDict to JSON data with native NSJSONSerialization and create a NSString
-    NSError* error = nil;
-    NSData *jsonRequestData = [NSJSONSerialization dataWithJSONObject:user options:kNilOptions error:&error];
-    NSString *jsonRequestAscii = [[NSString alloc] initWithData:jsonRequestData encoding:NSASCIIStringEncoding]; //cambié de utf8 a ascii
-    NSString *jsonRequestUtf8 = [[NSString alloc] initWithData:jsonRequestData encoding:NSUTF8StringEncoding];
-    NSLog(@"The JSON string for the request to the API in ParentPortalViewController.m is: %@", jsonRequestAscii);
-    
-    //Create the URL
-    NSURL *urlRequestLink = [NSURL URLWithString:@"http://piitri-api.herokuapp.com/v1/student"];
-    
-    //Create the URL Request
-    NSMutableURLRequest * requestApi = [NSMutableURLRequest requestWithURL:urlRequestLink cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-    
-    NSLog(@"el jsonRequest en ASCII es: %@ y su longitud es: %i",jsonRequestAscii,[jsonRequestAscii length]);
-    [requestApi setHTTPMethod:@"POST"];
-    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [requestApi setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    //Buid the Request Data
-    NSData  * requestData = [NSData dataWithBytes:[jsonRequestUtf8 UTF8String] length:[jsonRequestAscii length]];
-    [requestApi setHTTPBody:requestData];
-    
-    
-    //Call the URL Connection with the Builded Request Structure
-    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:requestApi delegate:self];
-    if (theConnection) {
-        // Create the NSMutableData to hold the received data.
-        // receivedData is an instance variable declared elsewhere.
-        receivedData = [NSMutableData data];
-        NSLog(@"The connection has STARTED! ");
-        return @"STARTED";
-        
-    } else {
-        // Inform the user that the connection failed.
-        NSLog(@"The connection has FAILED!");
-        return @"FAILED";
-    }
-}
- 
- 
-
-#pragma mark - NSURLResponse Delegate Metods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-
-{
-    // receivedData is an instance variable declared on top of this class.
-    
-    [receivedData setLength:0];
-    /*NSString * responseStatusCodeStr = [[NSString alloc] initWith:(NSURLResponse *)response];*/
-    NSLog(@"The URL Response is :%@", response);
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-
-{
-    
-    // Append the new data to receivedData.
-    
-    // receivedData is an instance variable declared on top of this class.
-    
-    [receivedData appendData:data];
-    
-}
-
-- (void)connection:(NSURLConnection *)connection
-
-  didFailWithError:(NSError *)error
-
-{
-    // inform the user
-    
-    NSLog(@"Connection failed! Error - %@ %@",
-          
-          [error localizedDescription],
-          
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-
-{
-    // do something with the data
-    
-    // receivedData is declared as a method instance on top of this class.
-    NSError* error = nil;
-    NSLog(@"Succeeded! Received %d bytes of data in Parent Portal ",[receivedData length]);
-    NSDictionary * receivedDataDict = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
-    if (error != nil) {
-        NSLog(@"Se produjo el siguiete error al crear el JSON: %@", error);
-    }
-    //Print the received Data
-    NSLog(@"La respuesta a el request del API es: %@", receivedDataDict);
-}
 #pragma mark - Prepare for Segue Method
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
@@ -625,13 +511,13 @@
     }
     
     // retain the popover
-    if ([segue.identifier isEqualToString:@"datePickerSegue"]) 
+    if ([segue.identifier isEqualToString:@"Show Photo Picker Options"]) 
     {
         UIStoryboardPopoverSegue *popoverSegue = (UIStoryboardPopoverSegue *)segue;
-        UIPopoverController *thePopoverController = [popoverSegue popoverController];
-        thePopoverController.contentViewController.contentSizeForViewInPopover = CGSizeMake(300.0f, 216.0f);        
+        UIPopoverController *thePopoverController = [popoverSegue popoverController];       
         [thePopoverController setDelegate:self];
         self.popoverControllerBirthday = thePopoverController;
+        [segue.destinationViewController setDelegate:self];
     }
 }
 
@@ -639,30 +525,82 @@
 
 #pragma mark - Take Photo Methods
 
-- (IBAction)takePhotoAction:(id)sender {
-    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;	
-    picker.allowsEditing = YES;
-	picker.sourceType = UIImagePickerControllerSourceTypeCamera;	
-	[self presentModalViewController:picker animated:YES];	
+- (void) photoPickerViewController:(PhotoPickerViewController *)sender chosenPictureMethodStr:(NSString *) pictureMethodStr{
+    [self takePhotoAction:pictureMethodStr];
+}
+
+- (void) takePhotoAction:(NSString *)sourcePhotoType {
+    
+    imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    
+    if ([sourcePhotoType isEqualToString:@"UIImagePickerControllerSourceTypeCamera"]) {
+        imagePickerController.allowsEditing = YES;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        if (self.popoverControllerBirthday)
+        {
+            [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+            self.popoverControllerBirthday = nil;
+        }
+        
+        [self presentModalViewController:imagePickerController animated:YES];
+        cameraselected = YES;
+    }else {
+        imagePickerController.allowsEditing = YES;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        if (self.popoverControllerBirthday)
+        {
+            [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+            self.popoverControllerBirthday = nil;
+        }
+        
+        self.popoverControllerBirthday = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+        self.popoverControllerBirthday.delegate = self;
+        CGRect myFrame =self.takePhotoButton.frame;
+        myFrame.origin.x = 250;
+        myFrame.origin.y = 119;
+        
+        [self.popoverControllerBirthday presentPopoverFromRect:myFrame 
+                                                        inView:self.view 
+                                      permittedArrowDirections:UIPopoverArrowDirectionLeft 
+                                                      animated:YES];
+    }
 
 }
 
 // Recives the message when the controller has finised
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info 
 {
-	// Remove View From Controller 
-	[picker dismissModalViewControllerAnimated:YES];
+
 	// Stablishes the image taken in the UIImageView
     UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     if (!image) {
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     }
 	self.studentImageView.image = nil;
+    if (cameraselected) {
+        [self dismissModalViewControllerAnimated:YES];
+        imagePickerController = nil;
+        cameraselected = NO;
+    }
+    if (self.popoverControllerBirthday)
+    {
+        [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+        self.popoverControllerBirthday = nil;
+    }
+    
+    CGSize cropSize = CGSizeMake(260, 260);
+    
+    CropImage * cropImageMethod = [[CropImage alloc] init];
+    image = [cropImageMethod image:image ByScalingAndCroppingForSize:cropSize];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        image, @"picture",
                                        nil];
-    [self uploadPhotoToFacebook:parameters];
+    [[Facebook shared] requestWithGraphPath:@"me/photos"
+                                  andParams:parameters
+                              andHttpMethod:@"POST"
+                                andDelegate:[Facebook shared]];
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(activateSaveButton) 
                                                  name:@"FBDidUploadPhoto" 
@@ -676,7 +614,25 @@
     tempStudentImage = image;
 }
 
+
+// Dismiss picker
+- (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
+{
+    if (cameraselected) {
+        [self dismissModalViewControllerAnimated:YES];
+        cameraselected = NO;
+    }
+    if (self.popoverControllerBirthday)
+    {
+        [self.popoverControllerBirthday dismissPopoverAnimated:NO];
+        self.popoverControllerBirthday = nil;
+    }
+    imagePickerController = nil;
+}
+
+// Activate Save Button when the Photo has been Uploaded to Facebook
 - (void)activateSaveButton {
+    studentImageUrlStr = [defaults stringForKey:@"studentImageUrlStr"];
     [self.studentFormActivityIndicator stopAnimating];
     [self.saveStudentInfoButton setEnabled:(YES)];
     [self.studentMaskImageView setHidden:NO];
@@ -685,59 +641,32 @@
     
 }
 
-#pragma mark - Birthday DatePicker
+#pragma mark - Birthday DatePickerViewController Delegate Method
 
-- (IBAction)datePickerTestChanged:(id)sender {
-    UIDatePicker *picker = (UIDatePicker *)sender;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    
-    self.dateOfBirthField.text = [dateFormatter stringFromDate:picker.date];
-}
 
 - (void)datePickerViewController:(DatePickerViewController *)sender chosenDateStr:(NSString *)dateStr{
     self.dateOfBirthField.text = dateStr;
 }
-     
-#pragma mark - Facebook Data Request
 
 
-- (void)requestFacebookData {
-    [[Facebook shared] requestWithGraphPath:@"me?fields=id,email,name,picture,birthday,location" 
-                                andDelegate:self];
+#pragma mark - Facebook Data Use 
+
+- (void)useDataLogin{
     
-}
-
-- (void)uploadPhotoToFacebook:(NSMutableDictionary *)params{
-    [[Facebook shared] requestWithGraphPath:@"me/photos"
-                                    andParams:params
-                                andHttpMethod:@"POST"
-                                  andDelegate:self];
-}
-
-- (void)useDatosLogin:(id)resultado withToken:(NSString *) accessToken{
-    //Populate Text Box
-    NSLog(@"Los Datos de resultado en el Parent Portal son %@:", resultado);
-    NSMutableString * textoDeCaja = [[NSMutableString alloc] init];
-    [textoDeCaja appendString:@"Welcome: "];
-    [textoDeCaja appendString:[resultado objectForKey:@"name"]];
-    [textoDeCaja appendString:@" \nThis is your Piitri Portal"];
+    [self.twitterButton setHidden:NO];
+    [self.facebookButton setHidden:NO];
+    [self.googlePlusButton setHidden:NO];
+    [self.editProfileButton setHidden:NO];
+    [self.buyCoinsButton setHidden:NO];
     
-    
-    self.cajaTextoParentPortal.text = textoDeCaja;
+    id resultado = [defaults objectForKey:@"facebookParentInfo"];
+    NSString * accessToken = [defaults stringForKey:kFBAccessTokenKey];
+    NSLog(@"The result Data in Parent Portal is %@:", resultado);
     
     //Populate Parent Fullaname Label an Location
     self.parentFullName.text = [resultado objectForKey:@"name"];
     NSDictionary * ubicacionDic = [[NSDictionary alloc]initWithDictionary:[resultado objectForKey:@"location"]];
     self.parentLocation.text = [ubicacionDic objectForKey:@"name"];
-    
-    //Poulate E-mail label
-    self.parentEmail.text = [resultado objectForKey:@"email"];
-    
-    //Populate Birthday label
-    self.parentBirthday.text = [resultado objectForKey:@"birthday"];
 
     // Get the user's profile picture.
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=large&access_token=%@", accessToken]];
@@ -749,47 +678,69 @@
     
 }
 
-- (void)request:(FBRequest *)request didLoad:(id)result {
-    NSLog(@"FB request OK");
-    NSLog(@"FB request URL in ParentPortal is %@",request.url);
-    NSString * tokenDeAcceso =[defaults objectForKey:kFBAccessTokenKey];
+- (void)changeStudentInfoForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if([request.url rangeOfString:@"me?fields=id,email"].location != NSNotFound) {
-        NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
-        defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:userData forKey:@"facebookParentInfo"];
-        [defaults synchronize];
-        NSLog(@"La url del request en ParentPortal.m es: %@", request.url);
-        NSLog(@"FB el request result en ParentPortal.m es: %@", userData);
-        [self useDatosLogin:userData withToken:tokenDeAcceso];
-    }else if ([request.url rangeOfString:@"me/photos"].location != NSNotFound) {
-        
-        NSDictionary * photoResultDict = [[NSDictionary alloc] initWithDictionary:result];
-        NSLog(@"The result in ParentPortal.m is: %@", photoResultDict);
-        //Save the Facebook Photo ID
-        NSString *photoIdStr = [[NSString alloc] initWithFormat:[photoResultDict objectForKey:@"id"]];
-        // Save the Uploaded Student picture URL.
-        NSString *urlStr = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=thumbnail&access_token=%@",photoIdStr, tokenDeAcceso];
-        studentImageUrlStr = urlStr;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FBDidUploadPhoto" object:self];
-    }
+    [self.twitterButton setHidden:YES];
+    [self.facebookButton setHidden:YES];
+    [self.googlePlusButton setHidden:YES];
+    [self.editProfileButton setHidden:YES];
+    [self.buyCoinsButton setHidden:YES];
+    
+    NSDictionary * resultado = [self.parentUserModel.sons objectAtIndex:indexPath.row];
+    NSLog(@"The result Data in Parent Portal is %@:", resultado);
+    
+    NSMutableString * fullName = [[NSMutableString alloc] initWithString:[resultado objectForKey:@"first_name"]];
+    [fullName appendString:@" "];
+    [fullName appendString:[resultado objectForKey:@"last_name"]];
+    
+    //Populate Parent Fullaname Label an Location
+    self.parentFullName.text = fullName;
+    self.parentLocation.text = [resultado objectForKey:@"school"];
+    
+    // Get the user's profile picture.
+    //Next line is commented because it was generating a Warning
+    //NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:[resultado objectForKey:@"picture_url"]]];
+    NSURL * url = [NSURL URLWithString:[resultado objectForKey:@"picture_url"]];
+    NSData * data = [NSData dataWithContentsOfURL:url];
+    UIImage * profilePicLarge = [[UIImage alloc] initWithData:data];
+    
+    // Use the profile picture here.
+    self.parentProfilePicture.image = profilePicLarge;
     
 }
-
 
 - (IBAction)disconnectFromFB:(id)sender {
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(cleanFacebookData) 
-                                                 name:@"FBDidLogout" 
+                                                 name:@"FBDidLogout"
                                                object:nil];
     [[Facebook shared] logout];
 }
+
 - (void)cleanFacebookData {
-    /*defaults = [NSUserDefaults standardUserDefaults];*/
-    [defaults removeObjectForKey:@"facebookParentInfo"];
-    [defaults synchronize];
-    NSLog(@"En Logout los datos de usuario son: %@", [defaults objectForKey:@"facebookParentInfo"]);
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"FBDidLogout"
+                                                  object:nil];
+    //Send Student Id to Model to form the URL Request to Delete the student
+    NSString * apiConnectionResult = [self.apiParentPortalCommunication logoutFromApi];
+    NSLog(@"In Parent Portal %@",apiConnectionResult);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(afterLogoutDismissParentPortalViewController)
+                                                 name:@"APILogout"
+                                               object:nil];
+}
+
+- (void)afterLogoutDismissParentPortalViewController{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"APILogout"
+                                                  object:nil];
+    
+    NSLog(@"In Logout the user data is: %@", [defaults objectForKey:@"facebookParentInfo"]);
+    NSLog(@"The access token is: %@", [defaults objectForKey:kFBAccessTokenKey]);
+    NSLog(@"the expitation Date is: %@", [defaults objectForKey:kFBExpirationDateKey]);
+    NSLog(@"and the sons are: %@", [defaults objectForKey:@"sons"]);
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -813,7 +764,7 @@
     }else if (section==1) {
         return 1;
     }else if (section==2) {
-        return sons.count;
+        return [self.parentUserModel.sons count];
     }else if (section==3) {
         return 1;
     }else if (section==4) {
@@ -829,30 +780,37 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
-        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        if (cell==nil) {
-            cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        ParentProfileCell *parent = [tableView dequeueReusableCellWithIdentifier:@"Parent"];
+        if (parent==nil) {
+            parent = [[ParentProfileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Parent"];
         }
         
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
-        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
-        cell.studentCellMaskImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-parent-unselected-mask.png"]];
+        parent.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-unselected.png"]];
+        parent.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         
         
         // Create a Dictionary From userData in UserDefaults
-        NSDictionary * parentData = [[NSDictionary alloc] initWithDictionary:[defaults objectForKey:@"facebookParentInfo"]];
-        NSLog(@"Los Datos Traidos de Facebook son %@:", parentData);
+        NSDictionary * parentData = [[NSDictionary alloc] initWithDictionary:[defaults dictionaryForKey:@"facebookParentInfo"]];
+        NSLog(@"The Data imported from Facebook in tableView:cellForRowAtIndexPath: section 0 is %@:", parentData);
 
         // Take out the Name of the Parent to Draw in the Cell
-        cell.studentNameCellLabel.text = [parentData objectForKey:@"name"];
+        parent.parentNameCellLabel.text = [parentData objectForKey:@"name"];
         // Get the Parent Small profile picture.
-        NSString * accessToken =[defaults objectForKey:kFBAccessTokenKey];
+        
+        NSString * accessToken =[defaults stringForKey:kFBAccessTokenKey];
+        /*
         NSURL * smallUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]];
         NSData * smalldata = [NSData dataWithContentsOfURL:smallUrl];
         UIImage * parentImage = [[UIImage alloc] initWithData:smalldata];
-        cell.studentCellImageView.image = parentImage;
+        parent.parentCellImageView.image = parentImage;
+         */
         
-        return cell;
+        // Here we use the new provided setImageWithURL: method to load the web image
+        [parent.parentCellImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/me/picture?type=small&access_token=%@", accessToken]]
+                                   placeholderImage:[UIImage imageNamed:@"icon-student-sign-up-placeholder.png"]];
+        
+        
+        return parent;
         
     }else if (indexPath.section==1) {
         MainSideMenuItemCell *accounts = [tableView dequeueReusableCellWithIdentifier:@"Accounts"];
@@ -867,32 +825,44 @@
         return accounts;
         
     }else if (indexPath.section==2) {
-        Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        StudentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         if (cell==nil) {
-            cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+            cell = [[StudentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         }
         
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-student-unselected.png"]];
         cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab-hightlight.png"]];
         
-        // Create a Dictionary From studentsNamesAndImages
-        NSDictionary *studentNameAndImageObjectDict = [[NSDictionary alloc] initWithDictionary:[studentsNamesAndImages objectAtIndex:indexPath.row]];
+        // Create a Dictionary From sons
+        NSMutableArray * sonsArray = [[NSMutableArray alloc] initWithArray: self.parentUserModel.sons];
+        NSDictionary *studentNameAndImageObjectDict = [[NSDictionary alloc] initWithDictionary:[sonsArray objectAtIndex:indexPath.row]];
         
         // Take out the Name of the Student to Draw in the Cell
-        NSString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentName"]];
+        //Next line is commented because it was generating a Warning
+        //NSMutableString * studentName = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"first_name"]];
+        NSMutableString * studentName = [[studentNameAndImageObjectDict objectForKey:@"first_name"] mutableCopy];
+        [studentName appendString:@" "];
+        [studentName appendString:[studentNameAndImageObjectDict objectForKey:@"last_name"]];
         cell.studentNameCellLabel.text = studentName;
         
         //Student Small Picture
-        if ([studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]) {
-            //Take out the Url of the Facebook Student Photo to Draw in the Cell
-            NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"studentImageUrl"]];
+        if ([studentNameAndImageObjectDict objectForKey:@"picture_url"]) {
             
+            //Take out the Url of the Facebook Student Photo to Draw in the Cell
+            //Next line is commented because it was generating a Warning
+            //NSString * studentPictureUrl = [[NSMutableString alloc] initWithFormat:(NSString *)[studentNameAndImageObjectDict objectForKey:@"picture_url"]];
+            NSString * studentPictureUrl = [studentNameAndImageObjectDict objectForKey:@"picture_url"];
             // Create a UIImage with the Uploaded Student picture URL.
+            /*
             NSURL * url = [NSURL URLWithString:studentPictureUrl];
             NSData * data = [NSData dataWithContentsOfURL:url];
             UIImage * studentImage = [[UIImage alloc] initWithData:data];
-            
             cell.studentCellImageView.image = studentImage;
+             */
+             
+            // Here we use the new provided setImageWithURL: method to load the web image
+            [cell.studentCellImageView setImageWithURL:[NSURL URLWithString:studentPictureUrl]
+                                      placeholderImage:[UIImage imageNamed:@"icon-student-sign-up-placeholder.png"]];
             
         }else {
             cell.studentCellImageView.image = nil;
@@ -905,7 +875,6 @@
         if (addStudent==nil) {
             addStudent = [[AddStudentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Add Student"];
         }
-        /*addStudent.textLabel.text = @"+Add Student";*/
         addStudent.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-inactive.png"]];
         addStudent.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn-add-student-active.png"]];
         return addStudent;
@@ -938,17 +907,6 @@
     
     
 }
-
-/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0)
-        if (justArrive && (counter * == 1)) {
-            [cell setHighlighted:YES animated:YES];
-            justArrive = NO;
-        }
-    counter ++;
-        
-    }
-}*/
 /*
  - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
  if (indexPath.section==0){
@@ -982,12 +940,67 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        NSString * studentId = [[self.parentUserModel.sons objectAtIndex:indexPath.row] objectForKey:@"_id"];
+        NSLog(@"Hasta aca vamos bien con el DELETE");
+        
+        [self.parentUserModel.sons removeObjectAtIndex:indexPath.row];
+        NSLog(@"Hasta aca todavia vamos bien con el DELETE");
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        //Send Student Id to APIConnection Class to form the URL Request that Delete the student
+        NSString * apiConnectionResult = [self.apiParentPortalCommunication deleteStudentFromApi:studentId forRowAtIndexPath:indexPath];
+        NSLog(@"In Parent Portal %@",apiConnectionResult);
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(showRemainingStudentsAfterStudentDeleteFromApi:)
+                                                     name:@"APIStudentDeleted"
+                                                   object:nil];
+
+        
+        //indexPathDeleteStudent = nil;
+        /*
+        [self deleteConfirmationAlert];
+        indexPathDeleteStudent = indexPath;
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(deleteStudentforRowAtIndexPath:) 
+                                                     name:@"DeleteStudent" 
+                                                   object:nil];*/
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
+/*
+-(void)deleteConfirmationAlert{
+    UIAlertView * deleteAlert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" 
+                                                           message:@"Deleting a user can not be undone" 
+                                                          delegate:self 
+                                                 cancelButtonTitle:@"Acept" 
+                                                 otherButtonTitles:@"Cancel",nil];
+    [deleteAlert show];
+}
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==0) {
+        deleteStudent = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteStudent" object:self];
+    }else {
+        indexPathDeleteStudent = nil;
+    }
+}
+
+-(void)deleteStudentforRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString * studentId = [[sons objectAtIndex:indexPath.row] objectForKey:@"_id"];
+    NSLog(@"Hasta aca vamos bien con el DELETE");
+    
+    [sons removeObjectAtIndex:indexPath.row];
+    NSLog(@"Hasta aca todavia vamos bien con el DELETE");
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self deleteStudentFromApi:studentId forRowAtIndexPath:indexPath];
+    indexPathDeleteStudent = nil;
+}*/
+
 
 /*
  // Override to support rearranging the table view.
@@ -1006,47 +1019,22 @@
  */
 
 /*- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
- if (indexPath.section==2) {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Add Student"];
- cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];
- }else if (indexPath.section==1) {
- *//*UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"tab-hightlight.png"]];*//*
-                                                                                                                Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-                                                                                                                if (cell==nil) {
-                                                                                                                cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-                                                                                                                }
-                                                                                                                
-                                                                                                                cell.studentNameCellLabel.shadowColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:1];
-                                                                                                                CGSize myShadowOffset = CGSizeMake(4, 8);
-                                                                                                                cell.studentNameCellLabel.shadowOffset = myShadowOffset;
-                                                                                                                }
-                                                                                                                return indexPath;
-                                                                                                                }*/
+
+}*/
+                                                                                                        
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==3) {
-        /*if (!_objects) {
-         _objects = [[NSMutableArray alloc] init];
-         }
-         [_objects insertObject:[NSDate date] atIndex:0];
-         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-         withRowAnimation:UITableViewRowAnimationAutomatic];*/
+    
+    if (indexPath.section==0) {
+        [self useDataLogin];
+    }else if (indexPath.section==2) {
+        
+        [self changeStudentInfoForRowAtIndexPath:indexPath];
+        
+    }else if (indexPath.section==3) {
         
         [self showStudentForm];
-        
-        
-        
-    }else if (indexPath.section==2) {
-        /*NSDate *object = [_objects objectAtIndex:indexPath.row];*/
-        
-        NSString * studentName = [[studentsNamesAndImages objectAtIndex:indexPath.row] objectForKey:@"studentName"];
-        self.detailItem = studentName;
-        
-    }else {
-        self.detailItem = @"Hello!";
         
     }
     

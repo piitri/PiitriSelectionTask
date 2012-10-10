@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Login-->
+        <!--Login View Controller - Login-->
         <scene sceneID="4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
-                <viewController title="Login" id="2" customClass="ViewController" sceneMemberID="viewController">
+                <viewController title="Login" id="2" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="Lorem ipsum" textAlignment="center" id="i4d-nk-cAV">
-                                <rect key="frame" x="286" y="579" width="452" height="149"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="fbconnect-dialog.png" id="Ei7-Uq-EGr">
                                 <rect key="frame" x="260" y="177" width="504" height="394"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -52,10 +42,13 @@
                                 <color key="textColor" red="0.29411765933036804" green="0.25882354378700256" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="center" id="ATd-6w-TCd">
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" textAlignment="center" id="ATd-6w-TCd">
                                 <rect key="frame" x="286" y="313" width="452" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
                                 <string key="text">Welcome to Piitri! We want to get you started as
 quickly as possible - please connect with Facebook to
 create a Piitri Account &amp; you'll be on your way!
@@ -65,24 +58,28 @@ Let's get learning!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="t1Q-9l-coc">
+                                <rect key="frame" x="494" y="494" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
-                        <outlet property="cajaTextoLogin" destination="i4d-nk-cAV" id="4nz-VX-3qV"/>
+                        <outlet property="loginActivityIndicator" destination="t1Q-9l-coc" id="ymq-Ld-ydB"/>
                         <outlet property="loginFBButton" destination="CuN-Z7-cLe" id="5Qu-EP-cq3"/>
                         <outlet property="textCreateAccount" destination="iY4-eB-ctn" id="hn4-19-x7U"/>
                         <outlet property="textWelcome" destination="ATd-6w-TCd" id="AW2-JN-agX"/>
                         <segue destination="SgR-1a-FUJ" kind="modal" identifier="fromLoginToParentPortal" modalTransitionStyle="flipHorizontal" id="gfZ-c4-MUC"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-140" y="-81"/>
         </scene>
         <!--Parent Portal View Controller - Parent Portal-->
         <scene sceneID="1Nk-G6-1h4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GDZ-6u-cGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ParentPortal" title="Parent Portal" id="SgR-1a-FUJ" customClass="ParentPortalViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nqI-8z-0zX">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
@@ -111,15 +108,6 @@ Let's get learning!</string>
                                     <action selector="disconnectFromFB:" destination="SgR-1a-FUJ" eventType="touchUpInside" id="Koh-4H-G3d"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="htw-04-uC4">
-                                <rect key="frame" x="453" y="285" width="556" height="221"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-                                <color key="textColor" red="0.0" green="0.47450980539999998" blue="0.75686275960000005" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="glS-jw-AIz">
                                 <rect key="frame" x="217" y="63" width="126" height="126"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -140,27 +128,6 @@ Let's get learning!</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                                 <color key="textColor" red="0.3803921569" green="0.61176470589999998" blue="0.20784313730000001" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="e-mail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="QoZ-l5-k2z">
-                                <rect key="frame" x="227" y="274" width="199" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Birthday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cSh-j6-zCw">
-                                <rect key="frame" x="313" y="316" width="200" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Birthday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="SCy-Ed-7aD">
-                                <rect key="frame" x="226" y="316" width="98" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.47450980539999998" blue="0.75686275960000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" id="ZxK-4F-HHq">
@@ -237,26 +204,56 @@ Let's get learning!</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.50000000000000011" contentMode="scaleToFill" id="x0e-HD-edZ">
-                                <rect key="frame" x="0.0" y="137" width="196" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="eUG-uB-Afo">
-                                <rect key="frame" x="556" y="574" width="351" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="59" sectionHeaderHeight="22" sectionFooterHeight="22" id="Efk-ra-jvq">
                                 <rect key="frame" x="0.0" y="138" width="196" height="610"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationLevel="2" indentationWidth="10" reuseIdentifier="Parent" rowHeight="60" id="gO6-3u-IIJ" customClass="ParentProfileCell">
+                                        <rect key="frame" x="0.0" y="22" width="196" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="196" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="x0e-HD-edZ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="196" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="m4X-uB-AF5">
+                                                    <rect key="frame" x="20" y="16" width="28" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon-parent-unselected-mask.png" highlightedImage="icon-selected-mask.png" id="u48-FH-KUN">
+                                                    <rect key="frame" x="16" y="13" width="35" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kVO-Ja-T4p">
+                                                    <rect key="frame" x="56" y="19" width="125" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="0.039215686270000001" green="0.1058823529" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" id="4cd-se-Xaf">
+                                                    <rect key="frame" x="0.0" y="58" width="196" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="parentCellImageView" destination="m4X-uB-AF5" id="UBF-9T-CdC"/>
+                                            <outlet property="parentCellMaskImageView" destination="u48-FH-KUN" id="GCx-ZM-FAN"/>
+                                            <outlet property="parentNameCellLabel" destination="kVO-Ja-T4p" id="Tly-b3-bBS"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationLevel="1" indentationWidth="10" reuseIdentifier="Accounts" id="74F-Ru-YR3" customClass="MainSideMenuItemCell">
-                                        <rect key="frame" x="0.0" y="22" width="196" height="59"/>
+                                        <rect key="frame" x="0.0" y="82" width="196" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="196" height="58"/>
@@ -282,8 +279,8 @@ Let's get learning!</string>
                                             <outlet property="mainItemCellLabel" destination="Xl6-s0-ZaO" id="UeS-c0-L4m"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationLevel="2" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="1sW-42-1C1" customClass="Cell">
-                                        <rect key="frame" x="0.0" y="81" width="196" height="60"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationLevel="2" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="1sW-42-1C1" customClass="StudentCell">
+                                        <rect key="frame" x="0.0" y="141" width="196" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="196" height="59"/>
@@ -320,7 +317,7 @@ Let's get learning!</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Add Student" rowHeight="58" id="nuQ-Qj-3bD" customClass="AddStudentCell">
-                                        <rect key="frame" x="0.0" y="141" width="196" height="58"/>
+                                        <rect key="frame" x="0.0" y="201" width="196" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="196" height="57"/>
@@ -348,6 +345,11 @@ Let's get learning!</string>
                                     <outlet property="delegate" destination="SgR-1a-FUJ" id="hGb-IT-qsP"/>
                                 </connections>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="okf-14-zqo">
+                                <rect key="frame" x="0.0" y="138" width="196" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.25490196078431371" green="0.4392156862745098" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -356,22 +358,19 @@ Let's get learning!</string>
                     <connections>
                         <outlet property="addStudentView" destination="L2L-EK-wAc" id="efp-eo-pG7"/>
                         <outlet property="buyCoinsButton" destination="k6k-4f-ckn" id="CSt-wb-Qh7"/>
-                        <outlet property="cajaTextoParentPortal" destination="htw-04-uC4" id="e2l-rU-crg"/>
                         <outlet property="currentSchoolLabel" destination="8CK-Ru-7LZ" id="AVe-0p-Jgv"/>
                         <outlet property="currentSchoolTextField" destination="lSg-iG-vum" id="XcE-jy-ufb"/>
                         <outlet property="dateOfBirthField" destination="KhX-hu-lSW" id="IcY-NZ-4pa"/>
                         <outlet property="dateOfBirthLabel" destination="w2C-83-ey6" id="YbI-eb-8bg"/>
-                        <outlet property="datePickerTest" destination="Kfm-Yu-SF7" id="WBB-gu-8Rd"/>
-                        <outlet property="detailDescriptionLabel" destination="eUG-uB-Afo" id="ShB-0M-DC1"/>
                         <outlet property="editProfileButton" destination="YwA-zo-jZ8" id="a7S-j3-xL5"/>
+                        <outlet property="facebookButton" destination="WgU-Na-Z1m" id="Wot-4c-ex4"/>
                         <outlet property="firstNameLabel" destination="YrL-Rm-daB" id="zbU-3n-1Am"/>
                         <outlet property="firstNameTextField" destination="Vqg-Uf-yBh" id="tCf-Mb-lcD"/>
                         <outlet property="genderSegmentedControl" destination="RnN-sA-OlB" id="a1r-Xy-HhZ"/>
+                        <outlet property="googlePlusButton" destination="bim-pJ-7V3" id="Ejs-fP-Rla"/>
                         <outlet property="imageDimensionLabel" destination="JJs-dW-uHb" id="2VS-Re-4ML"/>
                         <outlet property="lastNameLabel" destination="h3R-Mh-0ir" id="F29-iC-RbM"/>
                         <outlet property="lastNameTextField" destination="Nye-Ct-G92" id="1Ki-aY-jWt"/>
-                        <outlet property="parentBirthday" destination="cSh-j6-zCw" id="X8k-Oi-NOV"/>
-                        <outlet property="parentEmail" destination="QoZ-l5-k2z" id="SyM-7N-OJs"/>
                         <outlet property="parentFullName" destination="Pbe-fO-gu6" id="NPs-S5-1f1"/>
                         <outlet property="parentLocation" destination="Y8K-dR-ja7" id="ckr-Wy-ub0"/>
                         <outlet property="parentProfilePicture" destination="glS-jw-AIz" id="huK-Fg-wtU"/>
@@ -382,48 +381,18 @@ Let's get learning!</string>
                         <outlet property="studentMaskImageView" destination="ADN-XC-7QP" id="sBT-v7-ioe"/>
                         <outlet property="tableView" destination="Efk-ra-jvq" id="IgD-L5-C47"/>
                         <outlet property="takePhotoButton" destination="KJd-PR-nna" id="LmM-O5-dio"/>
+                        <outlet property="twitterButton" destination="0EH-Qt-lmA" id="J8j-d1-pWh"/>
                         <outlet property="uploadPictureLabel" destination="O90-HQ-elU" id="GCN-Vz-wdH"/>
                         <outlet property="viewParentPortal" destination="nqI-8z-0zX" id="uD8-4Z-Tir"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GDZ-6u-cGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="L2L-EK-wAc">
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="Kfm-Yu-SF7">
-                            <rect key="frame" x="271" y="438" width="320" height="216"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <date key="date" timeIntervalSinceReferenceDate="366532466.33253998">
-                                <!--2012-08-13 06:34:26 +0000-->
-                            </date>
-                            <locale key="locale" localeIdentifier="en_US"/>
-                            <timeZone key="timeZone" name="America/Los_Angeles">
-                                <data key="data">
-VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
-y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
-5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
-8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
-AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
-DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
-HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
-KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
-OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
-Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
-VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
-Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
-cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
-f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</data>
-                            </timeZone>
-                            <connections>
-                                <action selector="datePickerTestChanged:" destination="SgR-1a-FUJ" eventType="valueChanged" id="RBf-G9-1OQ"/>
-                            </connections>
-                        </datePicker>
                         <view contentMode="scaleToFill" id="yl4-an-Gsr">
-                            <rect key="frame" x="216" y="38" width="597" height="359"/>
+                            <rect key="frame" x="216" y="738" width="597" height="359"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="First Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YrL-Rm-daB">
@@ -436,7 +405,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="Vqg-Uf-yBh">
                                     <rect key="frame" x="37" y="183" width="261" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                 </textField>
@@ -450,7 +419,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="Nye-Ct-G92">
                                     <rect key="frame" x="321" y="183" width="241" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                 </textField>
@@ -486,7 +455,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="takePhotoAction:" destination="SgR-1a-FUJ" eventType="touchUpInside" id="fBj-Q5-elE"/>
+                                        <segue destination="L3P-Mi-JQD" kind="popover" identifier="Show Photo Picker Options" popoverAnchorView="KJd-PR-nna" id="LW7-Dd-QjC">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
                                     </connections>
                                 </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Upload Picture" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="O90-HQ-elU">
@@ -513,7 +484,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="KhX-hu-lSW">
                                     <rect key="frame" x="37" y="283" width="261" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
@@ -527,7 +498,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="30" id="lSg-iG-vum">
                                     <rect key="frame" x="321" y="283" width="241" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="textColor" red="0.56862745100000001" green="0.5450980392" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.22352941179999999" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                 </textField>
@@ -542,7 +513,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </segmentedControl>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sMD-d0-xU1">
-                                    <rect key="frame" x="35" y="78" width="62" height="62"/>
+                                    <rect key="frame" x="36" y="79" width="60" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </imageView>
@@ -566,7 +537,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Date Picker View Controller-->
         <scene sceneID="l5G-aW-4fc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ine-Zt-rQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DatePickerVC" id="NqN-PI-KoQ" customClass="DatePickerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v5T-KB-GN5">
                         <rect key="frame" x="0.0" y="20" width="300" height="216"/>
@@ -613,8 +583,65 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="birthdayDatePicker" destination="ta7-xp-ua8" id="AwT-NE-V3c"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ine-Zt-rQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2330" y="150"/>
+        </scene>
+        <!--Photo Picker View Controller-->
+        <scene sceneID="qT9-JR-5IO">
+            <objects>
+                <viewController id="L3P-Mi-JQD" customClass="PhotoPickerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FFZ-8H-sBU">
+                        <rect key="frame" x="0.0" y="20" width="210" height="82"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="gGB-fH-XL5">
+                                <rect key="frame" x="0.0" y="0.0" width="210" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.050980396568775177" green="0.10588236153125763" blue="0.21176472306251526" alpha="1" colorSpace="deviceRGB"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W0Y-Zc-47D" customClass="GradientButton">
+                                <rect key="frame" x="0.0" y="0.0" width="210" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" title="Camera">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhoto:" destination="L3P-Mi-JQD" eventType="touchUpInside" id="TIJ-qD-bs1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jpz-Pu-Y5p" customClass="GradientButton">
+                                <rect key="frame" x="0.0" y="45" width="210" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" title="Photo Gallery">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseFromGallery:" destination="L3P-Mi-JQD" eventType="touchUpInside" id="An6-Tf-tYK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="cameraButton" destination="W0Y-Zc-47D" id="1Ql-wf-Ghb"/>
+                        <outlet property="galleryButton" destination="Jpz-Pu-Y5p" id="fd2-IG-sUv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DqR-1M-yNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2260" y="870"/>
         </scene>
     </scenes>
     <resources>
@@ -627,6 +654,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="fbconnect-dialog.png" width="504" height="394"/>
         <image name="icon-add-student-form-mask.png" width="68" height="68"/>
         <image name="icon-child-unselected-mask.png" width="35" height="35"/>
+        <image name="icon-parent-unselected-mask.png" width="35" height="35"/>
         <image name="icon-selected-mask.png" width="35" height="35"/>
         <image name="lessonsandactivity.png" width="828" height="539"/>
         <image name="parent-icon-mask.png" width="133" height="133"/>

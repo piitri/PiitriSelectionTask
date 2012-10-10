@@ -39,23 +39,19 @@
 
 #import "Facebook+Singleton.h"
 
-/*@interface Facebook (SingletonPrivate)
-- (void)authorize:(NSArray *)permissions localAppId:(NSString *)localAppId;
-- (void)authorizeInApp:(NSArray *)permissions localAppId:(NSString *)localAppId;
-- (void)authorizeWithFacebookApp:(NSArray *)permissions localAppId:(NSString *)localAppId;
-- (void)authorizeWithFBAppAuth:(BOOL)tryFBAppAuth safariAuth:(BOOL)trySafariAuth;
-@end*/
 
 @implementation Facebook (Singleton)
 
 - (id)init {
     if ((self = [self initWithAppId:@"364390736967265" andDelegate:self])) {
         [self authorize];
+        NSLog(@"Facebook singleton initializated");
     }
     return self;
 }
 
 - (void)authorize {
+    NSLog(@"authorize *** called in Facebook+Singleton.m");
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:kFBAccessTokenKey] && [defaults objectForKey:kFBExpirationDateKey]) {
         self.accessToken = [defaults objectForKey:kFBAccessTokenKey];
@@ -69,6 +65,7 @@
         
         // This is the method Facebook wants users to use. 
         // It will leave your app and authoize through the Facebook app or Safari.
+        NSLog(@"Session Invalid so let's Authorize with permissions");
         NSArray *permissions =  [NSArray arrayWithObjects:@"email", @"user_photos", @"user_about_me",@"user_birthday",@"publish_actions", nil];
         [self authorize:permissions/* localAppId:nil*/];
         
@@ -82,34 +79,7 @@
     }
 }
 
-/*- (void)authorize:(NSArray *)permissions localAppId:(NSString *)localAppId {
-    self.localAppId = localAppId;
-    _permissions = permissions;
-    _sessionDelegate = self;
-    
-    [self authorizeWithFBAppAuth:YES safariAuth:YES];
-}
 
-- (void)authorizeInApp:(NSArray *)permissions localAppId:(NSString *)localAppId {
-    self.localAppId = localAppId;
-    _permissions = permissions;
-    _sessionDelegate = self;
-    
-    [self authorizeWithFBAppAuth:NO safariAuth:NO];
-}
-
-- (void)authorizeWithFacebookApp:(NSArray *)permissions localAppId:(NSString *)localAppId {
-    self.localAppId = localAppId;
-    _permissions = permissions;
-    _sessionDelegate = self;
-    
-    [self authorizeWithFBAppAuth:YES safariAuth:NO];
-}
-
-
-- (void)logout {
-    [self logout:self];
-} */
 #pragma mark - FBSessionDelegate Methods
 
 /**
@@ -120,8 +90,9 @@
     [defaults setObject:[self accessToken] forKey:kFBAccessTokenKey];
     [defaults setObject:[self expirationDate] forKey:kFBExpirationDateKey];
     [defaults synchronize];
+    NSLog(@"In the Login the Token is %@ and the expiration date is %@", [self accessToken], [self expirationDate]);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FBDidLogin" object:self];
-    NSLog(@"En Login El Token es %@ y el expiration date es %@", [self accessToken], [self expirationDate]);
+    
 }
 
 /**
@@ -143,22 +114,63 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:kFBAccessTokenKey];
     [defaults removeObjectForKey:kFBExpirationDateKey];
+    [defaults removeObjectForKey:@"facebookParentInfo"];
+    //[defaults removeObjectForKey:@"jsonParentInfo"];
+    [defaults removeObjectForKey:@"sons"];
     [defaults synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FBDidLogout" object:self];
-    NSLog(@"En Logout El Token es %@ y el expiration date es %@", [self accessToken], [self expirationDate]);
+    NSLog(@"In the Logout the Token is %@ and the expiration date is %@", [self accessToken], [self expirationDate]);
 }
-
+- (void)fbDidExtendToken:(NSString*)accessToken
+               expiresAt:(NSDate*)expiresAt{
+    
+}
+- (void)fbSessionInvalidated{
+    
+}
 /**
  * Called when a request returns and its response has been parsed into
  * an object.
  *
  * The resulting object may be a dictionary, an array, a string, or a number,
  * depending on thee format of the API response.
+ */
 
 - (void)request:(FBRequest *)request didLoad:(id)result {
     NSLog(@"FB request in Facebook+Singleton.m request:didLoad: is OK");
-    NSLog(@"FB request result in Facebook+Singleton.m request:didLoad: is: %@", result);
-} */
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString * tokenDeAcceso =[defaults stringForKey:kFBAccessTokenKey];
+    
+    if([request.url rangeOfString:@"me?fields=id,email"].location != NSNotFound) {
+        NSDictionary * userData = [[NSDictionary alloc] initWithDictionary:result];
+        [defaults setObject:userData forKey:@"facebookParentInfo"];
+        [defaults synchronize];
+        NSLog(@"The request url in Facebook+Singleton.m after calling me?fields=id,email,name,picture,birthday,location is: %@", request.url);
+        NSLog(@"FB The request result in Facebook+Singleton.m sent to facebookParentInfo is: %@", userData);
+        
+        NSLog(@"FB Parent Info in Facebook+Singleton.m is Ready");
+        NSLog(@"and the ***FBParentInfoIsReady*** is SET");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FBParentInfoIsReady" object:self];
+        
+        
+    }else if ([request.url rangeOfString:@"me/photos"].location != NSNotFound) {
+        NSLog(@"Before assigning the Photo Result to a Dictionary");
+        NSDictionary * photoResultDict = [[NSDictionary alloc] initWithDictionary:result];
+        NSLog(@"After assigning the Photo Result to a Dictionary");
+        NSLog(@"The result in Facebook+Singleton.m  calling Photo Upload is: %@", photoResultDict);
+        NSLog(@"and the url in calling Photo Upload is: %@", request.url);
+        //Save the Facebook Photo ID
+        //Next line is commented because it was generating a Warning
+        //NSString *photoIdStr = [[NSString alloc] initWithFormat:[photoResultDict objectForKey:@"id"]];
+        NSString *photoIdStr = [photoResultDict objectForKey:@"id"];
+        // Save the Uploaded Student picture URL.
+        NSString *urlStr = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=thumbnail&access_token=%@",photoIdStr, tokenDeAcceso];
+        [defaults setObject:urlStr forKey:@"studentImageUrlStr"];
+        [defaults synchronize];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FBDidUploadPhoto" object:self];
+    }
+} 
 
 /**
  * Called when an error prevents the Facebook API request from completing
@@ -180,33 +192,5 @@ static Facebook *shared = nil;
 	}
 	return shared;
 }
-
-
-/*+ (id)allocWithZone:(NSZone *)zone {
-	@synchronized(self) {
-		if(shared == nil)  {
-			shared = [super allocWithZone:zone];
-			return shared;
-		}
-	}
-	return nil;
-}
-- (id)copyWithZone:(NSZone *)zone {
-	return self;
-}
-- (id)retain {
-	return self;
-}
-- (unsigned)retainCount {
-	return UINT_MAX; //denotes an object that cannot be released
-}
-- (void)release {
-	// never release
-}
-- (id)autorelease {
-	return self;
-}*/
-
-
 
 @end
