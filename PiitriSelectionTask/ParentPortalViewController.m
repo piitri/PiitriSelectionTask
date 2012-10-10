@@ -589,7 +589,7 @@
         self.popoverControllerBirthday = nil;
     }
     
-    CGSize cropSize = CGSizeMake(260, 260);
+    CGSize cropSize = CGSizeMake(520, 520);
     
     CropImage * cropImageMethod = [[CropImage alloc] init];
     image = [cropImageMethod image:image ByScalingAndCroppingForSize:cropSize];

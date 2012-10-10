@@ -65,7 +65,7 @@
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)w {
     
-    return (NSUInteger)[application supportedInterfaceOrientationsForWindow:w] | (1<<UIInterfaceOrientationPortrait);
+    return (NSUInteger)[application supportedInterfaceOrientationsForWindow:w];
     
 }
 
